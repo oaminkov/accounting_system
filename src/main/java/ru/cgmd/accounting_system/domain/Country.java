@@ -17,6 +17,9 @@ public class Country {
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationProduct> informationProducts;
 
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Organization> organizations;
+
     public Country() { }
 
     public Country(String nameCountry) {
@@ -24,16 +27,25 @@ public class Country {
     }
 
     public Long getIdCountry() { return idCountry; }
-    public void setIdCountry(Long idCountry) { this.idCountry = idCountry; }
+    public void setIdCountry(Long idCountry) {
+        this.idCountry = idCountry;
+    }
 
     public String getNameCountry() { return nameCountry; }
-    public void setNameCountry(String name_country) { this.nameCountry = name_country; }
+    public void setNameCountry(String name_country) {
+        this.nameCountry = name_country;
+    }
 
     public List<InformationProduct> getInformationProducts() {
         return informationProducts;
     }
     public void setInformationProducts(List<InformationProduct> informationProducts) {
         this.informationProducts = informationProducts;
+    }
+
+    public List<Organization> getOrganizations() { return organizations; }
+    public void setOrganizations(List<Organization> organizations) {
+        this.organizations = organizations;
     }
 
     @Override

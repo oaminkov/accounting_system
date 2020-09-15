@@ -68,7 +68,7 @@ public class InformationProduct {
     @Column(nullable = false, name="received_date")
     private String receivedDate;
 
-    @Column(nullable = false, name="brief_content")
+    @Column(length = 2048, nullable = false, name="brief_content")
     private String briefContent;
 
     @Column(nullable = false, name="duplicate")

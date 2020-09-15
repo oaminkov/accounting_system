@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "project_or_program")
-public class ProjectOrProgram { //проект/программа
+public class ProjectOrProgram {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_name_project_or_program")

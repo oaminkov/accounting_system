@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "language")
-public class Language { //язык
+public class Language {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id_language")
