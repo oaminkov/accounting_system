@@ -5,49 +5,49 @@
         <div class="form-group row mt-3">
             <label class="col-sm-3 col-form-label">Проект/программа:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.projectOrProgram.fullnameProjectOrProgram}">
+                <input type="text" readonly class="form-control" value="${informationProduct.projectType.fullName}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Страна:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.country.nameCountry}">
+                <input type="text" readonly class="form-control" value="${informationProduct.country.name}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Язык:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.language.nameLanguage}">
+                <input type="text" readonly class="form-control" value="${informationProduct.language.name}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.observationDiscipline.nameObservationDiscipline}">
+                <input type="text" readonly class="form-control" value="${informationProduct.observationDiscipline.name}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.observationType.nameObservationType}">
+                <input type="text" readonly class="form-control" value="${informationProduct.observationType.name}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.observationScope.nameObservationScope}">
+                <input type="text" readonly class="form-control" value="${informationProduct.observationScope.name}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Географический объект:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.geographicalObject.nameGeographicalObject}">
+                <input type="text" readonly class="form-control" value="${informationProduct.geographicalObject.name}">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Организация:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationProduct.organization.fullnameOrganization}">
+                <input type="text" readonly class="form-control" value="${informationProduct.organization.fullName}">
             </div>
         </div>
 
@@ -150,7 +150,7 @@
         </a>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
-                <form action="/information_product/download/${informationProduct.idInformationProduct}">
+                <form action="/information_product/download/${informationProduct.id}">
                     <#if uploadedFiles?has_content>
                         <button type="submit" class="btn btn-success btn-block mb-2">Скачать архив</button>
                     <#else>
@@ -158,19 +158,19 @@
                     </#if>
                 </form>
                 <#list uploadedFiles as uploadedFile>
-                    <a href="/file/${informationProduct.organization.idOrganization}/${informationProduct.inventoryNumber}/${uploadedFile.nameUploadedFile}"
-                       class="btn btn-block mb-2" target="_blank">${uploadedFile.nameUploadedFile}</a>
+                    <a href="/file/${informationProduct.organization.id}/${informationProduct.inventoryNumber}/${uploadedFile.name}"
+                       class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
                 </#list>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col">
-                <form action="/information_product/edit/${informationProduct.idInformationProduct}"><button type="submit" class="btn btn-warning m-0">Редактировать</button></form>
+                <form action="/information_product/edit/${informationProduct.id}"><button type="submit" class="btn btn-warning m-0">Редактировать</button></form>
             </div>
             <div class="col text-right">
                 <#if auth_isAdmin>
-                    <form action="/information_product/delete/${informationProduct.idInformationProduct}"><button type="submit" class="btn btn-danger m-0">Удалить</button></form>
+                    <form action="/information_product/delete/${informationProduct.id}"><button type="submit" class="btn btn-danger m-0">Удалить</button></form>
                 </#if>
             </div>
         </div>

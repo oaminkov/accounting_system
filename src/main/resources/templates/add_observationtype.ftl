@@ -4,7 +4,7 @@
         <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
         <div class="col-sm-9">
             <input required autofocus type="text"
-                   name="nameObservationType" class="form-control ${(messageError??)?string('is-invalid', '')}"
+                   name="name" class="form-control ${(messageError??)?string('is-invalid', '')}"
                    placeholder="Введите название вида наблюдений">
 
             <#if messageError??>
@@ -17,7 +17,7 @@
         <div class="col-sm-9">
             <select name="observationDiscipline" class="browser-default custom-select">
                 <#list listObservationDiscipline as observationDiscipline>
-                    <option value="${observationDiscipline.idObservationDiscipline}">${observationDiscipline.nameObservationDiscipline}</option>
+                    <option value="${observationDiscipline.id}">${observationDiscipline.name}</option>
                 </#list>
             </select>
         </div>

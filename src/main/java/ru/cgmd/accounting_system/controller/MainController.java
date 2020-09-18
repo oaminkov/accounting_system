@@ -116,8 +116,8 @@ public class MainController {
         else {
             listInformationProducts = informationProductRepository.findByObservationDisciplineAndObservationTypeAndCountryAndOrganization(observationDiscipline, observationType, country, organization);
 
-            System.out.println(observationDiscipline.getNameObservationDiscipline());
-            System.out.println(observationType.getNameObservationType());
+            System.out.println(observationDiscipline.getName());
+            System.out.println(observationType.getName());
             System.out.println(country);
             System.out.println(organization);
         }
@@ -152,8 +152,8 @@ public class MainController {
 
         for (ObservationType observationType : observationTypes) {
             Container container = new Container();
-            container.setId(observationType.getIdObservationType());
-            container.setName(observationType.getNameObservationType());
+            container.setId(observationType.getId());
+            container.setName(observationType.getName());
             containers.add(container);
         }
 
@@ -172,8 +172,8 @@ public class MainController {
         for (ObservationType observationType : observationTypes) {
             if (!observationType.getInformationProducts().isEmpty()) {
                 Container container = new Container();
-                container.setId(observationType.getIdObservationType());
-                container.setName(observationType.getNameObservationType());
+                container.setId(observationType.getId());
+                container.setName(observationType.getName());
                 containers.add(container);
             }
         }
@@ -194,8 +194,8 @@ public class MainController {
             for (InformationProduct item : informationProducts) {
                 if (item.getCountry().equals(country)) {
                     Container container = new Container();
-                    container.setId(item.getCountry().getIdCountry());
-                    container.setName(item.getCountry().getNameCountry());
+                    container.setId(item.getCountry().getId());
+                    container.setName(item.getCountry().getName());
                     containers.add(container);
                     break;
                 }
@@ -218,8 +218,8 @@ public class MainController {
             for (InformationProduct item : informationProducts) {
                 if (item.getOrganization().equals(organization)) {
                     Container container = new Container();
-                    container.setId(item.getOrganization().getIdOrganization());
-                    container.setName(item.getOrganization().getFullnameOrganization());
+                    container.setId(item.getOrganization().getId());
+                    container.setName(item.getOrganization().getFullName());
                     containers.add(container);
                     break;
                 }

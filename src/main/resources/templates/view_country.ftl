@@ -9,7 +9,7 @@
         <tbody>
         <#list listCountry as country>
             <tr>
-                <td>${country.nameCountry}</td>
+                <td>${country.name}</td>
             </tr>
         </#list>
         </tbody>

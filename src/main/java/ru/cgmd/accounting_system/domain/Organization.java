@@ -8,14 +8,13 @@ import java.util.List;
 public class Organization { //организация
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_organization")
-    private Long idOrganization;
+    private Long id;
 
-    @Column(nullable = false, name="fullname_organization", unique = true)
-    private String fullnameOrganization;
+    @Column(nullable = false, name="fullname", unique = true)
+    private String fullName;
 
-    @Column(nullable = false, name="abbreviation_organization")
-    private String abbreviationOrganization;
+    @Column(nullable = false, name="abbreviation")
+    private String abbreviation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (nullable = false, name = "id_country")
@@ -26,17 +25,17 @@ public class Organization { //организация
 
     public Organization() { }
 
-    public Organization(Country country, String fullnameOrganization, String abbreviationOrganization) {
+    public Organization(Country country, String fullName, String abbreviation) {
         this.country = country;
-        this.fullnameOrganization = fullnameOrganization;
-        this.abbreviationOrganization = abbreviationOrganization;
+        this.fullName = fullName;
+        this.abbreviation = abbreviation;
     }
 
-    public Long getIdOrganization() {
-        return idOrganization;
+    public Long getId() {
+        return id;
     }
-    public void setIdOrganization(Long idOrganization) {
-        this.idOrganization = idOrganization;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Country getCountry() {
@@ -46,18 +45,18 @@ public class Organization { //организация
         this.country = country;
     }
 
-    public String getFullnameOrganization() {
-        return fullnameOrganization;
+    public String getFullName() {
+        return fullName;
     }
-    public void setFullnameOrganization(String fullnameOrganization) {
-        this.fullnameOrganization = fullnameOrganization;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getAbbreviationOrganization() {
-        return abbreviationOrganization;
+    public String getAbbreviation() {
+        return abbreviation;
     }
-    public void setAbbreviationOrganization(String abbreviationOrganization) {
-        this.abbreviationOrganization = abbreviationOrganization;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public List<InformationProduct> getInformationProducts() {

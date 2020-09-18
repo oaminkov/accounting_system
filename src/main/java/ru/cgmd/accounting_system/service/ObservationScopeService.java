@@ -33,12 +33,12 @@ public class ObservationScopeService {
         observationScopeRepository.save(observationScope);
     }
 
-    public ObservationScope get(long idObservationScope) {
-        return observationScopeRepository.findById(idObservationScope).get();
+    public ObservationScope get(long id) {
+        return observationScopeRepository.findById(id).get();
     }
 
-    public void delete(long idObservationScope) {
-        observationScopeRepository.deleteById(idObservationScope);
+    public void delete(long id) {
+        observationScopeRepository.deleteById(id);
     }
 
 }

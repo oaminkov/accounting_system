@@ -1,38 +1,43 @@
 package ru.cgmd.accounting_system.domain;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "geographical_object")
 public class GeographicalObject {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_geographical_object")
-    private Long idGeographicalObject;
+    private Long id;
 
-    @Column(nullable = false, name="name_geographical_object", unique = true)
-    private String nameGeographicalObject;
+    @Column(nullable = false, name="name", unique = true)
+    private String name;
 
-    @OneToMany(mappedBy = "geographicalObject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "infprod_geogrobject",
+            joinColumns = { @JoinColumn(name = "id_geographical_object") },
+            inverseJoinColumns = { @JoinColumn(name = "id_information_product") }
+    )
+    private Set<InformationProduct> informationProducts = new HashSet<>();
 
     public GeographicalObject() { }
 
-    public GeographicalObject(String nameGeographicalObject) {
-        this.nameGeographicalObject = nameGeographicalObject;
+    public GeographicalObject(String name) {
+        this.name = name;
     }
 
-    public Long getIdGeographicalObject() { return idGeographicalObject; }
-    public void setIdGeographicalObject(Long idGeographicalObject) { this.idGeographicalObject = idGeographicalObject; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getNameGeographicalObject() { return nameGeographicalObject; }
-    public void setNameGeographicalObject(String nameGeographicalObject) { this.nameGeographicalObject = nameGeographicalObject; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public List<InformationProduct> getInformationProducts() {
+    public Set<InformationProduct> getInformationProducts() {
         return informationProducts;
     }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
+    public void setInformationProducts(Set<InformationProduct> informationProducts) {
         this.informationProducts = informationProducts;
     }
 }

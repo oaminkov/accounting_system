@@ -7,14 +7,13 @@ import javax.persistence.*;
 public class UploadedFile {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_uploaded_file")
-    private Long idUploadedFile;
+    private Long id;
 
-    @Column(nullable = false, name="name_uploaded_file")
-    private String nameUploadedFile;
+    @Column(nullable = false, name="name")
+    private String name;
 
-    @Column(nullable = false, name="path_uploaded_file", unique = true)
-    private String pathUploadedFile;
+    @Column(nullable = false, name="path", unique = true)
+    private String path;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "information_product")
@@ -22,31 +21,31 @@ public class UploadedFile {
 
     public UploadedFile() { }
 
-    public UploadedFile(String nameUploadedFile, String pathUploadedFile, InformationProduct informationProduct) {
-        this.nameUploadedFile = nameUploadedFile;
-        this.pathUploadedFile = pathUploadedFile;
+    public UploadedFile(String name, String path, InformationProduct informationProduct) {
+        this.name = name;
+        this.path = path;
         this.informationProduct = informationProduct;
     }
 
-    public Long getIdUploadedFile() {
-        return idUploadedFile;
+    public Long getId() {
+        return id;
     }
-    public void setIdUploadedFile(Long idUploadedFile) {
-        this.idUploadedFile = idUploadedFile;
-    }
-
-    public String getNameUploadedFile() {
-        return nameUploadedFile;
-    }
-    public void setNameUploadedFile(String nameUploadedFile) {
-        this.nameUploadedFile = nameUploadedFile;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getPathUploadedFile() {
-        return pathUploadedFile;
+    public String getName() {
+        return name;
     }
-    public void setPathUploadedFile(String pathUploadedFile) {
-        this.pathUploadedFile = pathUploadedFile;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public InformationProduct getInformationProduct() {

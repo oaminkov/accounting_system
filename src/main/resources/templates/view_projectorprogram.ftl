@@ -9,11 +9,11 @@
             </tr>
         </thead>
         <tbody>
-        <#list listProjectOrProgram as projectOrProgram>
+        <#list listProjectOrProgram as projectType>
             <tr>
-                <td>${projectOrProgram.choiceProjectOrProgram}</td>
-                <td>${projectOrProgram.fullnameProjectOrProgram}</td>
-                <td>${projectOrProgram.abbreviationProjectOrProgram}</td>
+                <td>${projectType.projectType}</td>
+                <td>${projectType.fullName}</td>
+                <td>${projectType.abbreviation}</td>
             </tr>
         </#list>
         </tbody>

@@ -1,46 +1,51 @@
 package ru.cgmd.accounting_system.domain;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "observation_scope")  //сфера наблюдений
 public class ObservationScope {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_observation_scope")
-    private Long idObservationScope;
+    private Long id;
 
-    @Column(nullable = false, name="name_observation_scope", unique = true)
-    private String nameObservationScope;
+    @Column(nullable = false, name="name", unique = true)
+    private String name;
 
-    @OneToMany(mappedBy = "observationScope", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "infprod_observscope",
+            joinColumns = { @JoinColumn(name = "id_observation_scope") },
+            inverseJoinColumns = { @JoinColumn(name = "id_information_product") }
+    )
+    private Set<InformationProduct> informationProducts = new HashSet<>();
 
     public ObservationScope() { }
 
-    public ObservationScope(String nameObservationScope) {
-        this.nameObservationScope = nameObservationScope;
+    public ObservationScope(String name) {
+        this.name = name;
     }
 
-    public Long getIdObservationScope() {
-        return idObservationScope;
+    public Long getId() {
+        return id;
     }
-    public void setIdObservationScope(Long idObservationScope) {
-        this.idObservationScope = idObservationScope;
-    }
-
-    public String getNameObservationScope() {
-        return nameObservationScope;
-    }
-    public void setNameObservationScope(String nameObservationScope) {
-        this.nameObservationScope = nameObservationScope;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public List<InformationProduct> getInformationProducts() {
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<InformationProduct> getInformationProducts() {
         return informationProducts;
     }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
+    public void setInformationProducts(Set<InformationProduct> informationProducts) {
         this.informationProducts = informationProducts;
     }
 }

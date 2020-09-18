@@ -9,7 +9,7 @@
         <tbody>
         <#list listLanguage as language>
             <tr>
-                <td>${language.nameLanguage}</td>
+                <td>${language.name}</td>
             </tr>
         </#list>
         </tbody>

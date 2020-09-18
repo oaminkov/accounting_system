@@ -4,7 +4,7 @@
         <label class="col-sm-2 col-form-label">Язык:</label>
         <div class="col-sm-10">
             <input required autofocus type="text"
-                   name="nameLanguage" class="form-control ${(messageError??)?string('is-invalid', '')}"
+                   name="name" class="form-control ${(messageError??)?string('is-invalid', '')}"
                    placeholder="Введите название языка">
 
             <#if messageError??>

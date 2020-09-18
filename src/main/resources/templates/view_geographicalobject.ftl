@@ -9,7 +9,7 @@
         <tbody>
         <#list listGeographicalObject as geographicalObject>
             <tr>
-                <td>${geographicalObject.nameGeographicalObject}</td>
+                <td>${geographicalObject.name}</td>
             </tr>
         </#list>
         </tbody>

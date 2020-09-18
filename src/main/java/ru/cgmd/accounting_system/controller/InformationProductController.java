@@ -103,7 +103,7 @@ public class InformationProductController {
         Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
 
         for (UploadedFile uploadedFile : uploadedFiles) {
-            File file = new File(uploadedFile.getPathUploadedFile());
+            File file = new File(uploadedFile.getPath());
 
             if (file.exists()) {
                 file.delete();
@@ -206,7 +206,7 @@ public class InformationProductController {
         Set<UploadedFile> tempFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
 
         for (UploadedFile file : tempFiles) {
-            File downloadFile = new File(file.getPathUploadedFile());
+            File downloadFile = new File(file.getPath());
             downloadFiles.add(downloadFile);
 
             zipOutputStream.putNextEntry(new ZipEntry(downloadFile.getName()));
@@ -261,7 +261,7 @@ public class InformationProductController {
         if(files[0].getSize() != 0) {
             for (MultipartFile file : files) {
                 if (file != null) {
-                    String uploadDirPath = uploadPath + "/" + organization.getIdOrganization() + "/" + inventoryNumber;
+                    String uploadDirPath = uploadPath + "/" + organization.getId() + "/" + inventoryNumber;
                     File uploadDir = new File(uploadDirPath);
 
                     if (!uploadDir.exists()) {
@@ -280,7 +280,7 @@ public class InformationProductController {
             informationProduct.setUploadedFiles(uploadedFiles);
         }
 
-        informationProduct.setUser(author);
+        informationProduct.setOperator(author);
 
         LocalDateTime myDateObj = LocalDateTime.now();
         String formattedDate = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
@@ -327,7 +327,7 @@ public class InformationProductController {
 
         if (!organizationTemp.equals(organization) || !inventoryNumberTemp.equals(inventoryNumber))
         {
-            String uploadDirPath = uploadPath + "/" + organization.getIdOrganization() + "/" + inventoryNumber;
+            String uploadDirPath = uploadPath + "/" + organization.getId() + "/" + inventoryNumber;
             File uploadDir = new File(uploadDirPath);
 
 
@@ -338,17 +338,17 @@ public class InformationProductController {
             Set<UploadedFile> uploadedFilesTemp = uploadedFileRepository.findByInformationProduct(informationProduct);
 
             for (UploadedFile uploadedFile : uploadedFilesTemp) {
-                File file = new File(uploadedFile.getPathUploadedFile());
+                File file = new File(uploadedFile.getPath());
                 String filename = file.getName();
                 String filepath = uploadDirPath + "/" + filename;
 
                 if (file.exists()) {
                     file.renameTo(new File(filepath));
                 }
-                uploadedFile.setPathUploadedFile(filepath);
+                uploadedFile.setPath(filepath);
                 uploadedFileRepository.save(uploadedFile);
             }
-            String oldUploadDirPath = uploadPath + "/" + organizationTemp.getIdOrganization() + "/" + inventoryNumberTemp;
+            String oldUploadDirPath = uploadPath + "/" + organizationTemp.getId() + "/" + inventoryNumberTemp;
             File oldUploadDir = new File(oldUploadDirPath);
 
             if (oldUploadDir.exists()) {
@@ -379,7 +379,7 @@ public class InformationProductController {
         if(files[0].getSize() != 0) {
             for (MultipartFile file : files) {
                 if (file != null) {
-                    String uploadDirPath = uploadPath + "/" + organization.getIdOrganization() + "/" + inventoryNumber;
+                    String uploadDirPath = uploadPath + "/" + organization.getId() + "/" + inventoryNumber;
                     File uploadDir = new File(uploadDirPath);
 
                     if (!uploadDir.exists()) {
@@ -406,6 +406,6 @@ public class InformationProductController {
         informationProduct.setDateOfEdit(formattedDate);
         informationProductService.save(informationProduct);
 
-        return "redirect:/information_product/edit/" + informationProduct.getIdInformationProduct();
+        return "redirect:/information_product/edit/" + informationProduct.getId();
     }
 }

@@ -8,53 +8,52 @@ import java.util.List;
 public class ProjectOrProgram {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_name_project_or_program")
-    private Long idProjectOrProgram;
+    private Long id;
 
-    @Column(nullable = false, name="choice_project_or_program")
-    private String choiceProjectOrProgram;
-    @Column(nullable = false, name="fullname_project_or_program")
-    private String fullnameProjectOrProgram;
-    @Column(nullable = false, name="abbreviation_project_or_program")
-    private String abbreviationProjectOrProgram;
+    @Column(nullable = false, name="project_type")
+    private String projectType;
+    @Column(nullable = false, name="fullname")
+    private String fullName;
+    @Column(nullable = false, name="abbreviation")
+    private String abbreviation;
 
-    @OneToMany(mappedBy = "projectOrProgram", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "projectType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationProduct> informationProducts;
 
     public ProjectOrProgram() { }
 
-    public ProjectOrProgram(String choiceProjectOrProgram, String fullnameProjectOrProgram, String abbreviationProjectOrProgram) {
-        this.choiceProjectOrProgram = choiceProjectOrProgram;
-        this.fullnameProjectOrProgram = fullnameProjectOrProgram;
-        this.abbreviationProjectOrProgram = abbreviationProjectOrProgram;
+    public ProjectOrProgram(String projectType, String fullName, String abbreviation) {
+        this.projectType = projectType;
+        this.fullName = fullName;
+        this.abbreviation = abbreviation;
     }
 
-    public Long getIdProjectOrProgram() {
-        return idProjectOrProgram;
+    public Long getId() {
+        return id;
     }
-    public void setIdProjectOrProgram(Long idProjectOrProgram) {
-        this.idProjectOrProgram = idProjectOrProgram;
-    }
-
-    public String getChoiceProjectOrProgram() {
-        return choiceProjectOrProgram;
-    }
-    public void setChoiceProjectOrProgram(String choiceProjectOrProgram) {
-        this.choiceProjectOrProgram = choiceProjectOrProgram;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getFullnameProjectOrProgram() {
-        return fullnameProjectOrProgram;
+    public String getProjectType() {
+        return projectType;
     }
-    public void setFullnameProjectOrProgram(String fullnameProjectOrProgram) {
-        this.fullnameProjectOrProgram = fullnameProjectOrProgram;
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
     }
 
-    public String getAbbreviationProjectOrProgram() {
-        return abbreviationProjectOrProgram;
+    public String getFullName() {
+        return fullName;
     }
-    public void setAbbreviationProjectOrProgram(String abbreviationProjectOrProgram) {
-        this.abbreviationProjectOrProgram = abbreviationProjectOrProgram;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public List<InformationProduct> getInformationProducts() {

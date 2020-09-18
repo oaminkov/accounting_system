@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "language")
-public class Language {
+@Table(name = "observation_method")
+public class ObservationMethod {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -13,12 +13,13 @@ public class Language {
     @Column(nullable = false, name="name", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "language", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "observation_method", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationProduct> informationProducts;
 
-    public Language() { }
+    public ObservationMethod() {
+    }
 
-    public Language(String name) {
+    public ObservationMethod(String name) {
         this.name = name;
     }
 

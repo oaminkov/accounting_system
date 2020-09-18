@@ -8,11 +8,10 @@ import java.util.List;
 public class Country {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_country")
-    private Long idCountry;
+    private Long id;
 
-    @Column(nullable = false, name="name_country", unique = true)
-    private String nameCountry;
+    @Column(nullable = false, name="name", unique = true)
+    private String name;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationProduct> informationProducts;
@@ -22,18 +21,18 @@ public class Country {
 
     public Country() { }
 
-    public Country(String nameCountry) {
-        this.nameCountry = nameCountry;
+    public Country(String name) {
+        this.name = name;
     }
 
-    public Long getIdCountry() { return idCountry; }
-    public void setIdCountry(Long idCountry) {
-        this.idCountry = idCountry;
+    public Long getId() { return id; }
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNameCountry() { return nameCountry; }
-    public void setNameCountry(String name_country) {
-        this.nameCountry = name_country;
+    public String getName() { return name; }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<InformationProduct> getInformationProducts() {
@@ -50,6 +49,6 @@ public class Country {
 
     @Override
     public String toString() {
-        return nameCountry;
+        return name;
     }
 }

@@ -25,16 +25,16 @@
             <#list listInformationProducts as informationProduct>
                 <tr>
                     <td>${informationProduct.inventoryNumber}</td>
-                    <td>${informationProduct.country.nameCountry}</td>
-                    <td>${informationProduct.observationDiscipline.nameObservationDiscipline}</td>
-                    <td>${informationProduct.observationType.nameObservationType}</td>
+                    <td>${informationProduct.country.name}</td>
+                    <td>${informationProduct.observationDiscipline.name}</td>
+                    <td>${informationProduct.observationType.name}</td>
                     <td>${informationProduct.dateObservationStart}<br>${informationProduct.dateObservationEnd}</td>
-                    <td>${informationProduct.geographicalObject.nameGeographicalObject}</td>
-                    <td>${informationProduct.organization.fullnameOrganization}</td>
+                    <td>${informationProduct.geographicalObject.name}</td>
+                    <td>${informationProduct.organization.fullName}</td>
                     <td>
                         <#if auth_user??>
                             <div class="btn-group">
-                                <form action="/information_product/download/${informationProduct.idInformationProduct}">
+                                <form action="/information_product/download/${informationProduct.id}">
                                     <button type="submit" class="btn btn-sm btn-secondary">Скачать</button>
                                 </form>
                                 <button type="button" class="btn btn-sm btn-secondary dropdown-toggle px-2" data-toggle="dropdown" aria-haspopup="true"
@@ -43,9 +43,9 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <#list uploadedFiles as uploadedFile>
-                                        <#if informationProduct.idInformationProduct == uploadedFile.informationProduct.idInformationProduct>
-                                            <a href="/file/${informationProduct.organization.idOrganization}/${informationProduct.inventoryNumber}/${uploadedFile.nameUploadedFile}"
-                                               class="dropdown-item" target="_blank">${uploadedFile.nameUploadedFile}</a>
+                                        <#if informationProduct.id == uploadedFile.informationProduct.id>
+                                            <a href="/file/${informationProduct.organization.id}/${informationProduct.inventoryNumber}/${uploadedFile.name}"
+                                               class="dropdown-item" target="_blank">${uploadedFile.name}</a>
                                         </#if>
                                     </#list>
                                 </div>
@@ -53,16 +53,16 @@
                         </#if>
                     </td>
                     <td>
-                        <form action="information_product/view/${informationProduct.idInformationProduct}"><button type="submit" class="btn btn-indigo btn-sm m-0">Просмотреть</button></form>
+                        <form action="information_product/view/${informationProduct.id}"><button type="submit" class="btn btn-indigo btn-sm m-0">Просмотреть</button></form>
                     </td>
                     <td>
                         <#if auth_user??>
-                            <form action="information_product/edit/${informationProduct.idInformationProduct}"><button type="submit" class="btn btn-warning btn-sm m-0">Редактировать</button></form>
+                            <form action="information_product/edit/${informationProduct.id}"><button type="submit" class="btn btn-warning btn-sm m-0">Редактировать</button></form>
                         </#if>
                     </td>
                     <td>
                         <#if auth_user??>
-                            <form action="information_product/delete/${informationProduct.idInformationProduct}"><button type="submit" class="btn btn-danger btn-sm m-0">Удалить</button></form>
+                            <form action="information_product/delete/${informationProduct.id}"><button type="submit" class="btn btn-danger btn-sm m-0">Удалить</button></form>
                         </#if>
                     </td>
                 </tr>

@@ -9,7 +9,7 @@
         <tbody>
         <#list listObservationDiscipline as observationDiscipline>
             <tr>
-                <td>${observationDiscipline.nameObservationDiscipline}</td>
+                <td>${observationDiscipline.name}</td>
             </tr>
         </#list>
         </tbody>

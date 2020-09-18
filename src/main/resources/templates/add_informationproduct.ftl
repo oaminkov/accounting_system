@@ -6,12 +6,12 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Проект/программа:</label>
                 <div class="col-sm-9">
-                    <select name="projectOrProgram" class="browser-default custom-select">
+                    <select name="projectType" class="browser-default custom-select">
                         <option value="">-- Выберите проект/программу --</option>
                         <option value="-1">Описание отсутствует</option>
-                        <#list listProjectOrProgram as projectOrProgram>
-                            <option value="${projectOrProgram.idProjectOrProgram}"
-                            >${projectOrProgram.fullnameProjectOrProgram}</option>
+                        <#list listProjectOrProgram as projectType>
+                            <option value="${projectType.id}"
+                            >${projectType.fullName}</option>
                         </#list>
                     </select>
                 </div>
@@ -23,8 +23,8 @@
                         <option value="">-- Выберите страну --</option>
                         <option value="-1">Описание отсутствует</option>
                         <#list listCountry as country>
-                            <option value="${country.idCountry}"
-                            >${country.nameCountry}</option>
+                            <option value="${country.id}"
+                            >${country.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -36,8 +36,8 @@
                         <option value="">-- Выберите язык --</option>
                         <option value="-1">Описание отсутствует</option>
                         <#list listLanguage as language>
-                            <option value="${language.idLanguage}"
-                            >${language.nameLanguage}</option>
+                            <option value="${language.id}"
+                            >${language.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -49,8 +49,8 @@
                         <option value="0">-- Выберите дисциплину --</option>
                         <option value="-1">Описание отсутствует</option>
                         <#list listObservationDiscipline as observationDiscipline>
-                            <option value="${observationDiscipline.idObservationDiscipline}"
-                            >${observationDiscipline.nameObservationDiscipline}</option>
+                            <option value="${observationDiscipline.id}"
+                            >${observationDiscipline.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -69,8 +69,8 @@
                     <select name="observationScope" class="browser-default custom-select">
                         <option value="">-- Выберите сферу наблюдений --</option>
                         <#list listObservationScope as observationScope>
-                            <option value="${observationScope.idObservationScope}"
-                            >${observationScope.nameObservationScope}</option>
+                            <option value="${observationScope.id}"
+                            >${observationScope.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -81,8 +81,8 @@
                     <select name="geographicalObject" class="browser-default custom-select">
                         <option value="">-- Выберите территорию наблюдений --</option>
                         <#list listGeographicalObject as geographicalObject>
-                            <option value="${geographicalObject.idGeographicalObject}"
-                            >${geographicalObject.nameGeographicalObject}</option>
+                            <option value="${geographicalObject.id}"
+                            >${geographicalObject.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -93,8 +93,8 @@
                     <select name="organization" class="browser-default custom-select">
                         <option value="">-- Выберите организацию --</option>
                         <#list listOrganization as organization>
-                            <option value="${organization.idOrganization}"
-                            >${organization.fullnameOrganization}</option>
+                            <option value="${organization.id}"
+                            >${organization.fullName}</option>
                         </#list>
                     </select>
                 </div>

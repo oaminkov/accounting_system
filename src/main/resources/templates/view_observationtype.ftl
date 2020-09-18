@@ -10,8 +10,8 @@
         <tbody>
         <#list listObservationType as observationType>
             <tr>
-                <td>${observationType.nameObservationType}</td>
-                <td>${observationType.observationDiscipline.nameObservationDiscipline}</td>
+                <td>${observationType.name}</td>
+                <td>${observationType.observationDiscipline.name}</td>
             </tr>
         </#list>
         </tbody>

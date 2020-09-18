@@ -2,34 +2,31 @@ package ru.cgmd.accounting_system.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "observation_discipline")
-public class ObservationDiscipline {
+@Table(name = "observation_parameter")
+public class ObservationParameter {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, name="name", unique = true)
+    @Column(nullable = false, name = "name", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "observationDiscipline", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ObservationType> observationTypes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_observation_type")
+    private ObservationType observationType;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "infprod_observdiscipl",
-            joinColumns = { @JoinColumn(name = "id_observation_discipline") },
+            name = "infprod_observparam",
+            joinColumns = { @JoinColumn(name = "id_observation_parameter") },
             inverseJoinColumns = { @JoinColumn(name = "id_information_product") }
     )
     private Set<InformationProduct> informationProducts = new HashSet<>();
 
-    public ObservationDiscipline() { }
-
-    public ObservationDiscipline(String name) {
-        this.name = name;
+    public ObservationParameter() {
     }
 
     public Long getId() {
@@ -46,11 +43,11 @@ public class ObservationDiscipline {
         this.name = name;
     }
 
-    public List<ObservationType> getObservationTypes() {
-        return observationTypes;
+    public ObservationType getObservationType() {
+        return observationType;
     }
-    public void setObservationTypes(List<ObservationType> observationTypes) {
-        this.observationTypes = observationTypes;
+    public void setObservationType(ObservationType observationType) {
+        this.observationType = observationType;
     }
 
     public Set<InformationProduct> getInformationProducts() {

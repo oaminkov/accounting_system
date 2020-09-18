@@ -1,51 +1,16 @@
 package ru.cgmd.accounting_system.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "information_product")
 public class InformationProduct {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_information_product")
-    private Long idInformationProduct;
-
-    @ManyToOne(fetch = FetchType.LAZY) //проект или программа
-    @JoinColumn (name = "id_project_or_program", nullable = false)
-    private ProjectOrProgram projectOrProgram;
-
-    @ManyToOne(fetch = FetchType.LAZY) //страна
-    @JoinColumn (name = "id_country", nullable = false)
-    private Country country;
-
-    @ManyToOne(fetch = FetchType.LAZY) //язык
-    @JoinColumn (name = "id_language", nullable = false)
-    private Language language;
-
-    @ManyToOne(fetch = FetchType.LAZY) //дисциплина наблюдений
-    @JoinColumn (name = "id_observation_discipline", nullable = false)
-    private ObservationDiscipline observationDiscipline;
-
-    @ManyToOne(fetch = FetchType.LAZY) //вид наблюдений
-    @JoinColumn (name = "id_observation_type", nullable = false)
-    private ObservationType observationType;
-
-    @ManyToOne(fetch = FetchType.LAZY) //сфера наблюдений
-    @JoinColumn (name = "id_observation_scope", nullable = false)
-    private ObservationScope observationScope;
-
-    @ManyToOne(fetch = FetchType.LAZY) //геогр объект
-    @JoinColumn (name = "id_geographical_object", nullable = false)
-    private GeographicalObject geographicalObject;
-
-    @ManyToOne(fetch = FetchType.LAZY) //организация
-    @JoinColumn (name = "id_organization", nullable = false)
-    private Organization organization;
-
-    @ManyToOne(fetch = FetchType.LAZY) //оператор
-    @JoinColumn (name = "id_usr", nullable = false)
-    private User user;
+    private Long id;
 
     @Column(nullable = false, name="inventory_number", unique = true)
     private String inventoryNumber;
@@ -80,41 +45,88 @@ public class InformationProduct {
     @Column(name="date_of_edit")
     private String dateOfEdit;
 
-    @ManyToOne(fetch = FetchType.LAZY) //оператор
-    @JoinColumn (name = "id_editor")
-    private User editor;
-
     @OneToMany(mappedBy = "informationProduct", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UploadedFile> uploadedFiles;
 
+    @ManyToOne(fetch = FetchType.LAZY) //язык
+    @JoinColumn (name = "id_language", nullable = false)
+    private Language language;
+
+    @ManyToOne(fetch = FetchType.LAZY) //проект или программа
+    @JoinColumn (name = "id_project_or_program", nullable = false)
+    private ProjectOrProgram projectOrProgram;
+
+    @ManyToOne(fetch = FetchType.LAZY) //страна
+    @JoinColumn (name = "id_country", nullable = false)
+    private Country country;
+
+    @ManyToOne(fetch = FetchType.LAZY) //метод наблюдений
+    @JoinColumn (name = "id_observation_method", nullable = false)
+    private ObservationMethod observationMethod;
+
+    @ManyToOne(fetch = FetchType.LAZY) //организация
+    @JoinColumn (name = "id_organization", nullable = false)
+    private Organization organization;
+
+    @ManyToOne(fetch = FetchType.LAZY) //оператор
+    @JoinColumn (name = "id_operator", nullable = false)
+    private User operator;
+
+    @ManyToOne(fetch = FetchType.LAZY) //редактор
+    @JoinColumn (name = "id_editor")
+    private User editor;
+
+    @ManyToMany(cascade = CascadeType.ALL) //дисциплина наблюдений
+    @JoinTable(
+            name = "infprod_observdiscipl",
+            joinColumns = { @JoinColumn(name = "id_information_product") },
+            inverseJoinColumns = { @JoinColumn(name = "id_observation_discipline") }
+    )
+    private Set<ObservationDiscipline> observationDisciplines = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL) //вид наблюдений
+    @JoinTable(
+            name = "infprod_observtype",
+            joinColumns = { @JoinColumn(name = "id_information_product") },
+            inverseJoinColumns = { @JoinColumn(name = "id_observation_type") }
+    )
+    private Set<ObservationType> observationTypes = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL) //параметры наблюдений
+    @JoinTable(
+            name = "infprod_observparam",
+            joinColumns = { @JoinColumn(name = "id_information_product") },
+            inverseJoinColumns = { @JoinColumn(name = "id_observation_parameter") }
+    )
+    private Set<ObservationParameter> observationParameters = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL) //сфера наблюдений
+    @JoinTable(
+            name = "infprod_observscope",
+            joinColumns = { @JoinColumn(name = "id_information_product") },
+            inverseJoinColumns = { @JoinColumn(name = "id_observation_scope") }
+    )
+    private Set<ObservationScope> observationScopes = new HashSet<>();
+
+
+    @ManyToMany(cascade = CascadeType.ALL) //географические объекты
+    @JoinTable(
+            name = "infprod_geogrobject",
+            joinColumns = { @JoinColumn(name = "id_information_product") },
+            inverseJoinColumns = { @JoinColumn(name = "id_geographical_object") }
+    )
+    private Set<GeographicalObject> geographicalObjects = new HashSet<>();
+
     public InformationProduct() { }
 
-    public InformationProduct(ProjectOrProgram projectOrProgram,
-                              Country country,
-                              Language language,
-                              ObservationDiscipline observationDiscipline,
-                              ObservationType observationType,
-                              ObservationScope observationScope,
-                              GeographicalObject geographicalObject,
-                              Organization organization,
-                              String inventoryNumber,
-                              String fullnameCdrom,
-                              String abbreviationCdrom,
-                              String dateObservationStart,
-                              String dateObservationEnd,
-                              String volume,
-                              String receivedDate,
-                              String briefContent,
-                              boolean duplicate
-    ) {
-        this.projectOrProgram = projectOrProgram;
-        this.country = country;
-        this.language = language;
-        this.observationDiscipline = observationDiscipline;
-        this.observationType = observationType;
-        this.observationScope = observationScope;
-        this.geographicalObject = geographicalObject;
-        this.organization = organization;
+    public InformationProduct(String inventoryNumber, String fullnameCdrom, String abbreviationCdrom,
+            String dateObservationStart, String dateObservationEnd, String volume, String receivedDate,
+            String briefContent, boolean duplicate, String dateOfEntering, String dateOfEdit,
+            List<UploadedFile> uploadedFiles, Language language, ProjectOrProgram projectOrProgram,
+            Country country, ObservationMethod observationMethod, Organization organization,
+            User operator, User editor, Set<ObservationDiscipline> observationDisciplines,
+            Set<ObservationType> observationTypes, Set<ObservationParameter> observationParameters,
+            Set<ObservationScope> observationScopes, Set<GeographicalObject> geographicalObjects) {
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
         this.abbreviationCdrom = abbreviationCdrom;
@@ -124,80 +136,32 @@ public class InformationProduct {
         this.receivedDate = receivedDate;
         this.briefContent = briefContent;
         this.duplicate = duplicate;
+        this.dateOfEntering = dateOfEntering;
+        this.dateOfEdit = dateOfEdit;
+        this.uploadedFiles = uploadedFiles;
+        this.language = language;
+        this.projectOrProgram = projectOrProgram;
+        this.country = country;
+        this.observationMethod = observationMethod;
+        this.organization = organization;
+        this.operator = operator;
+        this.editor = editor;
+        this.observationDisciplines = observationDisciplines;
+        this.observationTypes = observationTypes;
+        this.observationParameters = observationParameters;
+        this.observationScopes = observationScopes;
+        this.geographicalObjects = geographicalObjects;
     }
 
     public void addUploadedFiles(List<UploadedFile> uploadedFiles) {
         this.uploadedFiles.addAll(uploadedFiles);
     }
 
-    public Long getIdInformationProduct() {
-        return idInformationProduct;
+    public Long getId() {
+        return id;
     }
-    public void setIdInformationProduct(Long idInformationProduct) {
-        this.idInformationProduct = idInformationProduct;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public ObservationDiscipline getObservationDiscipline() {
-        return observationDiscipline;
-    }
-    public void setObservationDiscipline(ObservationDiscipline observationDiscipline) {
-        this.observationDiscipline = observationDiscipline;
-    }
-
-    public ObservationType getObservationType() {
-        return observationType;
-    }
-    public void setObservationType(ObservationType observationType) {
-        this.observationType = observationType;
-    }
-
-    public ObservationScope getObservationScope() {
-        return observationScope;
-    }
-    public void setObservationScope(ObservationScope observationScope) {
-        this.observationScope = observationScope;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
-    public ProjectOrProgram getProjectOrProgram() {
-        return projectOrProgram;
-    }
-    public void setProjectOrProgram(ProjectOrProgram projectOrProgram) {
-        this.projectOrProgram = projectOrProgram;
-    }
-
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public GeographicalObject getGeographicalObject() {
-        return geographicalObject;
-    }
-    public void setGeographicalObject(GeographicalObject geographicalObject) {
-        this.geographicalObject = geographicalObject;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getInventoryNumber() {
@@ -235,13 +199,6 @@ public class InformationProduct {
         this.dateObservationEnd = dateObservationEnd;
     }
 
-    public String getBriefContent() {
-        return briefContent;
-    }
-    public void setBriefContent(String briefContent) {
-        this.briefContent = briefContent;
-    }
-
     public String getVolume() {
         return volume;
     }
@@ -256,11 +213,11 @@ public class InformationProduct {
         this.receivedDate = receivedDate;
     }
 
-    public String getDateOfEntering() {
-        return dateOfEntering;
+    public String getBriefContent() {
+        return briefContent;
     }
-    public void setDateOfEntering(String dateOfEntering) {
-        this.dateOfEntering = dateOfEntering;
+    public void setBriefContent(String briefContent) {
+        this.briefContent = briefContent;
     }
 
     public boolean isDuplicate() {
@@ -270,11 +227,11 @@ public class InformationProduct {
         this.duplicate = duplicate;
     }
 
-    public List<UploadedFile> getUploadedFiles() {
-        return uploadedFiles;
+    public String getDateOfEntering() {
+        return dateOfEntering;
     }
-    public void setUploadedFiles(List<UploadedFile> uploadedFiles) {
-        this.uploadedFiles = uploadedFiles;
+    public void setDateOfEntering(String dateOfEntering) {
+        this.dateOfEntering = dateOfEntering;
     }
 
     public String getDateOfEdit() {
@@ -284,10 +241,94 @@ public class InformationProduct {
         this.dateOfEdit = dateOfEdit;
     }
 
+    public List<UploadedFile> getUploadedFiles() {
+        return uploadedFiles;
+    }
+    public void setUploadedFiles(List<UploadedFile> uploadedFiles) {
+        this.uploadedFiles = uploadedFiles;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public ProjectOrProgram getProjectOrProgram() {
+        return projectOrProgram;
+    }
+    public void setProjectOrProgram(ProjectOrProgram projectOrProgram) {
+        this.projectOrProgram = projectOrProgram;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public ObservationMethod getObservationMethod() {
+        return observationMethod;
+    }
+    public void setObservationMethod(ObservationMethod observationMethod) {
+        this.observationMethod = observationMethod;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public User getOperator() {
+        return operator;
+    }
+    public void setOperator(User user) {
+        this.operator = user;
+    }
+
     public User getEditor() {
         return editor;
     }
     public void setEditor(User editor) {
         this.editor = editor;
+    }
+
+    public Set<ObservationDiscipline> getObservationDisciplines() {
+        return observationDisciplines;
+    }
+    public void setObservationDisciplines(Set<ObservationDiscipline> observationDisciplines) {
+        this.observationDisciplines = observationDisciplines;
+    }
+
+    public Set<ObservationType> getObservationTypes() {
+        return observationTypes;
+    }
+    public void setObservationTypes(Set<ObservationType> observationTypes) {
+        this.observationTypes = observationTypes;
+    }
+
+    public Set<ObservationParameter> getObservationParameters() {
+        return observationParameters;
+    }
+    public void setObservationParameters(Set<ObservationParameter> observationParameters) {
+        this.observationParameters = observationParameters;
+    }
+
+    public Set<ObservationScope> getObservationScopes() {
+        return observationScopes;
+    }
+    public void setObservationScopes(Set<ObservationScope> observationScopes) {
+        this.observationScopes = observationScopes;
+    }
+
+    public Set<GeographicalObject> getGeographicalObjects() {
+        return geographicalObjects;
+    }
+    public void setGeographicalObjects(Set<GeographicalObject> geographicalObjects) {
+        this.geographicalObjects = geographicalObjects;
     }
 }

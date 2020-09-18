@@ -4,7 +4,7 @@
         <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
         <div class="col-sm-9">
             <input required autofocus type="text"
-                   name="nameObservationDiscipline" class="form-control ${(messageError??)?string('is-invalid', '')}"
+                   name="name" class="form-control ${(messageError??)?string('is-invalid', '')}"
                    placeholder="Введите название дисциплины наблюдения">
 
             <#if messageError??>

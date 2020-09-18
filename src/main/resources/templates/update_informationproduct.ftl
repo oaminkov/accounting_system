@@ -2,18 +2,18 @@
     <#include "parts/navbar.ftl">
     <div class="container">
         <h1 class="mb-3" align="center">Изменить мета-описание информационного продукта</h1>
-        <form action="/information_product/update/${informationProduct.idInformationProduct}" enctype="multipart/form-data" method="post">
+        <form action="/information_product/update/${informationProduct.id}" enctype="multipart/form-data" method="post">
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Проект/программа:</label>
                 <div class="col-sm-9">
-                    <select name="projectOrProgram" class="browser-default custom-select">
-                        <#list listProjectOrProgram as projectOrProgram>
-                            <#if projectOrProgram == informationProduct.projectOrProgram>
-                                <option selected value="${projectOrProgram.idProjectOrProgram}"
-                                >${projectOrProgram.fullnameProjectOrProgram}</option>
+                    <select name="projectType" class="browser-default custom-select">
+                        <#list listProjectOrProgram as projectType>
+                            <#if projectType == informationProduct.projectType>
+                                <option selected value="${projectType.id}"
+                                >${projectType.fullName}</option>
                             <#else>
-                                <option value="${projectOrProgram.idProjectOrProgram}"
-                                >${projectOrProgram.fullnameProjectOrProgram}</option>
+                                <option value="${projectType.id}"
+                                >${projectType.fullName}</option>
                             </#if>
                         </#list>
                     </select>
@@ -25,11 +25,11 @@
                     <select name="country" class="browser-default custom-select">
                         <#list listCountry as country>
                             <#if country == informationProduct.country>
-                                <option selected value="${country.idCountry}"
-                                >${country.nameCountry}</option>
+                                <option selected value="${country.id}"
+                                >${country.name}</option>
                             <#else>
-                                <option value="${country.idCountry}"
-                                >${country.nameCountry}</option>
+                                <option value="${country.id}"
+                                >${country.name}</option>
                             </#if>
                         </#list>
                     </select>
@@ -41,11 +41,11 @@
                     <select name="language" class="browser-default custom-select">
                         <#list listLanguage as language>
                             <#if language == informationProduct.language>
-                                <option selected value="${language.idLanguage}"
-                                >${language.nameLanguage}</option>
+                                <option selected value="${language.id}"
+                                >${language.name}</option>
                             <#else>
-                                <option value="${language.idLanguage}"
-                                >${language.nameLanguage}</option>
+                                <option value="${language.id}"
+                                >${language.name}</option>
                             </#if>
                         </#list>
                     </select>
@@ -57,11 +57,11 @@
                     <select name="observationDiscipline" class="browser-default custom-select" id="getObservationDiscipline">
                         <#list listObservationDiscipline as observationDiscipline>
                             <#if observationDiscipline == informationProduct.observationDiscipline>
-                                <option selected value="${observationDiscipline.idObservationDiscipline}"
-                                >${observationDiscipline.nameObservationDiscipline}</option>
+                                <option selected value="${observationDiscipline.id}"
+                                >${observationDiscipline.name}</option>
                             <#else>
-                                <option value="${observationDiscipline.idObservationDiscipline}"
-                                >${observationDiscipline.nameObservationDiscipline}</option>
+                                <option value="${observationDiscipline.id}"
+                                >${observationDiscipline.name}</option>
                             </#if>
                         </#list>
                     </select>
@@ -73,11 +73,11 @@
                     <select name="observationType" class="browser-default custom-select" id="getObservationType">
                         <#list listObservationType as observationType>
                             <#if observationType == informationProduct.observationType>
-                                <option selected value="${observationType.idObservationType}"
-                                >${observationType.nameObservationType}</option>
+                                <option selected value="${observationType.id}"
+                                >${observationType.name}</option>
                             <#else>
-                                <option value="${observationType.idObservationType}"
-                                >${observationType.nameObservationType}</option>
+                                <option value="${observationType.id}"
+                                >${observationType.name}</option>
                             </#if>
                         </#list>
                     </select>
@@ -89,11 +89,11 @@
                     <select name="observationScope" class="browser-default custom-select">
                         <#list listObservationScope as observationScope>
                         <#if observationScope == informationProduct.observationScope>
-                        <option selected value="${observationScope.idObservationScope}"
-                        >${observationScope.nameObservationScope}</option>
+                        <option selected value="${observationScope.id}"
+                        >${observationScope.name}</option>
                         <#else>
-                        <option value="${observationScope.idObservationScope}"
-                        >${observationScope.nameObservationScope}</option>
+                        <option value="${observationScope.id}"
+                        >${observationScope.name}</option>
                         </#if>
                         </#list>
                     </select>
@@ -105,11 +105,11 @@
                     <select name="geographicalObject" class="browser-default custom-select">
                         <#list listGeographicalObject as geographicalObject>
                         <#if geographicalObject == informationProduct.geographicalObject>
-                        <option selected value="${geographicalObject.idGeographicalObject}"
-                        >${geographicalObject.nameGeographicalObject}</option>
+                        <option selected value="${geographicalObject.id}"
+                        >${geographicalObject.name}</option>
                         <#else>
-                        <option value="${geographicalObject.idGeographicalObject}"
-                        >${geographicalObject.nameGeographicalObject}</option>
+                        <option value="${geographicalObject.id}"
+                        >${geographicalObject.name}</option>
                         </#if>
                         </#list>
                     </select>
@@ -121,11 +121,11 @@
                     <select name="organization" class="browser-default custom-select">
                         <#list listOrganization as organization>
                         <#if organization == informationProduct.organization>
-                        <option selected value="${organization.idOrganization}"
-                        >${organization.fullnameOrganization}</option>
+                        <option selected value="${organization.id}"
+                        >${organization.fullName}</option>
                         <#else>
-                        <option value="${organization.idOrganization}"
-                        >${organization.fullnameOrganization}</option>
+                        <option value="${organization.id}"
+                        >${organization.fullName}</option>
                         </#if>
                         </#list>
                     </select>
@@ -199,15 +199,15 @@
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">
                     <#if uploadedFiles?has_content>
-                        <button type="submit" class="btn btn-danger btn-block mb-2" formaction="/information_product/delete_files/${informationProduct.idInformationProduct}">
+                        <button type="submit" class="btn btn-danger btn-block mb-2" formaction="/information_product/delete_files/${informationProduct.id}">
                             Удалить все прикреплённые файлы
                         </button>
                     <#else>
                         <p align="center">Файлы отсутствуют</p>
                     </#if>
                     <#list uploadedFiles as uploadedFile>
-                        <a href="/file/${informationProduct.organization.idOrganization}/${informationProduct.inventoryNumber}/${uploadedFile.nameUploadedFile}"
-                           class="btn btn-block mb-2" target="_blank">${uploadedFile.nameUploadedFile}</a>
+                        <a href="/file/${informationProduct.organization.id}/${informationProduct.inventoryNumber}/${uploadedFile.name}"
+                           class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
                     </#list>
                 </div>
             </div>

@@ -9,7 +9,7 @@
         <tbody>
         <#list listObservationScope as observationScope>
             <tr>
-                <td>${observationScope.nameObservationScope}</td>
+                <td>${observationScope.name}</td>
             </tr>
         </#list>
         </tbody>
