@@ -13,7 +13,7 @@ public class ObservationMethod {
     @Column(nullable = false, name="name", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "observation_method", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "observationMethod", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationProduct> informationProducts;
 
     public ObservationMethod() {

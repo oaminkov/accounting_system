@@ -45,9 +45,6 @@ public class InformationProduct {
     @Column(name="date_of_edit")
     private String dateOfEdit;
 
-    @OneToMany(mappedBy = "informationProduct", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UploadedFile> uploadedFiles;
-
     @ManyToOne(fetch = FetchType.LAZY) //язык
     @JoinColumn (name = "id_language", nullable = false)
     private Language language;
@@ -64,10 +61,6 @@ public class InformationProduct {
     @JoinColumn (name = "id_observation_method", nullable = false)
     private ObservationMethod observationMethod;
 
-    @ManyToOne(fetch = FetchType.LAZY) //организация
-    @JoinColumn (name = "id_organization", nullable = false)
-    private Organization organization;
-
     @ManyToOne(fetch = FetchType.LAZY) //оператор
     @JoinColumn (name = "id_operator", nullable = false)
     private User operator;
@@ -76,7 +69,13 @@ public class InformationProduct {
     @JoinColumn (name = "id_editor")
     private User editor;
 
-    @ManyToMany(cascade = CascadeType.ALL) //дисциплина наблюдений
+    @OneToMany(mappedBy = "informationProduct", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UploadedFile> uploadedFiles;
+
+    @OneToMany(mappedBy = "informationProduct", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InfprodOrganization> infprodOrganizations;
+
+    @ManyToMany(cascade = CascadeType.ALL) //дисциплины наблюдений
     @JoinTable(
             name = "infprod_observdiscipl",
             joinColumns = { @JoinColumn(name = "id_information_product") },
@@ -84,7 +83,7 @@ public class InformationProduct {
     )
     private Set<ObservationDiscipline> observationDisciplines = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL) //вид наблюдений
+    @ManyToMany(cascade = CascadeType.ALL) //виды наблюдений
     @JoinTable(
             name = "infprod_observtype",
             joinColumns = { @JoinColumn(name = "id_information_product") },
@@ -100,7 +99,7 @@ public class InformationProduct {
     )
     private Set<ObservationParameter> observationParameters = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL) //сфера наблюдений
+    @ManyToMany(cascade = CascadeType.ALL) //сферы наблюдений
     @JoinTable(
             name = "infprod_observscope",
             joinColumns = { @JoinColumn(name = "id_information_product") },
@@ -123,10 +122,10 @@ public class InformationProduct {
             String dateObservationStart, String dateObservationEnd, String volume, String receivedDate,
             String briefContent, boolean duplicate, String dateOfEntering, String dateOfEdit,
             List<UploadedFile> uploadedFiles, Language language, ProjectOrProgram projectOrProgram,
-            Country country, ObservationMethod observationMethod, Organization organization,
-            User operator, User editor, Set<ObservationDiscipline> observationDisciplines,
-            Set<ObservationType> observationTypes, Set<ObservationParameter> observationParameters,
-            Set<ObservationScope> observationScopes, Set<GeographicalObject> geographicalObjects) {
+            Country country, ObservationMethod observationMethod, User operator, User editor,
+            Set<ObservationDiscipline> observationDisciplines, Set<ObservationType> observationTypes,
+            Set<ObservationParameter> observationParameters, Set<ObservationScope> observationScopes,
+            Set<GeographicalObject> geographicalObjects) {
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
         this.abbreviationCdrom = abbreviationCdrom;
@@ -143,7 +142,6 @@ public class InformationProduct {
         this.projectOrProgram = projectOrProgram;
         this.country = country;
         this.observationMethod = observationMethod;
-        this.organization = organization;
         this.operator = operator;
         this.editor = editor;
         this.observationDisciplines = observationDisciplines;
@@ -276,13 +274,6 @@ public class InformationProduct {
         this.observationMethod = observationMethod;
     }
 
-    public Organization getOrganization() {
-        return organization;
-    }
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
     public User getOperator() {
         return operator;
     }
@@ -330,5 +321,12 @@ public class InformationProduct {
     }
     public void setGeographicalObjects(Set<GeographicalObject> geographicalObjects) {
         this.geographicalObjects = geographicalObjects;
+    }
+
+    public List<InfprodOrganization> getInfprodOrganizations() {
+        return infprodOrganizations;
+    }
+    public void setInfprodOrganizations(List<InfprodOrganization> infprodOrganizations) {
+        this.infprodOrganizations = infprodOrganizations;
     }
 }
