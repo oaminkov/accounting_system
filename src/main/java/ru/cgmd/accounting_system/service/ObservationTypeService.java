@@ -21,9 +21,9 @@ public class ObservationTypeService {
         return observationTypeRepository.findAll();
     }
 
-    public List<ObservationType> findByInformationProductsExists() {
+    /*public List<ObservationType> findByInformationProductsExists() {
         return observationTypeRepository.findByInformationProductsNotEmpty();
-    }
+    }*/
 
     public void save(ObservationType observationType) {
         observationTypeRepository.save(observationType);

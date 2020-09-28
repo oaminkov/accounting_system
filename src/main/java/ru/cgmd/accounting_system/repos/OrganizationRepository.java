@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
-    Organization findByFullnameOrganizationAndCountry(String name, Country country);
-    List<Organization> findByInformationProductsNotEmpty();
+    //Organization findByFullnameOrganizationAndCountry(String name, Country country);
+    //List<Organization> findByInformationProductsNotEmpty();
 }

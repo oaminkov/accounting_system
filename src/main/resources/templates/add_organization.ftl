@@ -1,5 +1,5 @@
 <#import "parts/add_obj.ftl" as a>
-<@a.add "/add_organization" "/view_organization" "Добавление организации">
+<@a.add "/organizations/add" "/organizations" "Добавление организации">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Название организации:</label>
         <div class="col-sm-9">

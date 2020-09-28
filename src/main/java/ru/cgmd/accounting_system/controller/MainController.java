@@ -67,7 +67,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String redirMainPage(@AuthenticationPrincipal User user, Model model){
+    public String redirectMainPage(@AuthenticationPrincipal User user, Model model){
         isUserAuthorized(user, model);
         return "redirect:/main";
     }
@@ -80,7 +80,7 @@ public class MainController {
     }
 
     //SEARCH START
-    @GetMapping("/search")
+    /*@GetMapping("/search")
     public String viewSearchPage(@AuthenticationPrincipal User user, Model model){
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.findByInformationProductsExists();
         List<ObservationType> observationTypes = observationTypeService.findByInformationProductsExists();
@@ -90,9 +90,9 @@ public class MainController {
         model.addAttribute("observationDisciplines", observationDisciplines);
 
         return "search";
-    }
+    }*/
 
-    @PostMapping("/search")
+    /*@PostMapping("/search")
     public String searchResults(
             @RequestParam("choiceObservationDiscipline") ObservationDiscipline observationDiscipline,
             @RequestParam(value = "choiceObservationType", required = false, defaultValue = "") ObservationType observationType,
@@ -127,8 +127,8 @@ public class MainController {
         List<UploadedFile> uploadedFiles = uploadedFileRepository.findAll();
         model.addAttribute("uploadedFiles", uploadedFiles);
 
-        return "view_informationproduct";
-    }
+        return "view_information_product";
+    }*/
     //SEARCH END
 
     @GetMapping("/login")
@@ -182,7 +182,7 @@ public class MainController {
         return json;
     }
 
-    @GetMapping("/getCountryList1")
+    /*@GetMapping("/getCountryList1")
     public @ResponseBody
     String ajaxResp2(@RequestParam("idObservationType") ObservationType observationType) {
         List<Container> containers = new ArrayList<>();
@@ -204,9 +204,9 @@ public class MainController {
 
         String json = new Gson().toJson(containers);
         return json;
-    }
+    }*/
 
-    @GetMapping("/getOrganizationList1")
+    /*@GetMapping("/getOrganizationList1")
     public @ResponseBody
     String ajaxResp3(@RequestParam("idCountry") Country country, @RequestParam("idObservationType") ObservationType observationType) {
         List<Container> containers = new ArrayList<>();
@@ -228,5 +228,5 @@ public class MainController {
 
         String json = new Gson().toJson(containers);
         return json;
-    }
+    }*/
 }

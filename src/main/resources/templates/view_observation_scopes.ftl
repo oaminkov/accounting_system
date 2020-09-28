@@ -1,5 +1,5 @@
 <#import "parts/viewtable.ftl" as v>
-<@v.view "/add_observationscope" "Сферы наблюдений" "Добавить сферу наблюдений">
+<@v.view "/observation_scopes/add" "Сферы наблюдений" "Добавить сферу наблюдений">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
             <tr>

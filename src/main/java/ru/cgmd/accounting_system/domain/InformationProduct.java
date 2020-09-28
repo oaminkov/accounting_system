@@ -27,14 +27,14 @@ public class InformationProduct {
     @Column(nullable = false, name="date_observation_end")
     private String dateObservationEnd;
 
+    @Column(length = 2048, nullable = false, name="brief_content")
+    private String briefContent;
+
     @Column(nullable = false, name="volume")
     private String volume;
 
     @Column(nullable = false, name="received_date")
     private String receivedDate;
-
-    @Column(length = 2048, nullable = false, name="brief_content")
-    private String briefContent;
 
     @Column(nullable = false, name="duplicate")
     private boolean duplicate;
@@ -49,9 +49,9 @@ public class InformationProduct {
     @JoinColumn (name = "id_language", nullable = false)
     private Language language;
 
-    @ManyToOne(fetch = FetchType.LAZY) //проект или программа
-    @JoinColumn (name = "id_project_or_program", nullable = false)
-    private ProjectOrProgram projectOrProgram;
+    @ManyToOne(fetch = FetchType.LAZY) //тип проекта (проект или программа)
+    @JoinColumn (name = "id_project_type", nullable = false)
+    private ProjectType projectType;
 
     @ManyToOne(fetch = FetchType.LAZY) //страна
     @JoinColumn (name = "id_country", nullable = false)
@@ -118,38 +118,57 @@ public class InformationProduct {
 
     public InformationProduct() { }
 
-    public InformationProduct(String inventoryNumber, String fullnameCdrom, String abbreviationCdrom,
-            String dateObservationStart, String dateObservationEnd, String volume, String receivedDate,
-            String briefContent, boolean duplicate, String dateOfEntering, String dateOfEdit,
-            List<UploadedFile> uploadedFiles, Language language, ProjectOrProgram projectOrProgram,
-            Country country, ObservationMethod observationMethod, User operator, User editor,
-            Set<ObservationDiscipline> observationDisciplines, Set<ObservationType> observationTypes,
-            Set<ObservationParameter> observationParameters, Set<ObservationScope> observationScopes,
-            Set<GeographicalObject> geographicalObjects) {
+    public InformationProduct(
+            User operator,
+            Language language,
+            ProjectType projectType,
+            Country country,
+            ObservationMethod observationMethod,
+            String inventoryNumber,
+            String fullnameCdrom,
+            String abbreviationCdrom,
+            String dateObservationStart,
+            String dateObservationEnd,
+            String briefContent,
+            String volume,
+            String receivedDate,
+            boolean duplicate,
+            String dateOfEntering
+    ) {
+        this.operator = operator;
+        this.language = language;
+        this.projectType = projectType;
+        this.country = country;
+        this.observationMethod = observationMethod;
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
         this.abbreviationCdrom = abbreviationCdrom;
         this.dateObservationStart = dateObservationStart;
         this.dateObservationEnd = dateObservationEnd;
+        this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
-        this.briefContent = briefContent;
         this.duplicate = duplicate;
         this.dateOfEntering = dateOfEntering;
-        this.dateOfEdit = dateOfEdit;
+    }
+
+    ////////////////////////////////////////////////////
+    public InformationProduct(List<UploadedFile> uploadedFiles,
+                              List<InfprodOrganization> infprodOrganizations,
+                              Set<ObservationDiscipline> observationDisciplines,
+                              Set<ObservationType> observationTypes,
+                              Set<ObservationParameter> observationParameters,
+                              Set<ObservationScope> observationScopes,
+                              Set<GeographicalObject> geographicalObjects) {
         this.uploadedFiles = uploadedFiles;
-        this.language = language;
-        this.projectOrProgram = projectOrProgram;
-        this.country = country;
-        this.observationMethod = observationMethod;
-        this.operator = operator;
-        this.editor = editor;
+        this.infprodOrganizations = infprodOrganizations;
         this.observationDisciplines = observationDisciplines;
         this.observationTypes = observationTypes;
         this.observationParameters = observationParameters;
         this.observationScopes = observationScopes;
         this.geographicalObjects = geographicalObjects;
     }
+    //////////////////////////////////////////////////////
 
     public void addUploadedFiles(List<UploadedFile> uploadedFiles) {
         this.uploadedFiles.addAll(uploadedFiles);
@@ -253,11 +272,11 @@ public class InformationProduct {
         this.language = language;
     }
 
-    public ProjectOrProgram getProjectOrProgram() {
-        return projectOrProgram;
+    public ProjectType getProjectType() {
+        return projectType;
     }
-    public void setProjectOrProgram(ProjectOrProgram projectOrProgram) {
-        this.projectOrProgram = projectOrProgram;
+    public void setProjectType(ProjectType projectType) {
+        this.projectType = projectType;
     }
 
     public Country getCountry() {

@@ -10,7 +10,7 @@ public class Country {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, name="name", unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)

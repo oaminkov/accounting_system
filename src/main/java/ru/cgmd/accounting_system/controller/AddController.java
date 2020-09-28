@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AddController {
     @Autowired
-    private CountryService countryService;
-    @Autowired
-    private GeographicalObjectService geographicalObjectService;
-    @Autowired
     private LanguageService languageService;
     @Autowired
-    private ProjectOrProgramService projectOrProgramService;
+    private ProjectTypeService projectTypeService;
+    @Autowired
+    private CountryService countryService;
+    @Autowired
+    private ObservationMethodService observationMethodService;
+    @Autowired
+    private GeographicalObjectService geographicalObjectService;
     @Autowired
     private ObservationDisciplineService observationDisciplineService;
     @Autowired
@@ -35,58 +37,9 @@ public class AddController {
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
-    //COUNTRY
-    @PostMapping("/add_country")
-    public String saveCountry(@RequestParam("nameCountry") String nameCountry, Model model) {
-        nameCountry = nameCountry.trim();
-
-        if (!nameCountry.isEmpty()) {
-            if (!nameCountry.matches("^[A-Za-zА-Яа-я ]+$")) {
-                model.addAttribute("messageError", "Название страны может содержать только пробелы, русские и английские буквы");
-                return "add_country";
-            }
-
-            nameCountry = firstUpperCase(nameCountry);
-
-            if (!countryService.isExists(nameCountry)) {
-                Country country = new Country(nameCountry);
-                countryService.save(country);
-                return "redirect:/view_country";
-            }
-            else {
-                model.addAttribute("messageError", "Такая страна уже есть в базе");
-            }
-        }
-        else {
-            model.addAttribute("messageError", "Вы ввели пустую строку");
-        }
-        return "add_country";
-    }
-    //GEOGRAPHICAL OBJECT
-    @PostMapping("/add_geographicalobject")
-    public String saveGeographicalObject(@RequestParam("nameGeographicalObject") String name, Model model) {
-        name = name.trim();
-
-        if(!name.isEmpty()) {
-            name = firstUpperCase(name);
-
-            if(!geographicalObjectService.isExists(name)) {
-                GeographicalObject geographicalObject = new GeographicalObject(name);
-                geographicalObjectService.save(geographicalObject);
-                return "redirect:/view_geographicalobject";
-            }
-            else {
-                model.addAttribute("messageError", "Такой географический объект уже есть в базе");
-            }
-        }
-        else {
-            model.addAttribute("messageError", "Вы ввели пустую строку");
-        }
-        return "add_geographicalobject";
-    }
     //LANGUAGE
-    @PostMapping("/add_language")
-    public String saveLanguage(@RequestParam("nameLanguage") String name, Model model) {
+    @PostMapping("languages/add")
+    public String saveLanguage(@RequestParam String name, Model model) {
         name = name.trim();
 
         if(!name.isEmpty()) {
@@ -95,7 +48,7 @@ public class AddController {
             if(!languageService.isExists(name)) {
                 Language language = new Language(name);
                 languageService.save(language);
-                return "redirect:/view_language";
+                return "redirect:/languages";
             }
             else {
                 model.addAttribute("messageError", "Такой язык уже есть в базе");
@@ -106,9 +59,94 @@ public class AddController {
         }
         return "add_language";
     }
+
+    //PROJECT TYPE
+    @PostMapping("project_types/add")
+    public String saveProjectOrProgram(
+            @RequestParam("choiceProjectOrProgram") String type,
+            @RequestParam("fullnameProjectOrProgram") String fullnameProjectOrProgram,
+            @RequestParam("abbreviationProjectOrProgram") String abbreviationProjectOrProgram) {
+        ProjectType projectType = new ProjectType(type, fullnameProjectOrProgram, abbreviationProjectOrProgram);
+        projectTypeService.save(projectType);
+        return "redirect:/project_types";
+    }
+
+    //COUNTRY
+    @PostMapping("countries/add")
+    public String saveCountry(@RequestParam("nameCountry") String name, Model model) {
+        name = name.trim();
+
+        if (!name.isEmpty()) {
+            if (!name.matches("^[A-Za-zА-Яа-я ]+$")) {
+                model.addAttribute("messageError", "Название страны может содержать только пробелы, русские и английские буквы");
+                return "add_country";
+            }
+
+            name = firstUpperCase(name);
+
+            if (!countryService.isExists(name)) {
+                Country country = new Country(name);
+                countryService.save(country);
+                return "redirect:/countries";
+            }
+            else {
+                model.addAttribute("messageError", "Такая страна уже есть в базе");
+            }
+        }
+        else {
+            model.addAttribute("messageError", "Вы ввели пустую строку");
+        }
+        return "add_country";
+    }
+
+    //OBSERVATION METHOD
+    @PostMapping("observation_methods/add")
+    public String saveObservationMethod(@RequestParam String name, Model model) {
+        name = name.trim();
+
+        if(!name.isEmpty()) {
+            name = firstUpperCase(name);
+
+            if(!observationMethodService.isExists(name)) {
+                ObservationMethod observationMethod = new ObservationMethod(name);
+                observationMethodService.save(observationMethod);
+                return "redirect:/observation_methods";
+            }
+            else {
+                model.addAttribute("messageError", "Такой метод наблюдений уже есть в базе");
+            }
+        }
+        else {
+            model.addAttribute("messageError", "Вы ввели пустую строку");
+        }
+        return "add_observation_method";
+    }
+
+    //GEOGRAPHICAL OBJECT
+    @PostMapping("geographical_objects/add")
+    public String saveGeographicalObject(@RequestParam String name, Model model) {
+        name = name.trim();
+
+        if(!name.isEmpty()) {
+            name = firstUpperCase(name);
+
+            if(!geographicalObjectService.isExists(name)) {
+                GeographicalObject geographicalObject = new GeographicalObject(name);
+                geographicalObjectService.save(geographicalObject);
+                return "redirect:/geographical_objects";
+            }
+            else {
+                model.addAttribute("messageError", "Такой географический объект уже есть в базе");
+            }
+        }
+        else {
+            model.addAttribute("messageError", "Вы ввели пустую строку");
+        }
+        return "add_geographical_object";
+    }
     //OBSERVATION DISCIPLINE
-    @PostMapping(value = "add_observationdiscipline")
-    public String saveObservationDiscipline(@RequestParam("nameObservationDiscipline") String name, Model model) {
+    @PostMapping("observation_disciplines/add")
+    public String saveObservationDiscipline(@RequestParam String name, Model model) {
         name = name.trim();
 
         if(!name.isEmpty()) {
@@ -117,7 +155,7 @@ public class AddController {
             if(!observationDisciplineService.isExists(name)) {
                 ObservationDiscipline observationDiscipline = new ObservationDiscipline(name);
                 observationDisciplineService.save(observationDiscipline);
-                return "redirect:/view_observationdiscipline";
+                return "redirect:/observation_disciplines";
             }
             else {
                 model.addAttribute("messageError", "Такая дисциплина наблюдений уже есть в базе");
@@ -126,19 +164,19 @@ public class AddController {
         else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
-        return "add_observationdiscipline";
+        return "add_observation_discipline";
     }
     //OBSERVATION TYPE
-    @PostMapping(value = "add_observationtype")
+    @PostMapping("observation_types/add")
     public String saveObservationType(@RequestParam("nameObservationType") String nameObservationType,
                                       @RequestParam("observationDiscipline") ObservationDiscipline observationDiscipline) {
         ObservationType observationType = new ObservationType(nameObservationType, observationDiscipline);
         observationTypeService.save(observationType);
-        return "redirect:/view_observationtype";
+        return "redirect:/observation_types";
     }
     //OBSERVATION SCOPE
-    @PostMapping(value = "add_observationscope")
-    public String saveObservationScope(@RequestParam("nameObservationScope") String name, Model model) {
+    @PostMapping("observation_scopes/add")
+    public String saveObservationScope(@RequestParam String name, Model model) {
         name = name.trim();
 
         if(!name.isEmpty()) {
@@ -147,7 +185,7 @@ public class AddController {
             if(!observationScopeService.isExists(name)) {
                 ObservationScope observationScope = new ObservationScope(name);
                 observationScopeService.save(observationScope);
-                return "redirect:/view_observationscope";
+                return "redirect:/observation_scopes";
             }
             else {
                 model.addAttribute("messageError", "Такая сфера наблюдений уже есть в базе");
@@ -156,22 +194,12 @@ public class AddController {
         else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
-        return "add_observationscope";
+        return "add_observation_scope";
     }
     //ORGANIZATION
-    @PostMapping("/add_organization")
+    @PostMapping("organizations/add")
     public String saveOrganization(@ModelAttribute("organization") Organization organization) {
         organizationService.save(organization);
-        return "redirect:/view_organization";
-    }
-    //PROJECT OR PROGRAM
-    @PostMapping(value = "/add_projectorprogram")
-    public String saveProjectOrProgram(
-            @RequestParam("choiceProjectOrProgram") String choiceProjectOrProgram,
-            @RequestParam("fullnameProjectOrProgram") String fullnameProjectOrProgram,
-            @RequestParam("abbreviationProjectOrProgram") String abbreviationProjectOrProgram) {
-        ProjectOrProgram projectOrProgram = new ProjectOrProgram(choiceProjectOrProgram, fullnameProjectOrProgram, abbreviationProjectOrProgram);
-        projectOrProgramService.save(projectOrProgram);
-        return "redirect:/view_projectorprogram";
+        return "redirect:/organizations";
     }
 }

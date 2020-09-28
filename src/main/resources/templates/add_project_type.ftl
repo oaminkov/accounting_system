@@ -1,5 +1,5 @@
 <#import "parts/add_obj.ftl" as a>
-<@a.add "/add_projectorprogram" "/view_projectorprogram" "Добавление проекта/программы">
+<@a.add "/project_types/add" "/project_types" "Добавление проекта/программы">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Проект/программа:</label>
         <div class="col-sm-9">

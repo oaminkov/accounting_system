@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface InformationProductRepository extends JpaRepository<InformationProduct, Long> {
     List<InformationProduct> findByOrderByDateObservationStartAsc();
-    List<InformationProduct> findByOrderByDateObservationEndDesc();
+    /*List<InformationProduct> findByOrderByDateObservationEndDesc();
     List<InformationProduct> findByObservationType(ObservationType observationType);
     List<InformationProduct> findByCountryAndObservationType(Country country, ObservationType observationType);
     List<InformationProduct> findByObservationDiscipline(ObservationDiscipline observationDiscipline);
@@ -16,5 +16,5 @@ public interface InformationProductRepository extends JpaRepository<InformationP
     List<InformationProduct> findByObservationDisciplineAndObservationTypeAndCountryAndOrganization(ObservationDiscipline observationDiscipline,
                                                                                                     ObservationType observationType,
                                                                                                     Country country,
-                                                                                                    Organization organization);
+                                                                                                    Organization organization);*/
 }

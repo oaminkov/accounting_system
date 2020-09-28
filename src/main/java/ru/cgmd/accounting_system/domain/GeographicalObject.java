@@ -11,7 +11,7 @@ public class GeographicalObject {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, name="name", unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL)

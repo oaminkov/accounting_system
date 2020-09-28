@@ -1,5 +1,5 @@
 <#import "parts/add_obj.ftl" as a>
-<@a.add "/add_geographicalobject" "/view_geographicalobject" "Добавление территории наблюдений">
+<@a.add "/geographical_objects/add" "/geographical_objects" "Добавление территории наблюдений">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
         <div class="col-sm-9">

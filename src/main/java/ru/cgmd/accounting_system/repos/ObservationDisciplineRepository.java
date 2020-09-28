@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ObservationDisciplineRepository  extends JpaRepository<ObservationDiscipline, Long> {
-    ObservationDiscipline findByNameObservationDiscipline(String name);
-    List<ObservationDiscipline> findByInformationProductsNotEmpty();
+    ObservationDiscipline findByName(String name);
+    //List<ObservationDiscipline> findByInformationProductsNotEmpty();
 }

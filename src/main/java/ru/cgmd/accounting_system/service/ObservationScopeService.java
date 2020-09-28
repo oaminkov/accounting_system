@@ -15,7 +15,7 @@ public class ObservationScopeService {
     private ObservationScopeRepository observationScopeRepository;
 
     public boolean isExists(String name) {
-        if (observationScopeRepository.findByNameObservationScope(name) == null) {
+        if (observationScopeRepository.findByName(name) == null) {
             return false;
         }
         return true;
@@ -25,9 +25,9 @@ public class ObservationScopeService {
         return observationScopeRepository.findAll();
     }
 
-    public List<ObservationScope> findByInformationProductsExists() {
+    /*public List<ObservationScope> findByInformationProductsExists() {
         return observationScopeRepository.findByInformationProductsNotEmpty();
-    }
+    }*/
 
     public void save(ObservationScope observationScope) {
         observationScopeRepository.save(observationScope);

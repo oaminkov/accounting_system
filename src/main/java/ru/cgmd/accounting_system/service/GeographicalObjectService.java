@@ -15,7 +15,7 @@ public class GeographicalObjectService {
     private GeographicalObjectRepository geographicalObjectRepository;
 
     public boolean isExists(String name) {
-        if (geographicalObjectRepository.findByNameGeographicalObject(name) == null) {
+        if (geographicalObjectRepository.findByName(name) == null) {
             return false;
         }
         return true;
@@ -25,19 +25,19 @@ public class GeographicalObjectService {
         return geographicalObjectRepository.findAll();
     }
 
-    public List<GeographicalObject> findByInformationProductsExists() {
+    /*public List<GeographicalObject> findByInformationProductsExists() {
         return geographicalObjectRepository.findByInformationProductsNotEmpty();
-    }
+    }*/
 
     public void save(GeographicalObject geographicalObject) {
         geographicalObjectRepository.save(geographicalObject);
     }
 
-    public GeographicalObject get(long idGeographicalObject) {
-        return geographicalObjectRepository.findById(idGeographicalObject).get();
+    public GeographicalObject get(long id) {
+        return geographicalObjectRepository.findById(id).get();
     }
 
-    public void delete(long idGeographicalObject) {
-        geographicalObjectRepository.deleteById(idGeographicalObject);
+    public void delete(long id) {
+        geographicalObjectRepository.deleteById(id);
     }
 }

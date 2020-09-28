@@ -15,7 +15,7 @@ public class LanguageService {
     private LanguageRepository languageRepository;
 
     public boolean isExists(String name) {
-        if (languageRepository.findByNameLanguage(name) == null) {
+        if (languageRepository.findByName(name) == null) {
             return false;
         }
         return true;
@@ -33,11 +33,11 @@ public class LanguageService {
         languageRepository.save(language);
     }
 
-    public Language get(long idLanguage) {
-        return languageRepository.findById(idLanguage).get();
+    public Language get(long id) {
+        return languageRepository.findById(id).get();
     }
 
-    public void delete(long idLanguage) {
-        languageRepository.deleteById(idLanguage);
+    public void delete(long id) {
+        languageRepository.deleteById(id);
     }
 }

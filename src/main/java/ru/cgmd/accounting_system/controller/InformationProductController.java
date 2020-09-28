@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class InformationProductController {
     @Autowired
     private LanguageService languageService;
     @Autowired
-    private ProjectOrProgramService projectOrProgramService;
+    private ProjectTypeService projectTypeService;
     @Autowired
     private ObservationDisciplineService observationDisciplineService;
     @Autowired
@@ -51,19 +50,63 @@ public class InformationProductController {
     @Autowired
     private ObservationTypeRepository observationTypeRepository;
 
-    //View all information products
-    @GetMapping("/view_informationproduct")
+    @GetMapping("information_products")
     public String viewAllProducts(Model model) {
         List<InformationProduct> listInformationProducts = informationProductService.listAll();
-        model.addAttribute("listInformationProducts", listInformationProducts);
-
         List<UploadedFile> uploadedFiles = uploadedFileRepository.findAll();
-        model.addAttribute("uploadedFiles", uploadedFiles);
 
-        return "view_informationproduct";
+        model.addAttribute("listInformationProducts", listInformationProducts);
+        model.addAttribute("uploadedFiles", uploadedFiles);
+        return "view_information_products";
     }
 
-    @GetMapping("/add_informationproduct")
+    @GetMapping("information_products/view/{id}")
+    public String showFullInformationProduct(
+            @PathVariable("id") InformationProduct informationProduct,
+            Model model
+    ){
+        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
+
+        model.addAttribute("informationProduct", informationProduct);
+        model.addAttribute("uploadedFiles", uploadedFiles);
+        return "view_information_product_full";
+    }
+
+    @GetMapping(value="information_products/download/{id}", produces="application/zip")
+    public void zipFiles(HttpServletResponse response,
+                         @PathVariable("id") InformationProduct informationProduct,
+                         @ModelAttribute("uploadedFile") UploadedFile uploadedFile
+    ) throws IOException {
+        //Устанавливаем заголовки
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.addHeader("Content-Disposition", "attachment; filename=\"uploadedFiles.zip\"");
+
+        ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
+        Set<File> downloadFiles = new HashSet<>();
+        Set<UploadedFile> tempFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
+
+        for (UploadedFile file : tempFiles) {
+            File downloadFile = new File(file.getPath());
+            downloadFiles.add(downloadFile);
+
+            zipOutputStream.putNextEntry(new ZipEntry(downloadFile.getName()));
+            FileInputStream fileInputStream = new FileInputStream(downloadFile);
+
+            IOUtils.copy(fileInputStream, zipOutputStream);
+
+            fileInputStream.close();
+            zipOutputStream.closeEntry();
+        }
+        zipOutputStream.close();
+    }
+
+    @GetMapping("information_products/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Long idInformationProduct) {
+        informationProductService.delete(idInformationProduct);
+        return "redirect:/information_products";
+    }
+
+    @GetMapping("information_products/add")
     public String showNewInformationProductPage(Model model) {
         List<Country> listCountry = countryService.listAll(); //select стран
         model.addAttribute("listCountry", listCountry);
@@ -74,8 +117,8 @@ public class InformationProductController {
         List<Language> listLanguage = languageService.listAll(); //select языка
         model.addAttribute("listLanguage", listLanguage);
 
-        List<ProjectOrProgram> listProjectOrProgram = projectOrProgramService.listAll(); //проекты/программы
-        model.addAttribute("listProjectOrProgram", listProjectOrProgram);
+        List<ProjectType> listProjectType = projectTypeService.listAll(); //проекты/программы
+        model.addAttribute("listProjectOrProgram", listProjectType);
 
         List<ObservationDiscipline> listObservationDiscipline = observationDisciplineService.listAll();
         model.addAttribute("listObservationDiscipline", listObservationDiscipline);
@@ -86,78 +129,10 @@ public class InformationProductController {
         List<Organization> listOrganization = organizationService.listAll();
         model.addAttribute("listOrganization", listOrganization);
 
-        return "add_informationproduct";
+        return "add_information_product";
     }
 
-    // DELETE PRODUCT
-    @GetMapping("information_product/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Long idInformationProduct) {
-        informationProductService.delete(idInformationProduct);
-        return "redirect:/view_informationproduct";
-    }
-
-    // DELETE FILES
-    @Transactional
-    @PostMapping("information_product/delete_files/{id}")
-    public String deleteFiles(@PathVariable("id") InformationProduct informationProduct, Model model) {
-        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
-
-        for (UploadedFile uploadedFile : uploadedFiles) {
-            File file = new File(uploadedFile.getPath());
-
-            if (file.exists()) {
-                file.delete();
-            }
-        }
-
-        uploadedFileRepository.deleteByInformationProduct(informationProduct);
-        uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
-
-        List<Country> listCountry = countryService.listAll(); //select стран
-        model.addAttribute("listCountry", listCountry);
-
-        List<GeographicalObject> listGeographicalObject = geographicalObjectService.listAll(); //select географического объекта
-        model.addAttribute("listGeographicalObject", listGeographicalObject);
-
-        List<Language> listLanguage = languageService.listAll(); //select языка
-        model.addAttribute("listLanguage", listLanguage);
-
-        List<ProjectOrProgram> listProjectOrProgram = projectOrProgramService.listAll(); //проекты/программы
-        model.addAttribute("listProjectOrProgram", listProjectOrProgram);
-
-        List<ObservationDiscipline> listObservationDiscipline = observationDisciplineService.listAll();
-        model.addAttribute("listObservationDiscipline", listObservationDiscipline);
-
-        List<ObservationType> listObservationType = observationTypeRepository.findByObservationDiscipline(informationProduct.getObservationDiscipline());
-        model.addAttribute("listObservationType", listObservationType);
-
-        List<ObservationScope> listObservationScope = observationScopeService.listAll();
-        model.addAttribute("listObservationScope", listObservationScope);
-
-        List<Organization> listOrganization = organizationService.listAll();
-        model.addAttribute("listOrganization", listOrganization);
-
-        model.addAttribute("informationProduct",informationProduct);
-        model.addAttribute("uploadedFiles", uploadedFiles);
-
-        return "/update_informationproduct";
-    }
-
-    // VIEW PRODUCT
-    @GetMapping("/information_product/view/{id}")
-    public String showFullInformationProduct(
-            @PathVariable("id") InformationProduct informationProduct,
-            Model model
-    ){
-        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
-
-        model.addAttribute("informationProduct", informationProduct);
-        model.addAttribute("uploadedFiles", uploadedFiles);
-        return "/full_view_informationproduct";
-    }
-
-    // EDIT PRODUCT
-    @GetMapping("/information_product/edit/{id}")
+    /*@GetMapping("/information_product/edit/{id}")
     public String showUpdateInformationProduct(@PathVariable("id") InformationProduct informationProduct,
                                                Model model){
         Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
@@ -189,79 +164,44 @@ public class InformationProductController {
         model.addAttribute("informationProduct",informationProduct);
         model.addAttribute("uploadedFiles", uploadedFiles);
 
-        return "/update_informationproduct";
-    }
+        return "update_informationproduct";
+    }*/
 
-    @GetMapping(value="/information_product/download/{id}", produces="application/zip")
-    public void zipFiles(HttpServletResponse response,
-                         @PathVariable("id") InformationProduct informationProduct,
-                         @ModelAttribute("uploadedFile") UploadedFile uploadedFile
-    ) throws IOException {
-        //setting headers
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.addHeader("Content-Disposition", "attachment; filename=\"uploadedFiles.zip\"");
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
-        Set<File> downloadFiles = new HashSet<>();
-        Set<UploadedFile> tempFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
-
-        for (UploadedFile file : tempFiles) {
-            File downloadFile = new File(file.getPath());
-            downloadFiles.add(downloadFile);
-
-            zipOutputStream.putNextEntry(new ZipEntry(downloadFile.getName()));
-            FileInputStream fileInputStream = new FileInputStream(downloadFile);
-
-            IOUtils.copy(fileInputStream, zipOutputStream);
-
-            fileInputStream.close();
-            zipOutputStream.closeEntry();
-        }
-        zipOutputStream.close();
-    }
-
-    @PostMapping("/add_informationproduct")
+    @PostMapping("information_products/add")
     public String saveInformationProduct(
-            @AuthenticationPrincipal User author,
-            @RequestParam ProjectOrProgram projectOrProgram,
-            @RequestParam Country country,
+            @AuthenticationPrincipal User operator,
             @RequestParam Language language,
-            @RequestParam ObservationDiscipline observationDiscipline,
-            @RequestParam ObservationType observationType,
-            @RequestParam ObservationScope observationScope,
-            @RequestParam GeographicalObject geographicalObject,
-            @RequestParam Organization organization,
+            @RequestParam ProjectType projectType,
+            @RequestParam Country country,
+            @RequestParam ObservationMethod observationMethod,
             @RequestParam String inventoryNumber,
             @RequestParam String fullnameCdrom,
             @RequestParam String abbreviationCdrom,
             @RequestParam String dateObservationStart,
             @RequestParam String dateObservationEnd,
+            @RequestParam String briefContent,
             @RequestParam String volume,
             @RequestParam String receivedDate,
-            @RequestParam String briefContent,
-            @RequestParam(value = "duplicate", required = false, defaultValue = "Нет") String duplicate,
+            @RequestParam(defaultValue = "0") boolean duplicate,
             @RequestParam(value = "uploadFiles") MultipartFile[] files
     ) throws IOException {
 
-        boolean dup;
-        if (duplicate.equals("Да")) {
-            dup = true;
-        }
-        else {
-            dup = false;
-        }
+        LocalDateTime myDateObj = LocalDateTime.now();
+        String dateOfEntering = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
 
         InformationProduct informationProduct = new InformationProduct(
-                projectOrProgram, country, language, observationDiscipline, observationType,
-                observationScope, geographicalObject, organization, inventoryNumber, fullnameCdrom, abbreviationCdrom,
-                dateObservationStart, dateObservationEnd, volume, receivedDate, briefContent, dup);
+                        operator, language, projectType, country, observationMethod,
+                        inventoryNumber, fullnameCdrom, abbreviationCdrom, dateObservationStart, dateObservationEnd,
+                        briefContent, volume, receivedDate, duplicate, dateOfEntering);
 
         List<UploadedFile> uploadedFiles = new ArrayList<>();
 
         if(files[0].getSize() != 0) {
             for (MultipartFile file : files) {
                 if (file != null) {
-                    String uploadDirPath = uploadPath + "/" + organization.getId() + "/" + inventoryNumber;
+                    String uploadDirPath = uploadPath + "/" + country.getId() + "/" + inventoryNumber; //нужно редачить
                     File uploadDir = new File(uploadDirPath);
 
                     if (!uploadDir.exists()) {
@@ -280,18 +220,12 @@ public class InformationProductController {
             informationProduct.setUploadedFiles(uploadedFiles);
         }
 
-        informationProduct.setOperator(author);
-
-        LocalDateTime myDateObj = LocalDateTime.now();
-        String formattedDate = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-
-        informationProduct.setDateOfEntering(formattedDate);
         informationProductService.save(informationProduct);
 
-        return "redirect:/view_informationproduct";
+        return "redirect:/information_products";
     }
 
-    @PostMapping("/information_product/update/{id}")
+    /*@PostMapping("/information_product/update/{id}")
     public String updateInformationProduct(
             @PathVariable("id") InformationProduct informationProduct,
             @AuthenticationPrincipal User editor,
@@ -407,5 +341,51 @@ public class InformationProductController {
         informationProductService.save(informationProduct);
 
         return "redirect:/information_product/edit/" + informationProduct.getId();
-    }
+    }*/
+
+    /*@Transactional
+    @PostMapping("information_product/delete_files/{id}")
+    public String deleteFiles(@PathVariable("id") InformationProduct informationProduct, Model model) {
+        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
+
+        for (UploadedFile uploadedFile : uploadedFiles) {
+            File file = new File(uploadedFile.getPath());
+
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+
+        uploadedFileRepository.deleteByInformationProduct(informationProduct);
+        uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
+
+        List<Country> listCountry = countryService.listAll(); //select стран
+        model.addAttribute("listCountry", listCountry);
+
+        List<GeographicalObject> listGeographicalObject = geographicalObjectService.listAll(); //select географического объекта
+        model.addAttribute("listGeographicalObject", listGeographicalObject);
+
+        List<Language> listLanguage = languageService.listAll(); //select языка
+        model.addAttribute("listLanguage", listLanguage);
+
+        List<ProjectOrProgram> listProjectOrProgram = projectOrProgramService.listAll(); //проекты/программы
+        model.addAttribute("listProjectOrProgram", listProjectOrProgram);
+
+        List<ObservationDiscipline> listObservationDiscipline = observationDisciplineService.listAll();
+        model.addAttribute("listObservationDiscipline", listObservationDiscipline);
+
+        List<ObservationType> listObservationType = observationTypeRepository.findByObservationDiscipline(informationProduct.getObservationDiscipline());
+        model.addAttribute("listObservationType", listObservationType);
+
+        List<ObservationScope> listObservationScope = observationScopeService.listAll();
+        model.addAttribute("listObservationScope", listObservationScope);
+
+        List<Organization> listOrganization = organizationService.listAll();
+        model.addAttribute("listOrganization", listOrganization);
+
+        model.addAttribute("informationProduct",informationProduct);
+        model.addAttribute("uploadedFiles", uploadedFiles);
+
+        return "/update_informationproduct";
+    }*/
 }

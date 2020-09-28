@@ -150,7 +150,7 @@
         </a>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
-                <form action="/information_product/download/${informationProduct.id}">
+                <form action="/information_products/download/${informationProduct.id}">
                     <#if uploadedFiles?has_content>
                         <button type="submit" class="btn btn-success btn-block mb-2">Скачать архив</button>
                     <#else>
@@ -166,16 +166,16 @@
 
         <div class="row mt-3">
             <div class="col">
-                <form action="/information_product/edit/${informationProduct.id}"><button type="submit" class="btn btn-warning m-0">Редактировать</button></form>
+                <form action="/information_products/edit/${informationProduct.id}"><button type="submit" class="btn btn-warning m-0">Редактировать</button></form>
             </div>
             <div class="col text-right">
                 <#if auth_isAdmin>
-                    <form action="/information_product/delete/${informationProduct.id}"><button type="submit" class="btn btn-danger m-0">Удалить</button></form>
+                    <form action="/information_products/delete/${informationProduct.id}"><button type="submit" class="btn btn-danger m-0">Удалить</button></form>
                 </#if>
             </div>
         </div>
 
-        <a href="/view_informationproduct" class="btn btn-blue-grey m-0 mt-3 mb-3">Назад</a>
+        <a href="/information_products/view" class="btn btn-blue-grey m-0 mt-3 mb-3">Назад</a>
     </div>
     <#include "parts/scripts.ftl">
 <#include "parts/foot.ftl">

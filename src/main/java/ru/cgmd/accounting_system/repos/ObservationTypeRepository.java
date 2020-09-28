@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ObservationTypeRepository extends JpaRepository<ObservationType, Long> {
     List<ObservationType> findByObservationDiscipline(ObservationDiscipline observationDiscipline);
-    List<ObservationType> findByInformationProductsNotEmpty();
+    //List<ObservationType> findByInformationProductsNotEmpty();
 }

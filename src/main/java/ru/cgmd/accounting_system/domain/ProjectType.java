@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "project_or_program")
-public class ProjectOrProgram {
+@Table(name = "project_type")
+public class ProjectType {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, name="project_type")
-    private String projectType;
+    @Column(nullable = false, name="type")
+    private String type;
     @Column(nullable = false, name="fullname")
     private String fullName;
     @Column(nullable = false, name="abbreviation")
@@ -20,10 +20,10 @@ public class ProjectOrProgram {
     @OneToMany(mappedBy = "projectType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationProduct> informationProducts;
 
-    public ProjectOrProgram() { }
+    public ProjectType() { }
 
-    public ProjectOrProgram(String projectType, String fullName, String abbreviation) {
-        this.projectType = projectType;
+    public ProjectType(String type, String fullName, String abbreviation) {
+        this.type = type;
         this.fullName = fullName;
         this.abbreviation = abbreviation;
     }
@@ -35,11 +35,11 @@ public class ProjectOrProgram {
         this.id = id;
     }
 
-    public String getProjectType() {
-        return projectType;
+    public String getType() {
+        return type;
     }
-    public void setProjectType(String projectType) {
-        this.projectType = projectType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getFullName() {

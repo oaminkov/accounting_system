@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface GeographicalObjectRepository extends JpaRepository<GeographicalObject, Long> {
-    GeographicalObject findByNameGeographicalObject(String name);
-    List<GeographicalObject> findByInformationProductsNotEmpty();
+    GeographicalObject findByName(String name);
+    //List<GeographicalObject> findByInformationProductsNotEmpty();
 }

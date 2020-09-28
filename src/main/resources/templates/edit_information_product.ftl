@@ -2,12 +2,12 @@
     <#include "parts/navbar.ftl">
     <div class="container">
         <h1 class="mb-3" align="center">Изменить мета-описание информационного продукта</h1>
-        <form action="/information_product/update/${informationProduct.id}" enctype="multipart/form-data" method="post">
+        <form action="/information_products/update/${informationProduct.id}" enctype="multipart/form-data" method="post">
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Проект/программа:</label>
                 <div class="col-sm-9">
                     <select name="projectType" class="browser-default custom-select">
-                        <#list listProjectOrProgram as projectType>
+                        <#list listProjectType as projectType>
                             <#if projectType == informationProduct.projectType>
                                 <option selected value="${projectType.id}"
                                 >${projectType.fullName}</option>
@@ -199,7 +199,7 @@
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">
                     <#if uploadedFiles?has_content>
-                        <button type="submit" class="btn btn-danger btn-block mb-2" formaction="/information_product/delete_files/${informationProduct.id}">
+                        <button type="submit" class="btn btn-danger btn-block mb-2" formaction="/information_products/delete_files/${informationProduct.id}">
                             Удалить все прикреплённые файлы
                         </button>
                     <#else>
@@ -218,8 +218,8 @@
                     <label class="custom-file-label" for="inputGroupFile04">Выберите файлы</label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-indigo btn-block mt-3" value="save-informationproduct">Сохранить</button><br/>
-            <a href="/view_informationproduct" class="btn btn-blue-grey m-0 mb-3">Назад</a>
+            <button type="submit" class="btn btn-indigo btn-block mt-3" value="save-information_product">Сохранить</button><br/>
+            <a href="/information_products" class="btn btn-blue-grey m-0 mb-3">Назад</a>
         </form>
     </div>
     <#include "parts/scripts.ftl">

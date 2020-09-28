@@ -15,7 +15,7 @@ public class CountryService {
     private CountryRepository countryRepository;
 
     public boolean isExists(String name) {
-        if (countryRepository.findByNameCountry(name) == null) {
+        if (countryRepository.findByName(name) == null) {
             return false;
         }
         return true;
@@ -33,11 +33,11 @@ public class CountryService {
         countryRepository.save(country);
     }
 
-    public Country get(long idCountry) {
-        return countryRepository.findById(idCountry).get();
+    public Country get(long id) {
+        return countryRepository.findById(id).get();
     }
 
-    public void delete(long idCountry) {
-        countryRepository.deleteById(idCountry);
+    public void delete(long id) {
+        countryRepository.deleteById(id);
     }
 }

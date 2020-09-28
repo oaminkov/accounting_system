@@ -1,5 +1,5 @@
 <#import "parts/viewtable.ftl" as v>
-<@v.view "/add_country" "Страны" "Добавить страну">
+<@v.view "/countries/add" "Страны" "Добавить страну">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
             <tr>

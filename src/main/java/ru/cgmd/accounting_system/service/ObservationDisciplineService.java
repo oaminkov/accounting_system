@@ -15,7 +15,7 @@ public class ObservationDisciplineService {
     private ObservationDisciplineRepository observationDisciplineRepository;
 
     public boolean isExists(String name) {
-        if (observationDisciplineRepository.findByNameObservationDiscipline(name) == null) {
+        if (observationDisciplineRepository.findByName(name) == null) {
             return false;
         }
         return true;
@@ -25,19 +25,19 @@ public class ObservationDisciplineService {
         return observationDisciplineRepository.findAll();
     }
 
-    public List<ObservationDiscipline> findByInformationProductsExists() {
+    /*public List<ObservationDiscipline> findByInformationProductsExists() {
         return observationDisciplineRepository.findByInformationProductsNotEmpty();
-    }
+    }*/
 
     public void save(ObservationDiscipline observationDiscipline) {
         observationDisciplineRepository.save(observationDiscipline);
     }
 
-    public ObservationDiscipline get(long idObservationDiscipline) {
-        return observationDisciplineRepository.findById(idObservationDiscipline).get();
+    public ObservationDiscipline get(long id) {
+        return observationDisciplineRepository.findById(id).get();
     }
 
-    public void delete(long idObservationDiscipline) {
-        observationDisciplineRepository.deleteById(idObservationDiscipline);
+    public void delete(long id) {
+        observationDisciplineRepository.deleteById(id);
     }
 }

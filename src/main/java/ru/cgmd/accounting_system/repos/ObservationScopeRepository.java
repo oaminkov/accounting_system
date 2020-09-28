@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ObservationScopeRepository extends JpaRepository<ObservationScope, Long> {
-    ObservationScope findByNameObservationScope(String name);
-    List<ObservationScope> findByInformationProductsNotEmpty();
+    ObservationScope findByName(String name);
+    //List<ObservationScope> findByInformationProductsNotEmpty();
 }

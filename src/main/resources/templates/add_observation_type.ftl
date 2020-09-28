@@ -1,5 +1,5 @@
 <#import "parts/add_obj.ftl" as a>
-<@a.add "/add_observationtype" "/view_observationtype" "Добавление вида наблюдений">
+<@a.add "/observation_types/add" "/observation_types" "Добавление вида наблюдений">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
         <div class="col-sm-9">

@@ -3,7 +3,7 @@
     <div align="center" class="" style="width: 98%; margin: 0 auto">
         <h1>Информационные ресурсы</h1>
 
-        <a href="/add_informationproduct" class="btn btn-info m-0 mb-3">Создать новый информационный ресурс</a>
+        <a href="/information_products/add" class="btn btn-info m-0 mb-3">Создать новый информационный ресурс</a>
 
         <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
             <thead>
@@ -34,7 +34,7 @@
                     <td>
                         <#if auth_user??>
                             <div class="btn-group">
-                                <form action="/information_product/download/${informationProduct.id}">
+                                <form action="/information_products/download/${informationProduct.id}">
                                     <button type="submit" class="btn btn-sm btn-secondary">Скачать</button>
                                 </form>
                                 <button type="button" class="btn btn-sm btn-secondary dropdown-toggle px-2" data-toggle="dropdown" aria-haspopup="true"
@@ -53,16 +53,16 @@
                         </#if>
                     </td>
                     <td>
-                        <form action="information_product/view/${informationProduct.id}"><button type="submit" class="btn btn-indigo btn-sm m-0">Просмотреть</button></form>
+                        <form action="information_products/view/${informationProduct.id}"><button type="submit" class="btn btn-indigo btn-sm m-0">Просмотреть</button></form>
                     </td>
                     <td>
                         <#if auth_user??>
-                            <form action="information_product/edit/${informationProduct.id}"><button type="submit" class="btn btn-warning btn-sm m-0">Редактировать</button></form>
+                            <form action="information_products/edit/${informationProduct.id}"><button type="submit" class="btn btn-warning btn-sm m-0">Редактировать</button></form>
                         </#if>
                     </td>
                     <td>
                         <#if auth_user??>
-                            <form action="information_product/delete/${informationProduct.id}"><button type="submit" class="btn btn-danger btn-sm m-0">Удалить</button></form>
+                            <form action="information_products/delete/${informationProduct.id}"><button type="submit" class="btn btn-danger btn-sm m-0">Удалить</button></form>
                         </#if>
                     </td>
                 </tr>

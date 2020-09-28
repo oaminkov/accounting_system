@@ -18,9 +18,9 @@ public class OrganizationService {
         return organizationRepository.findAll();
     }
 
-    public List<Organization> findByInformationProductsExists() {
+    /*public List<Organization> findByInformationProductsExists() {
         return organizationRepository.findByInformationProductsNotEmpty();
-    }
+    }*/
 
     public void save(Organization organization) {
         organizationRepository.save(organization);
