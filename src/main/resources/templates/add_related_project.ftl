@@ -1,9 +1,9 @@
 <#import "parts/add_obj.ftl" as a>
-<@a.add "/project_types/add" "/project_types" "Добавление проекта/программы">
+<@a.add "/related_projects/add" "/related_projects" "Добавление связанного проекта">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Проект/программа:</label>
         <div class="col-sm-9">
-            <select name="projectType" class="browser-default custom-select">
+            <select name="type" class="browser-default custom-select">
                 <option value="Проект">Проект</option>
                 <option value="Программа">Программа</option>
             </select>

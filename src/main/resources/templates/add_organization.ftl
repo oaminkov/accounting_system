@@ -22,7 +22,7 @@
         <label class="col-sm-3 col-form-label">Страна:</label>
         <div class="col-sm-9">
             <select name="country" class="browser-default custom-select">
-                <#list listCountry as country>
+                <#list countries as country>
                     <option value="${country.id}">${country.name}</option>
                 </#list>
             </select>

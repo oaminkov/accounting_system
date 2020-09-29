@@ -16,7 +16,7 @@
         <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
         <div class="col-sm-9">
             <select name="observationDiscipline" class="browser-default custom-select">
-                <#list listObservationDiscipline as observationDiscipline>
+                <#list observationDisciplines as observationDiscipline>
                     <option value="${observationDiscipline.id}">${observationDiscipline.name}</option>
                 </#list>
             </select>

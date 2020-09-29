@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="basicExampleNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/information_products">Информационные ресурсы
+                <a class="nav-link" href="/information_resources">Информационные ресурсы
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
@@ -26,7 +26,7 @@
                     <a class="dropdown-item" href="/observation_types">Виды наблюдений</a>
                     <a class="dropdown-item" href="/observation_scopes">Сферы наблюдений</a>
                     <a class="dropdown-item" href="/organizations">Организации</a>
-                    <a class="dropdown-item" href="/project_types">Проекты и программы</a>
+                    <a class="dropdown-item" href="/related_projects">Связанные проекты</a>
                 </div>
             </li>
 

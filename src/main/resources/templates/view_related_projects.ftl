@@ -1,5 +1,5 @@
-<#import "parts/viewtable.ftl" as v>
-<@v.view "/project_types/add" "Проекты и программы" "Добавить проект/программу">
+<#import "parts/view_table.ftl" as v>
+<@v.view "/related_projects/add" "Связанные проекты" "Добавить связанный проект">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
             <tr>
@@ -9,11 +9,11 @@
             </tr>
         </thead>
         <tbody>
-        <#list listProjectType as projectType>
+        <#list relatedProjects as relatedProject>
             <tr>
-                <td>${projectType.type}</td>
-                <td>${projectType.fullName}</td>
-                <td>${projectType.abbreviation}</td>
+                <td>${relatedProject.type}</td>
+                <td>${relatedProject.fullName}</td>
+                <td>${relatedProject.abbreviation}</td>
             </tr>
         </#list>
         </tbody>

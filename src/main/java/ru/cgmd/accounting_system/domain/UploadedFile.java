@@ -16,15 +16,15 @@ public class UploadedFile {
     private String path;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "information_product")
-    private InformationProduct informationProduct;
+    @JoinColumn(name = "information_resource")
+    private InformationResource informationResource;
 
     public UploadedFile() { }
 
-    public UploadedFile(String name, String path, InformationProduct informationProduct) {
+    public UploadedFile(String name, String path, InformationResource informationResource) {
         this.name = name;
         this.path = path;
-        this.informationProduct = informationProduct;
+        this.informationResource = informationResource;
     }
 
     public Long getId() {
@@ -48,8 +48,8 @@ public class UploadedFile {
         this.path = path;
     }
 
-    public InformationProduct getInformationProduct() {
-        return informationProduct;
+    public InformationResource getInformationResource() {
+        return informationResource;
     }
-    public void setInformationProduct(InformationProduct informationProduct) { this.informationProduct = informationProduct; }
+    public void setInformationResource(InformationResource informationResource) { this.informationResource = informationResource; }
 }

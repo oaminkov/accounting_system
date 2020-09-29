@@ -1,4 +1,4 @@
-<#import "parts/viewtable.ftl" as v>
+<#import "parts/view_table.ftl" as v>
 <@v.view "/organizations/add" "Организации" "Добавить организацию">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-        <#list listOrganization as organization>
+        <#list organizations as organization>
             <tr>
                 <td>${organization.fullName}</td>
                 <td>${organization.abbreviation}</td>

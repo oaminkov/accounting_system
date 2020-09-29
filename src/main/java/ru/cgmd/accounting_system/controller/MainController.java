@@ -1,20 +1,28 @@
 package ru.cgmd.accounting_system.controller;
 
-import ru.cgmd.accounting_system.classes.Container;
-import ru.cgmd.accounting_system.domain.*;
-import ru.cgmd.accounting_system.service.*;
-import ru.cgmd.accounting_system.repos.InformationProductRepository;
-import ru.cgmd.accounting_system.repos.ObservationTypeRepository;
-import ru.cgmd.accounting_system.repos.UploadedFileRepository;
-import ru.cgmd.accounting_system.repos.UserRepository;
-
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import java.util.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import ru.cgmd.accounting_system.classes.Container;
+import ru.cgmd.accounting_system.domain.ObservationDiscipline;
+import ru.cgmd.accounting_system.domain.ObservationType;
+import ru.cgmd.accounting_system.domain.Role;
+import ru.cgmd.accounting_system.domain.User;
+import ru.cgmd.accounting_system.repos.InformationResourceRepository;
+import ru.cgmd.accounting_system.repos.ObservationTypeRepository;
+import ru.cgmd.accounting_system.repos.UploadedFileRepository;
+import ru.cgmd.accounting_system.repos.UserRepository;
+import ru.cgmd.accounting_system.service.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -31,7 +39,7 @@ public class MainController {
     @Autowired
     private OrganizationService organizationService;
     @Autowired
-    private InformationProductRepository informationProductRepository;
+    private InformationResourceRepository informationResourceRepository;
     @Autowired
     private UploadedFileRepository uploadedFileRepository;
 
@@ -43,7 +51,7 @@ public class MainController {
         if (user != null) {
             model.addAttribute("loggedUser", user);
         }
-        else{
+        else {
             model.addAttribute("message", "Вы не авторизованы!");
         }
     }
@@ -170,7 +178,7 @@ public class MainController {
         List<ObservationType> observationTypes = observationTypeRepository.findByObservationDiscipline(observationDiscipline);
 
         for (ObservationType observationType : observationTypes) {
-            if (!observationType.getInformationProducts().isEmpty()) {
+            if (!observationType.getInformationResources().isEmpty()) {
                 Container container = new Container();
                 container.setId(observationType.getId());
                 container.setName(observationType.getName());

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "information_product")
-public class InformationProduct {
+@Table(name = "information_resource")
+public class InformationResource {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -49,9 +49,9 @@ public class InformationProduct {
     @JoinColumn (name = "id_language", nullable = false)
     private Language language;
 
-    @ManyToOne(fetch = FetchType.LAZY) //тип проекта (проект или программа)
-    @JoinColumn (name = "id_project_type", nullable = false)
-    private ProjectType projectType;
+    @ManyToOne(fetch = FetchType.LAZY) //связанный проект (проект или программа)
+    @JoinColumn (name = "id_related_project", nullable = false)
+    private RelatedProject relatedProject;
 
     @ManyToOne(fetch = FetchType.LAZY) //страна
     @JoinColumn (name = "id_country", nullable = false)
@@ -69,40 +69,40 @@ public class InformationProduct {
     @JoinColumn (name = "id_editor")
     private User editor;
 
-    @OneToMany(mappedBy = "informationProduct", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "informationResource", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UploadedFile> uploadedFiles;
 
-    @OneToMany(mappedBy = "informationProduct", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InfprodOrganization> infprodOrganizations;
+    @OneToMany(mappedBy = "informationResource", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InfresOrganization> infresOrganizations;
 
     @ManyToMany(cascade = CascadeType.ALL) //дисциплины наблюдений
     @JoinTable(
-            name = "infprod_observdiscipl",
-            joinColumns = { @JoinColumn(name = "id_information_product") },
+            name = "infres_observdiscipl",
+            joinColumns = { @JoinColumn(name = "id_information_resource") },
             inverseJoinColumns = { @JoinColumn(name = "id_observation_discipline") }
     )
     private Set<ObservationDiscipline> observationDisciplines = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL) //виды наблюдений
     @JoinTable(
-            name = "infprod_observtype",
-            joinColumns = { @JoinColumn(name = "id_information_product") },
+            name = "infres_observtype",
+            joinColumns = { @JoinColumn(name = "id_information_resource") },
             inverseJoinColumns = { @JoinColumn(name = "id_observation_type") }
     )
     private Set<ObservationType> observationTypes = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL) //параметры наблюдений
     @JoinTable(
-            name = "infprod_observparam",
-            joinColumns = { @JoinColumn(name = "id_information_product") },
+            name = "infres_observparam",
+            joinColumns = { @JoinColumn(name = "id_information_resource") },
             inverseJoinColumns = { @JoinColumn(name = "id_observation_parameter") }
     )
     private Set<ObservationParameter> observationParameters = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL) //сферы наблюдений
     @JoinTable(
-            name = "infprod_observscope",
-            joinColumns = { @JoinColumn(name = "id_information_product") },
+            name = "infres_observscope",
+            joinColumns = { @JoinColumn(name = "id_information_resource") },
             inverseJoinColumns = { @JoinColumn(name = "id_observation_scope") }
     )
     private Set<ObservationScope> observationScopes = new HashSet<>();
@@ -110,18 +110,18 @@ public class InformationProduct {
 
     @ManyToMany(cascade = CascadeType.ALL) //географические объекты
     @JoinTable(
-            name = "infprod_geogrobject",
-            joinColumns = { @JoinColumn(name = "id_information_product") },
+            name = "infres_geogrobject",
+            joinColumns = { @JoinColumn(name = "id_information_resource") },
             inverseJoinColumns = { @JoinColumn(name = "id_geographical_object") }
     )
     private Set<GeographicalObject> geographicalObjects = new HashSet<>();
 
-    public InformationProduct() { }
+    public InformationResource() { }
 
-    public InformationProduct(
+    public InformationResource(
             User operator,
             Language language,
-            ProjectType projectType,
+            RelatedProject relatedProject,
             Country country,
             ObservationMethod observationMethod,
             String inventoryNumber,
@@ -137,7 +137,7 @@ public class InformationProduct {
     ) {
         this.operator = operator;
         this.language = language;
-        this.projectType = projectType;
+        this.relatedProject = relatedProject;
         this.country = country;
         this.observationMethod = observationMethod;
         this.inventoryNumber = inventoryNumber;
@@ -153,15 +153,15 @@ public class InformationProduct {
     }
 
     ////////////////////////////////////////////////////
-    public InformationProduct(List<UploadedFile> uploadedFiles,
-                              List<InfprodOrganization> infprodOrganizations,
-                              Set<ObservationDiscipline> observationDisciplines,
-                              Set<ObservationType> observationTypes,
-                              Set<ObservationParameter> observationParameters,
-                              Set<ObservationScope> observationScopes,
-                              Set<GeographicalObject> geographicalObjects) {
+    public InformationResource(List<UploadedFile> uploadedFiles,
+                               List<InfresOrganization> infresOrganizations,
+                               Set<ObservationDiscipline> observationDisciplines,
+                               Set<ObservationType> observationTypes,
+                               Set<ObservationParameter> observationParameters,
+                               Set<ObservationScope> observationScopes,
+                               Set<GeographicalObject> geographicalObjects) {
         this.uploadedFiles = uploadedFiles;
-        this.infprodOrganizations = infprodOrganizations;
+        this.infresOrganizations = infresOrganizations;
         this.observationDisciplines = observationDisciplines;
         this.observationTypes = observationTypes;
         this.observationParameters = observationParameters;
@@ -272,11 +272,11 @@ public class InformationProduct {
         this.language = language;
     }
 
-    public ProjectType getProjectType() {
-        return projectType;
+    public RelatedProject getProjectType() {
+        return relatedProject;
     }
-    public void setProjectType(ProjectType projectType) {
-        this.projectType = projectType;
+    public void setProjectType(RelatedProject relatedProject) {
+        this.relatedProject = relatedProject;
     }
 
     public Country getCountry() {
@@ -342,10 +342,10 @@ public class InformationProduct {
         this.geographicalObjects = geographicalObjects;
     }
 
-    public List<InfprodOrganization> getInfprodOrganizations() {
-        return infprodOrganizations;
+    public List<InfresOrganization> getInfresOrganizations() {
+        return infresOrganizations;
     }
-    public void setInfprodOrganizations(List<InfprodOrganization> infprodOrganizations) {
-        this.infprodOrganizations = infprodOrganizations;
+    public void setInfresOrganizations(List<InfresOrganization> infresOrganizations) {
+        this.infresOrganizations = infresOrganizations;
     }
 }

@@ -1,11 +1,11 @@
 package ru.cgmd.accounting_system.service;
 
-import ru.cgmd.accounting_system.domain.GeographicalObject;
-import ru.cgmd.accounting_system.repos.GeographicalObjectRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.cgmd.accounting_system.domain.GeographicalObject;
+import ru.cgmd.accounting_system.repos.GeographicalObjectRepository;
+
 import java.util.List;
 
 @Service
@@ -24,10 +24,6 @@ public class GeographicalObjectService {
     public List<GeographicalObject> listAll() {
         return geographicalObjectRepository.findAll();
     }
-
-    /*public List<GeographicalObject> findByInformationProductsExists() {
-        return geographicalObjectRepository.findByInformationProductsNotEmpty();
-    }*/
 
     public void save(GeographicalObject geographicalObject) {
         geographicalObjectRepository.save(geographicalObject);

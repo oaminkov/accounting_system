@@ -1,4 +1,4 @@
-<#import "parts/viewtable.ftl" as v>
+<#import "parts/view_table.ftl" as v>
 <@v.view "/observation_scopes/add" "Сферы наблюдений" "Добавить сферу наблюдений">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
@@ -7,7 +7,7 @@
             </tr>
         </thead>
         <tbody>
-        <#list listObservationScope as observationScope>
+        <#list observationScopes as observationScope>
             <tr>
                 <td>${observationScope.name}</td>
             </tr>

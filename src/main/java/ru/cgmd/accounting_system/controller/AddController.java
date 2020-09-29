@@ -1,21 +1,20 @@
 package ru.cgmd.accounting_system.controller;
 
-import ru.cgmd.accounting_system.domain.*;
-import ru.cgmd.accounting_system.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.cgmd.accounting_system.domain.*;
+import ru.cgmd.accounting_system.service.*;
 
 @Controller
 public class AddController {
     @Autowired
     private LanguageService languageService;
     @Autowired
-    private ProjectTypeService projectTypeService;
+    private RelatedProjectService relatedProjectService;
     @Autowired
     private CountryService countryService;
     @Autowired
@@ -59,21 +58,20 @@ public class AddController {
         }
         return "add_language";
     }
-
-    //PROJECT TYPE
-    @PostMapping("project_types/add")
-    public String saveProjectOrProgram(
-            @RequestParam("choiceProjectOrProgram") String type,
-            @RequestParam("fullnameProjectOrProgram") String fullnameProjectOrProgram,
-            @RequestParam("abbreviationProjectOrProgram") String abbreviationProjectOrProgram) {
-        ProjectType projectType = new ProjectType(type, fullnameProjectOrProgram, abbreviationProjectOrProgram);
-        projectTypeService.save(projectType);
-        return "redirect:/project_types";
+    //RELATED PROJECT
+    @PostMapping("related_projects/add")
+    public String saveRelatedProject(
+            @RequestParam String type,
+            @RequestParam String fullName,
+            @RequestParam String abbreviation
+    ) {
+        RelatedProject relatedProject = new RelatedProject(type, fullName, abbreviation);
+        relatedProjectService.save(relatedProject);
+        return "redirect:/related_projects";
     }
-
     //COUNTRY
     @PostMapping("countries/add")
-    public String saveCountry(@RequestParam("nameCountry") String name, Model model) {
+    public String saveCountry(@RequestParam String name, Model model) {
         name = name.trim();
 
         if (!name.isEmpty()) {
@@ -98,7 +96,6 @@ public class AddController {
         }
         return "add_country";
     }
-
     //OBSERVATION METHOD
     @PostMapping("observation_methods/add")
     public String saveObservationMethod(@RequestParam String name, Model model) {
@@ -121,7 +118,6 @@ public class AddController {
         }
         return "add_observation_method";
     }
-
     //GEOGRAPHICAL OBJECT
     @PostMapping("geographical_objects/add")
     public String saveGeographicalObject(@RequestParam String name, Model model) {
@@ -168,9 +164,9 @@ public class AddController {
     }
     //OBSERVATION TYPE
     @PostMapping("observation_types/add")
-    public String saveObservationType(@RequestParam("nameObservationType") String nameObservationType,
-                                      @RequestParam("observationDiscipline") ObservationDiscipline observationDiscipline) {
-        ObservationType observationType = new ObservationType(nameObservationType, observationDiscipline);
+    public String saveObservationType(@RequestParam String name,
+                                      @RequestParam ObservationDiscipline observationDiscipline) {
+        ObservationType observationType = new ObservationType(name, observationDiscipline);
         observationTypeService.save(observationType);
         return "redirect:/observation_types";
     }
@@ -198,7 +194,7 @@ public class AddController {
     }
     //ORGANIZATION
     @PostMapping("organizations/add")
-    public String saveOrganization(@ModelAttribute("organization") Organization organization) {
+    public String saveOrganization(@ModelAttribute Organization organization) {
         organizationService.save(organization);
         return "redirect:/organizations";
     }

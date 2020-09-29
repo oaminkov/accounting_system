@@ -3,7 +3,7 @@
     <div align="center" class="" style="width: 98%; margin: 0 auto">
         <h1>Информационные ресурсы</h1>
 
-        <a href="/information_products/add" class="btn btn-info m-0 mb-3">Создать новый информационный ресурс</a>
+        <a href="/information_resources/add" class="btn btn-info m-0 mb-3">Создать новый информационный ресурс</a>
 
         <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
             <thead>
@@ -22,19 +22,19 @@
                 </tr>
             </thead>
             <tbody>
-            <#list listInformationProducts as informationProduct>
+            <#list informationResources as informationResource>
                 <tr>
-                    <td>${informationProduct.inventoryNumber}</td>
-                    <td>${informationProduct.country.name}</td>
-                    <td>${informationProduct.observationDiscipline.name}</td>
-                    <td>${informationProduct.observationType.name}</td>
-                    <td>${informationProduct.dateObservationStart}<br>${informationProduct.dateObservationEnd}</td>
-                    <td>${informationProduct.geographicalObject.name}</td>
-                    <td>${informationProduct.organization.fullName}</td>
+                    <td>${informationResource.inventoryNumber}</td>
+                    <td>${informationResource.country.name}</td>
+                    <td>${informationResource.observationDiscipline.name}</td>
+                    <td>${informationResource.observationType.name}</td>
+                    <td>${informationResource.dateObservationStart}<br>${informationResource.dateObservationEnd}</td>
+                    <td>${informationResource.geographicalObject.name}</td>
+                    <td>${informationResource.organization.fullName}</td>
                     <td>
                         <#if auth_user??>
                             <div class="btn-group">
-                                <form action="/information_products/download/${informationProduct.id}">
+                                <form action="/information_resources/download/${informationResource.id}">
                                     <button type="submit" class="btn btn-sm btn-secondary">Скачать</button>
                                 </form>
                                 <button type="button" class="btn btn-sm btn-secondary dropdown-toggle px-2" data-toggle="dropdown" aria-haspopup="true"
@@ -43,8 +43,8 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <#list uploadedFiles as uploadedFile>
-                                        <#if informationProduct.id == uploadedFile.informationProduct.id>
-                                            <a href="/file/${informationProduct.organization.id}/${informationProduct.inventoryNumber}/${uploadedFile.name}"
+                                        <#if informationResource.id == uploadedFile.informationResource.id>
+                                            <a href="/file/${informationResource.organization.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
                                                class="dropdown-item" target="_blank">${uploadedFile.name}</a>
                                         </#if>
                                     </#list>
@@ -53,16 +53,16 @@
                         </#if>
                     </td>
                     <td>
-                        <form action="information_products/view/${informationProduct.id}"><button type="submit" class="btn btn-indigo btn-sm m-0">Просмотреть</button></form>
+                        <form action="/information_resources/${informationResource.id}"><button type="submit" class="btn btn-indigo btn-sm m-0">Просмотреть</button></form>
                     </td>
                     <td>
                         <#if auth_user??>
-                            <form action="information_products/edit/${informationProduct.id}"><button type="submit" class="btn btn-warning btn-sm m-0">Редактировать</button></form>
+                            <form action="/information_resources/edit/${informationResource.id}"><button type="submit" class="btn btn-warning btn-sm m-0">Редактировать</button></form>
                         </#if>
                     </td>
                     <td>
                         <#if auth_user??>
-                            <form action="information_products/delete/${informationProduct.id}"><button type="submit" class="btn btn-danger btn-sm m-0">Удалить</button></form>
+                            <form action="/information_resources/delete/${informationResource.id}"><button type="submit" class="btn btn-danger btn-sm m-0">Удалить</button></form>
                         </#if>
                     </td>
                 </tr>

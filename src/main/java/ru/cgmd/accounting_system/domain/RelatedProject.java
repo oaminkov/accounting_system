@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "project_type")
-public class ProjectType {
+@Table(name = "related_project")
+public class RelatedProject {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -17,12 +17,12 @@ public class ProjectType {
     @Column(nullable = false, name="abbreviation")
     private String abbreviation;
 
-    @OneToMany(mappedBy = "projectType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    @OneToMany(mappedBy = "relatedProject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InformationResource> informationResources;
 
-    public ProjectType() { }
+    public RelatedProject() { }
 
-    public ProjectType(String type, String fullName, String abbreviation) {
+    public RelatedProject(String type, String fullName, String abbreviation) {
         this.type = type;
         this.fullName = fullName;
         this.abbreviation = abbreviation;
@@ -56,10 +56,10 @@ public class ProjectType {
         this.abbreviation = abbreviation;
     }
 
-    public List<InformationProduct> getInformationProducts() {
-        return informationProducts;
+    public List<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setInformationResources(List<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 }

@@ -21,7 +21,7 @@ public class Organization { //организация
     private Country country;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InfprodOrganization> infprodOrganizations;
+    private List<InfresOrganization> infresOrganizations;
 
     public Organization() { }
 
@@ -59,10 +59,10 @@ public class Organization { //организация
         this.abbreviation = abbreviation;
     }
 
-    public List<InfprodOrganization> getInfprodOrganizations() {
-        return infprodOrganizations;
+    public List<InfresOrganization> getInfresOrganizations() {
+        return infresOrganizations;
     }
-    public void setInfprodOrganizations(List<InfprodOrganization> infprodOrganizations) {
-        this.infprodOrganizations = infprodOrganizations;
+    public void setInfresOrganizations(List<InfresOrganization> infresOrganizations) {
+        this.infresOrganizations = infresOrganizations;
     }
 }

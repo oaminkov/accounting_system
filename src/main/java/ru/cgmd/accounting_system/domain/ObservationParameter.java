@@ -20,11 +20,11 @@ public class ObservationParameter {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "infprod_observparam",
+            name = "infres_observparam",
             joinColumns = { @JoinColumn(name = "id_observation_parameter") },
-            inverseJoinColumns = { @JoinColumn(name = "id_information_product") }
+            inverseJoinColumns = { @JoinColumn(name = "id_information_resource") }
     )
-    private Set<InformationProduct> informationProducts = new HashSet<>();
+    private Set<InformationResource> informationResources = new HashSet<>();
 
     public ObservationParameter() {
     }
@@ -50,10 +50,10 @@ public class ObservationParameter {
         this.observationType = observationType;
     }
 
-    public Set<InformationProduct> getInformationProducts() {
-        return informationProducts;
+    public Set<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setInformationProducts(Set<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setInformationResources(Set<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 }

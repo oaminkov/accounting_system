@@ -24,11 +24,11 @@ public class ObservationType { //вид наблюдения
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "infprod_observtype",
+            name = "infres_observtype",
             joinColumns = { @JoinColumn(name = "id_observation_type") },
-            inverseJoinColumns = { @JoinColumn(name = "id_information_product") }
+            inverseJoinColumns = { @JoinColumn(name = "id_information_resource") }
     )
-    private Set<InformationProduct> informationProducts = new HashSet<>();
+    private Set<InformationResource> informationResources = new HashSet<>();
 
     public ObservationType() { }
 
@@ -58,11 +58,11 @@ public class ObservationType { //вид наблюдения
         this.observationDiscipline = observationDiscipline;
     }
 
-    public Set<InformationProduct> getInformationProducts() {
-        return informationProducts;
+    public Set<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setInformationProducts(Set<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setInformationResources(Set<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 
     public List<ObservationParameter> getObservationParameters() {

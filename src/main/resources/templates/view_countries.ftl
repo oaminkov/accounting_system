@@ -1,4 +1,4 @@
-<#import "parts/viewtable.ftl" as v>
+<#import "parts/view_table.ftl" as v>
 <@v.view "/countries/add" "Страны" "Добавить страну">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
@@ -7,7 +7,7 @@
             </tr>
         </thead>
         <tbody>
-        <#list listCountry as country>
+        <#list countries as country>
             <tr>
                 <td>${country.name}</td>
             </tr>

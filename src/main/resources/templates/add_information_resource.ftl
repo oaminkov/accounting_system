@@ -2,16 +2,15 @@
     <#include "parts/navbar.ftl">
     <div class="container">
         <h1 class="mb-3" align="center">Создание нового мета-описания информационного ресурса</h1>
-        <form action="/information_products/add" enctype="multipart/form-data" method="post">
+        <form action="/information_resources/add" enctype="multipart/form-data" method="post">
             <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Проект/программа:</label>
+                <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
-                    <select name="projectType" class="browser-default custom-select">
+                    <select name="relatedProject" class="browser-default custom-select">
                         <option value="">-- Выберите проект/программу --</option>
-                        <option value="-1">Описание отсутствует</option>
-                        <#list listProjectType as projectType>
-                            <option value="${projectType.id}"
-                            >${projectType.fullName}</option>
+                        <#list relatedProjects as relatedProject>
+                            <option value="${relatedProject.id}"
+                            >${relatedProject.fullName}</option>
                         </#list>
                     </select>
                 </div>
@@ -21,8 +20,7 @@
                 <div class="col-sm-9">
                     <select name="country" class="browser-default custom-select">
                         <option value="">-- Выберите страну --</option>
-                        <option value="-1">Описание отсутствует</option>
-                        <#list listCountry as country>
+                        <#list countries as country>
                             <option value="${country.id}"
                             >${country.name}</option>
                         </#list>
@@ -34,8 +32,7 @@
                 <div class="col-sm-9">
                     <select name="language" class="browser-default custom-select">
                         <option value="">-- Выберите язык --</option>
-                        <option value="-1">Описание отсутствует</option>
-                        <#list listLanguage as language>
+                        <#list languages as language>
                             <option value="${language.id}"
                             >${language.name}</option>
                         </#list>
@@ -47,8 +44,7 @@
                 <div class="col-sm-9">
                     <select name="observationDiscipline" class="browser-default custom-select" id="getObservationDiscipline">
                         <option value="0">-- Выберите дисциплину --</option>
-                        <option value="-1">Описание отсутствует</option>
-                        <#list listObservationDiscipline as observationDiscipline>
+                        <#list observationDisciplines as observationDiscipline>
                             <option value="${observationDiscipline.id}"
                             >${observationDiscipline.name}</option>
                         </#list>
@@ -68,7 +64,7 @@
                 <div class="col-sm-9">
                     <select name="observationScope" class="browser-default custom-select">
                         <option value="">-- Выберите сферу наблюдений --</option>
-                        <#list listObservationScope as observationScope>
+                        <#list observationScopes as observationScope>
                             <option value="${observationScope.id}"
                             >${observationScope.name}</option>
                         </#list>
@@ -80,7 +76,7 @@
                 <div class="col-sm-9">
                     <select name="geographicalObject" class="browser-default custom-select">
                         <option value="">-- Выберите территорию наблюдений --</option>
-                        <#list listGeographicalObject as geographicalObject>
+                        <#list geographicalObjects as geographicalObject>
                             <option value="${geographicalObject.id}"
                             >${geographicalObject.name}</option>
                         </#list>
@@ -92,7 +88,7 @@
                 <div class="col-sm-9">
                     <select name="organization" class="browser-default custom-select">
                         <option value="">-- Выберите организацию --</option>
-                        <#list listOrganization as organization>
+                        <#list organizations as organization>
                             <option value="${organization.id}"
                             >${organization.fullName}</option>
                         </#list>
@@ -167,9 +163,9 @@
                     <label class="custom-file-label" for="inputGroupFile04">Выберите файлы</label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-indigo btn-block m-0 mt-4" value="save-information_product">Сохранить</button><br/>
+            <button type="submit" class="btn btn-indigo btn-block m-0 mt-4" value="save-information_resource">Сохранить</button><br/>
         </form>
-        <a href="/information_products" class="btn btn-blue-grey m-0 mb-3">Назад</a>
+        <a href="/information_resources" class="btn btn-blue-grey m-0 mb-3">Назад</a>
     </div>
     <#include "parts/scripts.ftl">
     <script type="text/javascript" src="/js/script.js"></script>

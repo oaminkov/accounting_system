@@ -1,11 +1,11 @@
 package ru.cgmd.accounting_system.service;
 
-import ru.cgmd.accounting_system.domain.Country;
-import ru.cgmd.accounting_system.repos.CountryRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.cgmd.accounting_system.domain.Country;
+import ru.cgmd.accounting_system.repos.CountryRepository;
+
 import java.util.List;
 
 @Service
@@ -25,8 +25,8 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
-    public List<Country> findByInformationProductsExists() {
-        return countryRepository.findByInformationProductsNotEmpty();
+    public List<Country> findByInformationResourcesExists() {
+        return countryRepository.findByInformationResourcesNotEmpty();
     }
 
     public void save(Country country) {

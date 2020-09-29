@@ -1,12 +1,12 @@
 package ru.cgmd.accounting_system.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.cgmd.accounting_system.domain.ObservationType;
 import ru.cgmd.accounting_system.repos.ObservationDisciplineRepository;
 import ru.cgmd.accounting_system.repos.ObservationTypeRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -29,12 +29,12 @@ public class ObservationTypeService {
         observationTypeRepository.save(observationType);
     }
 
-    public ObservationType get(long idObservationType) {
-        return observationTypeRepository.findById(idObservationType).get();
+    public ObservationType get(long id) {
+        return observationTypeRepository.findById(id).get();
     }
 
-    public void delete(long idObservationType) {
-        observationTypeRepository.deleteById(idObservationType);
+    public void delete(long id) {
+        observationTypeRepository.deleteById(id);
     }
 
 }

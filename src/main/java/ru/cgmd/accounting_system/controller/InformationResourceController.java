@@ -1,10 +1,5 @@
 package ru.cgmd.accounting_system.controller;
 
-import ru.cgmd.accounting_system.domain.*;
-import ru.cgmd.accounting_system.repos.ObservationTypeRepository;
-import ru.cgmd.accounting_system.repos.UploadedFileRepository;
-import ru.cgmd.accounting_system.service.*;
-
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.cgmd.accounting_system.domain.*;
+import ru.cgmd.accounting_system.repos.UploadedFileRepository;
+import ru.cgmd.accounting_system.service.*;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +23,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @Controller
-public class InformationProductController {
+public class InformationResourceController {
     @Value("${upload.path}")
     private String uploadPath;
     @Autowired
@@ -34,7 +33,7 @@ public class InformationProductController {
     @Autowired
     private LanguageService languageService;
     @Autowired
-    private ProjectTypeService projectTypeService;
+    private RelatedProjectService relatedProjectService;
     @Autowired
     private ObservationDisciplineService observationDisciplineService;
     @Autowired
@@ -44,38 +43,36 @@ public class InformationProductController {
     @Autowired
     private OrganizationService organizationService;
     @Autowired
-    private InformationProductService informationProductService;
+    private InformationResourceService informationResourceService;
     @Autowired
     private UploadedFileRepository uploadedFileRepository;
-    @Autowired
-    private ObservationTypeRepository observationTypeRepository;
 
-    @GetMapping("information_products")
-    public String viewAllProducts(Model model) {
-        List<InformationProduct> listInformationProducts = informationProductService.listAll();
+    @GetMapping("information_resources")
+    public String viewAllInformationResources(Model model) {
+        List<InformationResource> informationResources = informationResourceService.listAll();
         List<UploadedFile> uploadedFiles = uploadedFileRepository.findAll();
 
-        model.addAttribute("listInformationProducts", listInformationProducts);
+        model.addAttribute("informationResources", informationResources);
         model.addAttribute("uploadedFiles", uploadedFiles);
-        return "view_information_products";
+        return "view_information_resources";
     }
 
-    @GetMapping("information_products/view/{id}")
-    public String showFullInformationProduct(
-            @PathVariable("id") InformationProduct informationProduct,
+    @GetMapping("information_resources/{id}")
+    public String viewInformationResourceFull(
+            @PathVariable("id") InformationResource informationResource,
             Model model
     ){
-        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
+        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationResource(informationResource);
 
-        model.addAttribute("informationProduct", informationProduct);
+        model.addAttribute("informationResource", informationResource);
         model.addAttribute("uploadedFiles", uploadedFiles);
-        return "view_information_product_full";
+        return "view_information_resource_full";
     }
 
-    @GetMapping(value="information_products/download/{id}", produces="application/zip")
+    @GetMapping(value="information_resources/download/{id}", produces="application/zip")
     public void zipFiles(HttpServletResponse response,
-                         @PathVariable("id") InformationProduct informationProduct,
-                         @ModelAttribute("uploadedFile") UploadedFile uploadedFile
+                         @PathVariable("id") InformationResource informationResource,
+                         @ModelAttribute UploadedFile uploadedFile
     ) throws IOException {
         //Устанавливаем заголовки
         response.setStatus(HttpServletResponse.SC_OK);
@@ -83,7 +80,7 @@ public class InformationProductController {
 
         ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
         Set<File> downloadFiles = new HashSet<>();
-        Set<UploadedFile> tempFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
+        Set<UploadedFile> tempFiles = uploadedFileRepository.findByInformationResource(informationResource);
 
         for (UploadedFile file : tempFiles) {
             File downloadFile = new File(file.getPath());
@@ -100,36 +97,31 @@ public class InformationProductController {
         zipOutputStream.close();
     }
 
-    @GetMapping("information_products/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Long idInformationProduct) {
-        informationProductService.delete(idInformationProduct);
-        return "redirect:/information_products";
+    @GetMapping("information_resources/delete/{id}")
+    public String deleteInformationResource(@PathVariable("id") Long id) {
+        informationResourceService.delete(id);
+        return "redirect:/information_resources";
     }
 
-    @GetMapping("information_products/add")
+    @GetMapping("information_resources/add")
     public String showNewInformationProductPage(Model model) {
-        List<Country> listCountry = countryService.listAll(); //select стран
-        model.addAttribute("listCountry", listCountry);
+        List<Country> countries = countryService.listAll();
+        List<GeographicalObject> geographicalObjects = geographicalObjectService.listAll();
+        List<Language> languages = languageService.listAll();
+        List<RelatedProject> relatedProjects = relatedProjectService.listAll();
+        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
+        List<ObservationScope> observationScopes = observationScopeService.listAll();
+        List<Organization> organizations = organizationService.listAll();
 
-        List<GeographicalObject> listGeographicalObject = geographicalObjectService.listAll(); //select географического объекта
-        model.addAttribute("listGeographicalObject", listGeographicalObject);
+        model.addAttribute("countries", countries);
+        model.addAttribute("geographicalObjects", geographicalObjects);
+        model.addAttribute("languages", languages);
+        model.addAttribute("relatedProjects", relatedProjects);
+        model.addAttribute("observationDisciplines", observationDisciplines);
+        model.addAttribute("observationScopes", observationScopes);
+        model.addAttribute("organizations", organizations);
 
-        List<Language> listLanguage = languageService.listAll(); //select языка
-        model.addAttribute("listLanguage", listLanguage);
-
-        List<ProjectType> listProjectType = projectTypeService.listAll(); //проекты/программы
-        model.addAttribute("listProjectOrProgram", listProjectType);
-
-        List<ObservationDiscipline> listObservationDiscipline = observationDisciplineService.listAll();
-        model.addAttribute("listObservationDiscipline", listObservationDiscipline);
-
-        List<ObservationScope> listObservationScope = observationScopeService.listAll();
-        model.addAttribute("listObservationScope", listObservationScope);
-
-        List<Organization> listOrganization = organizationService.listAll();
-        model.addAttribute("listOrganization", listOrganization);
-
-        return "add_information_product";
+        return "add_information_resource";
     }
 
     /*@GetMapping("/information_product/edit/{id}")
@@ -169,11 +161,11 @@ public class InformationProductController {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping("information_products/add")
-    public String saveInformationProduct(
+    @PostMapping("information_resources/add")
+    public String saveInformationResource(
             @AuthenticationPrincipal User operator,
             @RequestParam Language language,
-            @RequestParam ProjectType projectType,
+            @RequestParam RelatedProject relatedProject,
             @RequestParam Country country,
             @RequestParam ObservationMethod observationMethod,
             @RequestParam String inventoryNumber,
@@ -191,8 +183,8 @@ public class InformationProductController {
         LocalDateTime myDateObj = LocalDateTime.now();
         String dateOfEntering = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
 
-        InformationProduct informationProduct = new InformationProduct(
-                        operator, language, projectType, country, observationMethod,
+        InformationResource informationResource = new InformationResource(
+                        operator, language, relatedProject, country, observationMethod,
                         inventoryNumber, fullnameCdrom, abbreviationCdrom, dateObservationStart, dateObservationEnd,
                         briefContent, volume, receivedDate, duplicate, dateOfEntering);
 
@@ -214,19 +206,19 @@ public class InformationProductController {
 
                     file.transferTo(new File(resultFilepath));
 
-                    uploadedFiles.add(new UploadedFile(resultFilename, resultFilepath, informationProduct));
+                    uploadedFiles.add(new UploadedFile(resultFilename, resultFilepath, informationResource));
                 }
             }
-            informationProduct.setUploadedFiles(uploadedFiles);
+            informationResource.setUploadedFiles(uploadedFiles);
         }
 
-        informationProductService.save(informationProduct);
+        informationResourceService.save(informationResource);
 
-        return "redirect:/information_products";
+        return "redirect:/information_resources";
     }
 
-    /*@PostMapping("/information_product/update/{id}")
-    public String updateInformationProduct(
+    /*@PostMapping("/information_resources/update/{id}")
+    public String updateInformationResource(
             @PathVariable("id") InformationProduct informationProduct,
             @AuthenticationPrincipal User editor,
             @RequestParam ProjectOrProgram projectOrProgram,

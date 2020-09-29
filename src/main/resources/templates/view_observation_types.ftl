@@ -1,4 +1,4 @@
-<#import "parts/viewtable.ftl" as v>
+<#import "parts/view_table.ftl" as v>
 <@v.view "/observation_types/add" "Виды наблюдений" "Добавить вид наблюдений">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-        <#list listObservationType as observationType>
+        <#list observationTypes as observationType>
             <tr>
                 <td>${observationType.name}</td>
                 <td>${observationType.observationDiscipline.name}</td>

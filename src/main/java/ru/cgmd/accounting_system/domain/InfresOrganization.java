@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "infprod_organization")
-public class InfprodOrganization {
+public class InfresOrganization {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -14,18 +14,18 @@ public class InfprodOrganization {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "id_information_product", nullable = false)
-    private InformationProduct informationProduct;
+    private InformationResource informationResource;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "id_organization", nullable = false)
     private Organization organization;
 
-    public InfprodOrganization() {
+    public InfresOrganization() {
     }
 
-    public InfprodOrganization(boolean main, InformationProduct informationProduct, Organization organization) {
+    public InfresOrganization(boolean main, InformationResource informationResource, Organization organization) {
         this.main = main;
-        this.informationProduct = informationProduct;
+        this.informationResource = informationResource;
         this.organization = organization;
     }
 
@@ -43,11 +43,11 @@ public class InfprodOrganization {
         this.main = main;
     }
 
-    public InformationProduct getInformationProduct() {
-        return informationProduct;
+    public InformationResource getInformationResource() {
+        return informationResource;
     }
-    public void setInformationProduct(InformationProduct informationProduct) {
-        this.informationProduct = informationProduct;
+    public void setInformationResource(InformationResource informationResource) {
+        this.informationResource = informationResource;
     }
 
     public Organization getOrganization() {

@@ -1,8 +1,8 @@
 package ru.cgmd.accounting_system.repos;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.cgmd.accounting_system.domain.User;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {

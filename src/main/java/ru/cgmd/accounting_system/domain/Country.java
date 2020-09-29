@@ -14,7 +14,7 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    private List<InformationResource> informationResources;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Organization> organizations;
@@ -35,11 +35,11 @@ public class Country {
         this.name = name;
     }
 
-    public List<InformationProduct> getInformationProducts() {
-        return informationProducts;
+    public List<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setInformationResources(List<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 
     public List<Organization> getOrganizations() { return organizations; }

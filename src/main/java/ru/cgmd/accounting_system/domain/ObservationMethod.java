@@ -14,7 +14,7 @@ public class ObservationMethod {
     private String name;
 
     @OneToMany(mappedBy = "observationMethod", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    private List<InformationResource> informationResources;
 
     public ObservationMethod() {
     }
@@ -37,10 +37,10 @@ public class ObservationMethod {
         this.name = name;
     }
 
-    public List<InformationProduct> getInformationProducts() {
-        return informationProducts;
+    public List<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setInformationResources(List<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 }

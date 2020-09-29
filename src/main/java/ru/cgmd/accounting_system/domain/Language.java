@@ -14,7 +14,7 @@ public class Language {
     private String name;
 
     @OneToMany(mappedBy = "language", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    private List<InformationResource> informationResources;
 
     public Language() { }
 
@@ -36,10 +36,10 @@ public class Language {
         this.name = name;
     }
 
-    public List<InformationProduct> getInformationProducts() {
-        return informationProducts;
+    public List<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setInformationResources(List<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 }

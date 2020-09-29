@@ -1,12 +1,12 @@
 package ru.cgmd.accounting_system.repos;
 
-import ru.cgmd.accounting_system.domain.*;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import ru.cgmd.accounting_system.domain.InformationResource;
+
 import java.util.List;
 
-public interface InformationProductRepository extends JpaRepository<InformationProduct, Long> {
-    List<InformationProduct> findByOrderByDateObservationStartAsc();
+public interface InformationResourceRepository extends JpaRepository<InformationResource, Long> {
+    List<InformationResource> findByOrderByDateObservationStartAsc();
     /*List<InformationProduct> findByOrderByDateObservationEndDesc();
     List<InformationProduct> findByObservationType(ObservationType observationType);
     List<InformationProduct> findByCountryAndObservationType(Country country, ObservationType observationType);
