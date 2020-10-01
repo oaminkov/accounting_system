@@ -29,6 +29,11 @@ public class ObservationParameter {
     public ObservationParameter() {
     }
 
+    public ObservationParameter(String name, ObservationType observationType) {
+        this.name = name;
+        this.observationType = observationType;
+    }
+
     public Long getId() {
         return id;
     }

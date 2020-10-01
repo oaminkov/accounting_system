@@ -24,9 +24,11 @@ public class AddController {
     @Autowired
     private ObservationDisciplineService observationDisciplineService;
     @Autowired
-    private ObservationScopeService observationScopeService;
-    @Autowired
     private ObservationTypeService observationTypeService;
+    @Autowired
+    private ObservationParameterService observationParameterService;
+    @Autowired
+    private ObservationScopeService observationScopeService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -170,6 +172,16 @@ public class AddController {
         observationTypeService.save(observationType);
         return "redirect:/observation_types";
     }
+    //OBSERVATION PARAMETER
+    @PostMapping("observation_parameters/add")
+    public String saveObservationParameter(
+            @RequestParam String name,
+            @RequestParam ObservationType observationType) {
+        ObservationParameter observationParameter = new ObservationParameter(name, observationType);
+        observationParameterService.save(observationParameter);
+        return "redirect:/observation_parameters";
+    }
+
     //OBSERVATION SCOPE
     @PostMapping("observation_scopes/add")
     public String saveObservationScope(@RequestParam String name, Model model) {

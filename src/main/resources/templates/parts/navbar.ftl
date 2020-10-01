@@ -19,14 +19,16 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Дополнительные сущности</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/countries">Страны</a>
-                    <a class="dropdown-item" href="/geographical_objects">Территории наблюдений</a>
                     <a class="dropdown-item" href="/languages">Языки</a>
+                    <a class="dropdown-item" href="/related_projects">Связанные проекты</a>
+                    <a class="dropdown-item" href="/countries">Страны</a>
+                    <a class="dropdown-item" href="/observation_methods">Методы наблюдений</a>
                     <a class="dropdown-item" href="/observation_disciplines">Дисциплины наблюдений</a>
                     <a class="dropdown-item" href="/observation_types">Виды наблюдений</a>
+                    <a class="dropdown-item" href="/observation_parameters">Параметры наблюдений</a>
                     <a class="dropdown-item" href="/observation_scopes">Сферы наблюдений</a>
+                    <a class="dropdown-item" href="/geographical_objects">Территории наблюдений</a>
                     <a class="dropdown-item" href="/organizations">Организации</a>
-                    <a class="dropdown-item" href="/related_projects">Связанные проекты</a>
                 </div>
             </li>
 

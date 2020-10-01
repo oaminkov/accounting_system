@@ -4,10 +4,22 @@
         <h1 class="mb-3" align="center">Создание нового мета-описания информационного ресурса</h1>
         <form action="/information_resources/add" enctype="multipart/form-data" method="post">
             <div class="form-group row mt-3">
+                <label class="col-sm-3 col-form-label">Язык:</label>
+                <div class="col-sm-9">
+                    <select name="language" class="browser-default custom-select">
+                        <option value="">-- Выберите язык --</option>
+                        <#list languages as language>
+                            <option value="${language.id}"
+                            >${language.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
                     <select name="relatedProject" class="browser-default custom-select">
-                        <option value="">-- Выберите проект/программу --</option>
+                        <option value="">-- Выберите связанный проект --</option>
                         <#list relatedProjects as relatedProject>
                             <option value="${relatedProject.id}"
                             >${relatedProject.fullName}</option>
@@ -28,37 +40,63 @@
                 </div>
             </div>
             <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Язык:</label>
+                <label class="col-sm-3 col-form-label">Метод наблюдений:</label>
                 <div class="col-sm-9">
-                    <select name="language" class="browser-default custom-select">
-                        <option value="">-- Выберите язык --</option>
-                        <#list languages as language>
-                            <option value="${language.id}"
-                            >${language.name}</option>
+                    <select name="observationMethod" class="browser-default custom-select">
+                        <option value="">-- Выберите метод наблюдений --</option>
+                        <#list observationMethods as observationMethod>
+                            <option value="${observationMethod.id}"
+                            >${observationMethod.name}</option>
                         </#list>
                     </select>
                 </div>
             </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
-                <div class="col-sm-9">
-                    <select name="observationDiscipline" class="browser-default custom-select" id="getObservationDiscipline">
-                        <option value="0">-- Выберите дисциплину --</option>
-                        <#list observationDisciplines as observationDiscipline>
-                            <option value="${observationDiscipline.id}"
-                            >${observationDiscipline.name}</option>
-                        </#list>
-                    </select>
+
+            <hr>
+            <div class="discDiv">
+                <div class="form-group row mt-3">
+                    <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
+                    <div class="col-sm-9">
+                        <select name="observationDiscipline" class="browser-default custom-select" id="getObservationDiscipline">
+                            <option value="0">-- Выберите дисциплину --</option>
+                            <#list observationDisciplines as observationDiscipline>
+                                <option value="${observationDiscipline.id}">${observationDiscipline.name}</option>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
+                <div class="typeDiv">
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
+                        <div class="col-sm-9">
+                            <select name="observationType" class="browser-default custom-select" id="getObservationType" disabled>
+                                <option value="0">-- Выберите вид наблюдений --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="paramDiv">
+                        <div class="form-group row mt-3">
+                            <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
+                            <div class="col-sm-9">
+                                <select name="observationParameter" class="browser-default custom-select" id="getObservationParameter" disabled>
+                                    <option value="0">-- Выберите параметр наблюдений --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <a onclick="return addParam(this)" id="add-param" class="col-sm btn btn-primary">Добавить параметр</a>
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <a onclick="return addType(this)" id="add-type" class="col-sm btn btn-primary">Добавить вид</a>
                 </div>
             </div>
             <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
-                <div class="col-sm-9">
-                    <select name="observationType" class="browser-default custom-select" id="getObservationType" disabled>
-                        <option value="0">-- Выберите вид наблюдений --</option>
-                    </select>
-                </div>
+                <a onclick="return addDisc(this)" id="add-disc" class="col-sm btn btn-primary">Добавить дисциплину</a>
             </div>
+            <hr>
+
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
                 <div class="col-sm-9">
@@ -95,9 +133,7 @@
                     </select>
                 </div>
             </div>
-
             <hr>
-
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Инвентарный номер:</label>
                 <div class="col-sm-9">
@@ -169,4 +205,90 @@
     </div>
     <#include "parts/scripts.ftl">
     <script type="text/javascript" src="/js/script.js"></script>
+
+    <script>
+        function addDisc(e){
+            var tpl =   '<div class="discDiv">' +
+                            '<div class="form-group row mt-3">' +
+                                '<label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>' +
+                                '<div class="col-sm-9">' +
+                                    '<select name="observationDiscipline" class="browser-default custom-select" id="getObservationDiscipline">' +
+                                        '<option value="0">-- Выберите дисциплину --</option>' +
+                                        '<#list observationDisciplines as observationDiscipline>' +
+                                            '<option value="${observationDiscipline.id}">${observationDiscipline.name}</option>' +
+                                        '</#list>' +
+                                    '</select>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="typeDiv">' +
+                                '<div class="form-group row mt-3">' +
+                                    '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
+                                    '<div class="col-sm-9">' +
+                                        '<select name="observationType" class="browser-default custom-select" id="getObservationType" disabled>' +
+                                            '<option value="0">-- Выберите вид наблюдений --</option>' +
+                                        '</select>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="paramDiv">' +
+                                    '<div class="form-group row mt-3">' +
+                                        '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
+                                        '<div class="col-sm-9">' +
+                                            '<select name="observationParameter" class="browser-default custom-select" id="getObservationParameter" disabled>' +
+                                                '<option value="0">-- Выберите параметр наблюдений --</option>' +
+                                            '</select>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="form-group row mt-3">' +
+                                    '<a onclick="return addParam(this)" class="col-sm btn btn-primary">Добавить параметр</a>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="form-group row mt-3">' +
+                                '<a onclick="return addType(this)" class="col-sm btn btn-primary">Добавить вид</a>' +
+                            '</div>' +
+                        '</div>';
+            $(e).parents('div').first().before(tpl);
+        }
+
+        function addType(e){
+            var tpl =   '<div class="typeDiv">' +
+                            '<div class="form-group row mt-3">' +
+                                '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
+                                '<div class="col-sm-9">' +
+                                    '<select name="observationType" class="browser-default custom-select" id="getObservationType" disabled>' +
+                                        '<option value="0">-- Выберите вид наблюдений --</option>' +
+                                    '</select>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="paramDiv">' +
+                                '<div class="form-group row mt-3">' +
+                                    '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
+                                    '<div class="col-sm-9">' +
+                                        '<select name="observationParameter" class="browser-default custom-select" id="getObservationParameter" disabled>' +
+                                            '<option value="0">-- Выберите параметр наблюдений --</option>' +
+                                        '</select>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="form-group row mt-3">' +
+                                '<a onclick="return addParam(this)" class="col-sm btn btn-primary">Добавить параметр</a>' +
+                            '</div>' +
+                        '</div>';
+            $(e).parents('div').first().before(tpl);
+        }
+
+        function addParam(e){
+            var tpl =   '<div class="paramDiv">' +
+                            '<div class="form-group row mt-3">' +
+                                '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
+                                '<div class="col-sm-9">' +
+                                    '<select name="observationParameter" class="browser-default custom-select" id="getObservationParameter" disabled>' +
+                                        '<option value="0">-- Выберите параметр наблюдений --</option>' +
+                                    '</select>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+            $(e).parents('div').first().before(tpl);
+        }
+    </script>
 <#include "parts/foot.ftl">

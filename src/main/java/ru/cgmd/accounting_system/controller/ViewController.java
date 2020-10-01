@@ -21,13 +21,15 @@ public class ViewController {
     @Autowired
     private ObservationMethodService observationMethodService;
     @Autowired
-    private GeographicalObjectService geographicalObjectService;
-    @Autowired
     private ObservationDisciplineService observationDisciplineService;
+    @Autowired
+    private ObservationTypeService observationTypeService;
+    @Autowired
+    private ObservationParameterService observationParameterService;
     @Autowired
     private ObservationScopeService observationScopeService;
     @Autowired
-    private ObservationTypeService observationTypeService;
+    private GeographicalObjectService geographicalObjectService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -89,7 +91,7 @@ public class ViewController {
 
     //GEOGRAPHICAL OBJECT
     @GetMapping("geographical_objects")
-    public String viewAllGeographicalObject(Model model) {
+    public String viewAllGeographicalObjects(Model model) {
         List<GeographicalObject> geographicalObjects = geographicalObjectService.listAll();
         model.addAttribute("geographicalObjects", geographicalObjects);
         return "view_geographical_objects";
@@ -103,7 +105,7 @@ public class ViewController {
 
     //OBSERVATION DISCIPLINE
     @GetMapping("observation_disciplines")
-    public String viewAllObservationDiscipline(Model model) {
+    public String viewAllObservationDisciplines(Model model) {
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
         model.addAttribute("observationDisciplines", observationDisciplines);
         return "view_observation_disciplines";
@@ -117,7 +119,7 @@ public class ViewController {
 
     //OBSERVATION TYPE
     @GetMapping("observation_types")
-    public String viewAllObservationType(Model model) {
+    public String viewAllObservationTypes(Model model) {
         List<ObservationType> observationTypes = observationTypeService.listAll();
         model.addAttribute("observationTypes", observationTypes);
         return "view_observation_types";
@@ -125,11 +127,26 @@ public class ViewController {
     @GetMapping("observation_types/add")
     public String showNewObservationTypePage(Model model) {
         ObservationType observationType = new ObservationType();
-        model.addAttribute("observationType", observationType);
-
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
+        model.addAttribute("observationType", observationType);
         model.addAttribute("observationDisciplines", observationDisciplines);
         return "add_observation_type";
+    }
+
+    // OBSERVATION PARAMETER
+    @GetMapping("observation_parameters")
+    public String viewAllObservationParameters(Model model) {
+        List<ObservationParameter> observationParameters = observationParameterService.listAll();
+        model.addAttribute("observationParameters", observationParameters);
+        return "view_observation_parameters";
+    }
+    @GetMapping("observation_parameters/add")
+    public String showNewObservationParameterPage(Model model) {
+        ObservationParameter observationParameter = new ObservationParameter();
+        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
+        model.addAttribute("observationParameter", observationParameter);
+        model.addAttribute("observationDisciplines", observationDisciplines);
+        return "add_observation_parameter";
     }
 
     //OBSERVATION SCOPE

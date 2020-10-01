@@ -39,7 +39,7 @@ public class InformationResourceController {
     @Autowired
     private ObservationScopeService observationScopeService;
     @Autowired
-    private ObservationTypeService observationTypeService;
+    private ObservationMethodService observationMethodService;
     @Autowired
     private OrganizationService organizationService;
     @Autowired
@@ -112,6 +112,7 @@ public class InformationResourceController {
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
         List<ObservationScope> observationScopes = observationScopeService.listAll();
         List<Organization> organizations = organizationService.listAll();
+        List<ObservationMethod> observationMethods = observationMethodService.listAll();
 
         model.addAttribute("countries", countries);
         model.addAttribute("geographicalObjects", geographicalObjects);
@@ -120,6 +121,7 @@ public class InformationResourceController {
         model.addAttribute("observationDisciplines", observationDisciplines);
         model.addAttribute("observationScopes", observationScopes);
         model.addAttribute("organizations", organizations);
+        model.addAttribute("observationMethods", observationMethods);
 
         return "add_information_resource";
     }
