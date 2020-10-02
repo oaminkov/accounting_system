@@ -9,14 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.cgmd.accounting_system.classes.Container;
-import ru.cgmd.accounting_system.domain.ObservationDiscipline;
-import ru.cgmd.accounting_system.domain.ObservationType;
-import ru.cgmd.accounting_system.domain.Role;
-import ru.cgmd.accounting_system.domain.User;
-import ru.cgmd.accounting_system.repos.InformationResourceRepository;
-import ru.cgmd.accounting_system.repos.ObservationTypeRepository;
-import ru.cgmd.accounting_system.repos.UploadedFileRepository;
-import ru.cgmd.accounting_system.repos.UserRepository;
+import ru.cgmd.accounting_system.domain.*;
+import ru.cgmd.accounting_system.repos.*;
 import ru.cgmd.accounting_system.service.*;
 
 import java.util.ArrayList;
@@ -30,6 +24,8 @@ public class MainController {
     private UserRepository userRepository;
     @Autowired
     private ObservationTypeRepository observationTypeRepository;
+    @Autowired
+    private ObservationParameterRepository observationParameterRepository;
     @Autowired
     private CountryService countryService;
     @Autowired
@@ -46,8 +42,7 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-    public void isUserAuthorized(@AuthenticationPrincipal User user, Model model)
-    {
+    public void isUserAuthorized(@AuthenticationPrincipal User user, Model model) {
         if (user != null) {
             model.addAttribute("loggedUser", user);
         }
@@ -153,7 +148,7 @@ public class MainController {
 
     @GetMapping("/getObservationTypeList")
     public @ResponseBody
-    String ajaxResp(@RequestParam("idObservationDiscipline") ObservationDiscipline observationDiscipline) {
+    String ajaxRespObservationTypes(@RequestParam("idObservationDiscipline") ObservationDiscipline observationDiscipline) {
         List<Container> containers = new ArrayList<Container>();
 
         List<ObservationType> observationTypes = observationTypeRepository.findByObservationDiscipline(observationDiscipline);
@@ -162,6 +157,24 @@ public class MainController {
             Container container = new Container();
             container.setId(observationType.getId());
             container.setName(observationType.getName());
+            containers.add(container);
+        }
+
+        String json = new Gson().toJson(containers);
+        return json;
+    }
+
+    @GetMapping("/getObservationParameterList")
+    public @ResponseBody
+    String ajaxRespObservationParameters(@RequestParam("idObservationType") ObservationType observationType) {
+        List<Container> containers = new ArrayList<Container>();
+
+        List<ObservationParameter> observationParameters = observationParameterRepository.findByObservationType(observationType);
+
+        for (ObservationParameter observationParameter : observationParameters) {
+            Container container = new Container();
+            container.setId(observationParameter.getId());
+            container.setName(observationParameter.getName());
             containers.add(container);
         }
 
