@@ -182,7 +182,6 @@
                     <textarea name="briefContent" class="form-control" rows="4" placeholder="Краткое описание информационного продукта"></textarea>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Дубликат:</label>
                 <div class="col-sm-9">
@@ -192,7 +191,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="input-group" align="center">
                 <div class="custom-file overflow-hidden">
                     <input type="file" multiple name="uploadFiles" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
@@ -203,12 +201,11 @@
         </form>
         <a href="/information_resources" class="btn btn-blue-grey m-0 mb-3">Назад</a>
     </div>
+    <#include "parts/scripts.ftl">
     <script>
         let disciplines =   '<#list observationDisciplines as observationDiscipline>' +
                                 '<option value="${observationDiscipline.id}">${observationDiscipline.name}</option>' +
                             '</#list>';
     </script>
-
-    <#include "parts/scripts.ftl">
-    <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript" src="/js/add_infres.js"></script>
 <#include "parts/foot.ftl">

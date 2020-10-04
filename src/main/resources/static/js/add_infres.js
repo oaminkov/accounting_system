@@ -20,16 +20,14 @@ jQuery(document).ready(function () {
             "/getObservationTypeList",
             {idObservationDiscipline: id},
             function (result) {
-                if (result.type === 'error')
-                {
+                if (result.type === 'error') {
                     alert('error');
                     return(false);
                 }
                 else {
                     let options = '';
 
-                    $(result).each(function(key, val)
-                    {
+                    $(result).each(function(key, val) {
                         options += '<option value="' + val.id + '">' + val.name + '</option>';
                     });
 
@@ -56,19 +54,15 @@ jQuery(document).ready(function () {
         $.get(
             "/getObservationParameterList",
             {idObservationType: id},
-            function (result)
-            {
-                if (result.type === 'error')
-                {
+            function (result) {
+                if (result.type === 'error') {
                     alert('error');
                     return(false);
                 }
-                else
-                {
+                else {
                     let options = '';
 
-                    $(result).each(function(key, val)
-                    {
+                    $(result).each(function(key, val) {
                         options += '<option value="' + val.id + '">' + val.name + '</option>';
                     });
 
@@ -82,7 +76,7 @@ jQuery(document).ready(function () {
     $('.getObservationDiscipline').on("change", changeTypes);
     $('.getObservationType').on("change", changeParameters);
 
-    function addDisc(){
+    function addDisc() {
         let tpl =   '<div class="discDiv">' +
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>' +
@@ -133,7 +127,7 @@ jQuery(document).ready(function () {
         $('.addParam').on("click", addParam);
     }
 
-    function addType(){
+    function addType() {
         let tpl =   '<div class="typeDiv">' +
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
@@ -166,7 +160,7 @@ jQuery(document).ready(function () {
         $('.addParam').on("click", addParam);
     }
 
-    function addParam(){
+    function addParam() {
         let tpl =   '<div class="paramDiv">' +
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +

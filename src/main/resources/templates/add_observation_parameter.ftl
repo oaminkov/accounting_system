@@ -32,5 +32,5 @@
         </div>
     </div>
     <#include "parts/scripts.ftl">
-    <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript" src="/js/change_types.js"></script>
 </@a.add>
