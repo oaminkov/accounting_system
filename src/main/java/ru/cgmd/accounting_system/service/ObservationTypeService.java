@@ -3,6 +3,7 @@ package ru.cgmd.accounting_system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.cgmd.accounting_system.domain.ObservationDiscipline;
 import ru.cgmd.accounting_system.domain.ObservationType;
 import ru.cgmd.accounting_system.repos.ObservationDisciplineRepository;
 import ru.cgmd.accounting_system.repos.ObservationTypeRepository;
@@ -37,4 +38,7 @@ public class ObservationTypeService {
         observationTypeRepository.deleteById(id);
     }
 
+    public List<ObservationType> loadByObservationDiscipline(ObservationDiscipline observationDiscipline) {
+        return observationTypeRepository.findByObservationDiscipline(observationDiscipline);
+    }
 }

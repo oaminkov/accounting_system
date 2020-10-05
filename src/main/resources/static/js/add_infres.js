@@ -1,24 +1,8 @@
 jQuery(document).ready(function () {
-    function changeTypes() {
-        let id = $(this).val();
-        let discDiv = $(this).parents('.discDiv').first();
-
-        if (id === '0' || id === '-1') {
-            discDiv.find('.getObservationType').html('<option value="0">-- Выберите вид наблюдений --</option>');
-            discDiv.find('.getObservationType').attr('disabled', true);
-            discDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>');
-            discDiv.find('.getObservationParameter').attr('disabled', true);
-            return(false);
-        }
-
-        discDiv.find('.getObservationType').attr('disabled', true);
-        discDiv.find('.getObservationType').html('<option>загрузка...</option>');
-        discDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>');
-        discDiv.find('.getObservationParameter').attr('disabled', true);
-
+    function ajaxRequest(requestAddress, id, parentDiv, changedClass, changedClassHtml) {
         $.get(
-            "/getObservationTypeList",
-            {idObservationDiscipline: id},
+            requestAddress,
+            {id: id},
             function (result) {
                 if (result.type === 'error') {
                     alert('error');
@@ -31,100 +15,112 @@ jQuery(document).ready(function () {
                         options += '<option value="' + val.id + '">' + val.name + '</option>';
                     });
 
-                    discDiv.find('.getObservationType').html('<option value="0">-- Выберите вид наблюдений --</option>' + options);
-                    discDiv.find('.getObservationType').attr('disabled', false);
+                    parentDiv.find(changedClass).html(changedClassHtml + options);
+                    parentDiv.find(changedClass).attr('disabled', false);
                 }
             },
             "json");
     }
 
-    function changeParameters() {
+    function changeTypes() {
+        let requestAddress = "/getObservationTypeList";
         let id = $(this).val();
-        let typeDiv = $(this).parents('.typeDiv').first();
+        let parentDiv = $(this).parents('.discDiv').first();
+        let changedClass = '.getObservationType';
+        let changedClassHtml = '<option value="0">-- Выберите вид наблюдений --</option>';
 
         if (id === '0' || id === '-1') {
-            typeDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>');
-            typeDiv.find('.getObservationParameter').attr('disabled', true);
+            parentDiv.find(changedClass).html(changedClassHtml);
+            parentDiv.find(changedClass).attr('disabled', true);
+            parentDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>');
+            parentDiv.find('.getObservationParameter').attr('disabled', true);
             return(false);
         }
 
-        typeDiv.find('.getObservationParameter').attr('disabled', true);
-        typeDiv.find('.getObservationParameter').html('<option>загрузка...</option>');
+        parentDiv.find(changedClass).attr('disabled', true);
+        parentDiv.find(changedClass).html('<option>загрузка...</option>');
+        parentDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>');
+        parentDiv.find('.getObservationParameter').attr('disabled', true);
 
-        $.get(
-            "/getObservationParameterList",
-            {idObservationType: id},
-            function (result) {
-                if (result.type === 'error') {
-                    alert('error');
-                    return(false);
-                }
-                else {
-                    let options = '';
+        ajaxRequest(requestAddress, id, parentDiv, changedClass, changedClassHtml);
+    }
 
-                    $(result).each(function(key, val) {
-                        options += '<option value="' + val.id + '">' + val.name + '</option>';
-                    });
+    function changeParameters() {
+        let requestAddress = "/getObservationParameterList";
+        let id = $(this).val();
+        let parentDiv = $(this).parents('.typeDiv').first();
+        let changedClass = '.getObservationParameter';
+        let changedClassHtml = '<option value="0">-- Выберите параметр наблюдений --</option>';
 
-                    typeDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>' + options);
-                    typeDiv.find('.getObservationParameter').attr('disabled', false);
-                }
-            },
-            "json");
+        if (id === '0' || id === '-1') {
+            parentDiv.find(changedClass).html(changedClassHtml);
+            parentDiv.find(changedClass).attr('disabled', true);
+            return(false);
+        }
+
+        parentDiv.find(changedClass).attr('disabled', true);
+        parentDiv.find(changedClass).html('<option>загрузка...</option>');
+
+        ajaxRequest(requestAddress, id, parentDiv, changedClass, changedClassHtml);
     }
 
     $('.getObservationDiscipline').on("change", changeTypes);
     $('.getObservationType').on("change", changeParameters);
 
+    let getDiscId = 0;
+    let getTypeId = 0;
+    let getParamId = 0;
+
     function addDisc() {
-        let tpl =   '<div class="discDiv">' +
+        let tpl =
+            '<div class="discDiv">' +
+                '<div class="form-group row mt-3">' +
+                    '<label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>' +
+                    '<div class="col-sm-9">' +
+                        '<select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline" id="getObservationDiscipline'+ getDiscId +'">' +
+                            '<option value="0">-- Выберите дисциплину --</option>' +
+                            disciplines +
+                        '</select>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="typeDiv">' +
+                    '<div class="form-group row mt-3">' +
+                        '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
+                        '<div class="col-sm-9">' +
+                            '<select name="observationType" class="browser-default custom-select getObservationType" id="getObservationType'+ getTypeId +'" disabled>' +
+                                '<option value="0">-- Выберите вид наблюдений --</option>' +
+                            '</select>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="paramDiv">' +
                         '<div class="form-group row mt-3">' +
-                            '<label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>' +
+                            '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
                             '<div class="col-sm-9">' +
-                                '<select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline">' +
-                                    '<option value="0">-- Выберите дисциплину --</option>' +
-                                    disciplines +
+                                '<select name="observationParameter" class="browser-default custom-select getObservationParameter" id="getObservationParameter'+ getParamId +'" disabled>' +
+                                    '<option value="0">-- Выберите параметр наблюдений --</option>' +
                                 '</select>' +
                             '</div>' +
                         '</div>' +
-                        '<div class="typeDiv">' +
-                            '<div class="form-group row mt-3">' +
-                                '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
-                                '<div class="col-sm-9">' +
-                                    '<select name="observationType" class="browser-default custom-select getObservationType" disabled>' +
-                                        '<option value="0">-- Выберите вид наблюдений --</option>' +
-                                    '</select>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="paramDiv">' +
-                                '<div class="form-group row mt-3">' +
-                                    '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
-                                    '<div class="col-sm-9">' +
-                                        '<select name="observationParameter" class="browser-default custom-select getObservationParameter" disabled>' +
-                                            '<option value="0">-- Выберите параметр наблюдений --</option>' +
-                                        '</select>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="form-group row mt-3">' +
-                                '<a class="col-sm btn btn-primary addParam">Добавить параметр</a>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="form-group row mt-3">' +
-                            '<a class="col-sm btn btn-primary addType">Добавить вид</a>' +
-                        '</div>' +
-                    '</div>';
+                    '</div>' +
+                    '<div class="form-group row mt-3">' +
+                        '<a class="col-sm btn btn-primary addParam" id="addParam'+ getParamId +'">Добавить параметр</a>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="form-group row mt-3">' +
+                    '<a class="col-sm btn btn-primary addType" id="addType'+ getTypeId +'">Добавить вид</a>' +
+                '</div>' +
+            '</div>';
         $(this).parents('div').first().before(tpl);
 
-        $('.getObservationDiscipline').off("change", changeTypes);
-        $('.getObservationType').off("change", changeParameters);
-        $('.getObservationDiscipline').on("change", changeTypes);
-        $('.getObservationType').on("change", changeParameters);
+        $('#getObservationDiscipline' + getDiscId).on("change", changeTypes);
+        $('#getObservationType' + getTypeId).on("change", changeParameters);
 
-        $('.addType').off("click", addType);
-        $('.addParam').off("click", addParam);
-        $('.addType').on("click", addType);
-        $('.addParam').on("click", addParam);
+        $('#addType' + getTypeId).on("click", addType);
+        $('#addParam'+ getParamId).on("click", addParam);
+
+        getDiscId++;
+        getTypeId++;
+        getParamId++;
     }
 
     function addType() {
@@ -132,7 +128,7 @@ jQuery(document).ready(function () {
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
                             '<div class="col-sm-9">' +
-                                '<select name="observationType" class="browser-default custom-select getObservationType" disabled>' +
+                                '<select name="observationType" class="browser-default custom-select getObservationType" id="getObservationType'+ getTypeId +'" disabled>' +
                                     '<option value="0">-- Выберите вид наблюдений --</option>' +
                                 '</select>' +
                             '</div>' +
@@ -141,23 +137,24 @@ jQuery(document).ready(function () {
                             '<div class="form-group row mt-3">' +
                                 '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
                                 '<div class="col-sm-9">' +
-                                    '<select name="observationParameter" class="browser-default custom-select getObservationParameter" disabled>' +
+                                    '<select name="observationParameter" class="browser-default custom-select getObservationParameter" id="getObservationParameter'+ getParamId +'" disabled>' +
                                         '<option value="0">-- Выберите параметр наблюдений --</option>' +
                                     '</select>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                         '<div class="form-group row mt-3">' +
-                            '<a class="col-sm btn btn-primary addParam">Добавить параметр</a>' +
+                            '<a class="col-sm btn btn-primary addParam" id="addParam'+ getParamId +'">Добавить параметр</a>' +
                         '</div>' +
                     '</div>';
         $(this).parents('div').first().before(tpl);
 
-        $('.getObservationType').off("change", changeParameters);
-        $('.getObservationType').on("change", changeParameters);
+        $('#getObservationType' + getTypeId).on("change", changeParameters);
 
-        $('.addParam').off("click", addParam);
-        $('.addParam').on("click", addParam);
+        $('#addParam'+ getParamId).on("click", addParam);
+
+        getTypeId++;
+        getParamId++;
     }
 
     function addParam() {
@@ -165,13 +162,15 @@ jQuery(document).ready(function () {
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
                             '<div class="col-sm-9">' +
-                                '<select name="observationParameter" class="browser-default custom-select getObservationParameter" disabled>' +
+                                '<select name="observationParameter" class="browser-default custom-select getObservationParameter" id="getObservationParameter'+ getParamId +'" disabled>' +
                                     '<option value="0">-- Выберите параметр наблюдений --</option>' +
                                 '</select>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
         $(this).parents('div').first().before(tpl);
+
+        getParamId++;
     }
 
     $('.addDisc').on("click", addDisc);

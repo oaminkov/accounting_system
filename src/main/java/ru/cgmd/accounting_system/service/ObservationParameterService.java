@@ -33,4 +33,7 @@ public class ObservationParameterService {
         observationParameterRepository.deleteById(id);
     }
 
+    public List<ObservationParameter> loadByObservationType(ObservationType observationType) {
+        return observationParameterRepository.findByObservationType(observationType);
+    }
 }

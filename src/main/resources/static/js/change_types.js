@@ -13,7 +13,7 @@ jQuery(document).ready(function () {
 
         $.get(
             "/getObservationTypeList",
-            {idObservationDiscipline: id},
+            {id: id},
             function (result) {
                 if (result.type === 'error')
                 {
