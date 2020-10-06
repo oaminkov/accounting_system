@@ -170,6 +170,11 @@ public class InformationResourceController {
             @RequestParam RelatedProject relatedProject,
             @RequestParam Country country,
             @RequestParam ObservationMethod observationMethod,
+
+            @RequestParam(value = "observationDiscipline") ObservationDiscipline[] observationDisciplines,
+            //@RequestParam(value = "observationType") ObservationType[] observationTypes,
+            //@RequestParam(value = "observationParameter") ObservationParameter[] observationParameters,
+
             @RequestParam String inventoryNumber,
             @RequestParam String fullnameCdrom,
             @RequestParam String abbreviationCdrom,
@@ -182,13 +187,19 @@ public class InformationResourceController {
             @RequestParam(value = "uploadFiles") MultipartFile[] files
     ) throws IOException {
 
+        for (ObservationDiscipline observationDiscipline : observationDisciplines) {
+            System.out.println(observationDiscipline.getName());
+        }
+
+        System.out.println("---END---");
+
         LocalDateTime myDateObj = LocalDateTime.now();
         String dateOfEntering = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
 
-        InformationResource informationResource = new InformationResource(
+        /*InformationResource informationResource = new InformationResource(
                         operator, language, relatedProject, country, observationMethod,
                         inventoryNumber, fullnameCdrom, abbreviationCdrom, dateObservationStart, dateObservationEnd,
-                        briefContent, volume, receivedDate, duplicate, dateOfEntering);
+                        briefContent, volume, receivedDate, duplicate, dateOfEntering);*/
 
         List<UploadedFile> uploadedFiles = new ArrayList<>();
 
@@ -206,15 +217,15 @@ public class InformationResourceController {
                     String resultFilename = uuidFile + "." + file.getOriginalFilename();
                     String resultFilepath = uploadDirPath + "/" + resultFilename;
 
-                    file.transferTo(new File(resultFilepath));
+                    //file.transferTo(new File(resultFilepath));
 
-                    uploadedFiles.add(new UploadedFile(resultFilename, resultFilepath, informationResource));
+                    //uploadedFiles.add(new UploadedFile(resultFilename, resultFilepath, informationResource));
                 }
             }
-            informationResource.setUploadedFiles(uploadedFiles);
+            //informationResource.setUploadedFiles(uploadedFiles);
         }
 
-        informationResourceService.save(informationResource);
+        //informationResourceService.save(informationResource);
 
         return "redirect:/information_resources";
     }

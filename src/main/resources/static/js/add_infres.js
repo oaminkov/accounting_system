@@ -1,35 +1,45 @@
 jQuery(document).ready(function () {
-    function ajaxRequest(requestAddress, id, parentDiv, changedClass, changedClassHtml) {
-        $.get(
-            requestAddress,
-            {id: id},
-            function (result) {
-                if (result.type === 'error') {
-                    alert('error');
-                    return(false);
-                }
-                else {
-                    let options = '';
+    function getOptions(result) {
+        if (result.type === 'error') {
+            alert('error');
+            return "";
+        }
+        else {
+            let options = '';
 
-                    $(result).each(function(key, val) {
-                        options += '<option value="' + val.id + '">' + val.name + '</option>';
-                    });
+            $(result).each(function(key, val) {
+                options += '<option value="' + val.id + '">' + val.name + '</option>';
+            });
 
-                    parentDiv.find(changedClass).html(changedClassHtml + options);
-                    parentDiv.find(changedClass).attr('disabled', false);
-                }
+            return options;
+        }
+    }
+
+    function ajaxRequest(requestAddress, id, parentDiv, changedObj, changedObjHtml) {
+        $.ajax({
+            type: 'GET',
+            url: requestAddress,
+            data: {
+                id: id
             },
-            "json");
+            dataType: 'json',
+            success: function (result) {
+                let options = getOptions(result);
+
+                parentDiv.find(changedObj).html(changedObjHtml + options);
+                parentDiv.find(changedObj).attr('disabled', false);
+            }
+        });
     }
 
     function changeTypes() {
-        let requestAddress = "/getObservationTypeList";
-        let id = $(this).val();
-        let parentDiv = $(this).parents('.discDiv').first();
-        let changedClass = '.getObservationType';
-        let changedClassHtml = '<option value="0">-- Выберите вид наблюдений --</option>';
+        let requestAddress = "/getObservationTypeList",
+            idDisc = $(this).val(),
+            parentDiv = $(this).parents('.discDiv').first(),
+            changedClass = '.getObservationType',
+            changedClassHtml = '<option value="0">-- Выберите вид наблюдений --</option>';
 
-        if (id === '0' || id === '-1') {
+        if (idDisc === '0' || idDisc === '-1') {
             parentDiv.find(changedClass).html(changedClassHtml);
             parentDiv.find(changedClass).attr('disabled', true);
             parentDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>');
@@ -42,17 +52,17 @@ jQuery(document).ready(function () {
         parentDiv.find('.getObservationParameter').html('<option value="0">-- Выберите параметр наблюдений --</option>');
         parentDiv.find('.getObservationParameter').attr('disabled', true);
 
-        ajaxRequest(requestAddress, id, parentDiv, changedClass, changedClassHtml);
+        ajaxRequest(requestAddress, idDisc, parentDiv, changedClass, changedClassHtml);
     }
 
     function changeParameters() {
-        let requestAddress = "/getObservationParameterList";
-        let id = $(this).val();
-        let parentDiv = $(this).parents('.typeDiv').first();
-        let changedClass = '.getObservationParameter';
-        let changedClassHtml = '<option value="0">-- Выберите параметр наблюдений --</option>';
+        let requestAddress = "/getObservationParameterList",
+            idType = $(this).val(),
+            parentDiv = $(this).parents('.typeDiv').first(),
+            changedClass = '.getObservationParameter',
+            changedClassHtml = '<option value="0">-- Выберите параметр наблюдений --</option>';
 
-        if (id === '0' || id === '-1') {
+        if (idType === '0' || idType === '-1') {
             parentDiv.find(changedClass).html(changedClassHtml);
             parentDiv.find(changedClass).attr('disabled', true);
             return(false);
@@ -61,7 +71,7 @@ jQuery(document).ready(function () {
         parentDiv.find(changedClass).attr('disabled', true);
         parentDiv.find(changedClass).html('<option>загрузка...</option>');
 
-        ajaxRequest(requestAddress, id, parentDiv, changedClass, changedClassHtml);
+        ajaxRequest(requestAddress, idType, parentDiv, changedClass, changedClassHtml);
     }
 
     $('.getObservationDiscipline').on("change", changeTypes);
@@ -71,16 +81,31 @@ jQuery(document).ready(function () {
     let getTypeId = 0;
     let getParamId = 0;
 
+    function delDisc() {
+        $(this).parents('.discDiv').first().remove();
+    }
+
+    function delType() {
+        $(this).parents('.typeDiv').first().remove();
+    }
+
+    function delParam() {
+        $(this).parents('.paramDiv').first().remove();
+    }
+
     function addDisc() {
         let tpl =
             '<div class="discDiv">' +
                 '<div class="form-group row mt-3">' +
                     '<label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>' +
-                    '<div class="col-sm-9">' +
+                    '<div class="col-sm-9 input-group">' +
                         '<select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline" id="getObservationDiscipline'+ getDiscId +'">' +
                             '<option value="0">-- Выберите дисциплину --</option>' +
                             disciplines +
                         '</select>' +
+                        '<div class="input-group-append">' +
+                            '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delDisc" type="button" id="delDisc'+ getDiscId +'">x</button>' +
+                        '</div>' +
                     '</div>' +
                 '</div>' +
                 '<div class="typeDiv">' +
@@ -118,19 +143,30 @@ jQuery(document).ready(function () {
         $('#addType' + getTypeId).on("click", addType);
         $('#addParam'+ getParamId).on("click", addParam);
 
+        $('#delDisc'+ getDiscId).on("click", delDisc);
+
         getDiscId++;
         getTypeId++;
         getParamId++;
     }
 
     function addType() {
+        let requestAddress = "/getObservationTypeList",
+            idDisc = $(this).parents('.discDiv').first().find(".getObservationDiscipline").val(),
+            parentDiv = $(this).parents('.discDiv').first(),
+            changedObj = 'getObservationType' + getTypeId,
+            changedObjHtml = '<option value="0">-- Выберите вид наблюдений --</option>';
+
         let tpl =   '<div class="typeDiv">' +
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
-                            '<div class="col-sm-9">' +
-                                '<select name="observationType" class="browser-default custom-select getObservationType" id="getObservationType'+ getTypeId +'" disabled>' +
-                                    '<option value="0">-- Выберите вид наблюдений --</option>' +
+                            '<div class="col-sm-9 input-group">' +
+                                '<select name="observationType" class="browser-default custom-select getObservationType" id="'+ changedObj +'" disabled>' +
+                                    changedObjHtml +
                                 '</select>' +
+                                '<div class="input-group-append">' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delDisc" type="button" id="delType'+ getTypeId +'">x</button>' +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
                         '<div class="paramDiv">' +
@@ -149,28 +185,49 @@ jQuery(document).ready(function () {
                     '</div>';
         $(this).parents('div').first().before(tpl);
 
-        $('#getObservationType' + getTypeId).on("change", changeParameters);
+        $('#' + changedObj).on("change", changeParameters);
 
         $('#addParam'+ getParamId).on("click", addParam);
 
+        $('#delType'+ getTypeId).on("click", delType);
+
         getTypeId++;
         getParamId++;
+
+        if (idDisc != 0) {
+            ajaxRequest(requestAddress, idDisc, parentDiv, '#' + changedObj, changedObjHtml);
+        }
     }
 
     function addParam() {
+        let requestAddress = "/getObservationParameterList",
+            idType = $(this).parents('.typeDiv').first().find(".getObservationType").val(),
+            parentDiv = $(this).parents('.typeDiv').first(),
+            changedObj = 'getObservationParameter' + getParamId,
+            changedObjHtml = '<option value="0">-- Выберите параметр наблюдений --</option>';
+
         let tpl =   '<div class="paramDiv">' +
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
-                            '<div class="col-sm-9">' +
-                                '<select name="observationParameter" class="browser-default custom-select getObservationParameter" id="getObservationParameter'+ getParamId +'" disabled>' +
-                                    '<option value="0">-- Выберите параметр наблюдений --</option>' +
+                            '<div class="col-sm-9 input-group">' +
+                                '<select name="observationParameter" class="browser-default custom-select getObservationParameter" id="'+ changedObj +'" disabled>' +
+                                    changedObjHtml +
                                 '</select>' +
+                                '<div class="input-group-append">' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delDisc" type="button" id="delParam'+ getParamId +'">x</button>' +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
         $(this).parents('div').first().before(tpl);
 
+        $('#delParam'+ getParamId).on("click", delParam);
+
         getParamId++;
+
+        if (idType != 0) {
+            ajaxRequest(requestAddress, idType, parentDiv, '#' + changedObj, changedObjHtml);
+        }
     }
 
     $('.addDisc').on("click", addDisc);

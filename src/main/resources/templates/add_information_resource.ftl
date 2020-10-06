@@ -137,7 +137,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Инвентарный номер:</label>
                 <div class="col-sm-9">
-                    <input required type="text" name="inventoryNumber" class="form-control" placeholder="Введите инвентарный номер">
+                    <input  type="text" name="inventoryNumber" class="form-control" placeholder="Введите инвентарный номер">
                 </div>
             </div>
             <div class="form-group row">
