@@ -18,7 +18,7 @@ public class ObservationParameter {
     @JoinColumn(name = "id_observation_type")
     private ObservationType observationType;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "infres_observparam",
             joinColumns = { @JoinColumn(name = "id_observation_parameter") },

@@ -14,7 +14,7 @@ public class ObservationScope {
     @Column(nullable = false, name="name", unique = true)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "infres_observscope",
             joinColumns = { @JoinColumn(name = "id_observation_scope") },

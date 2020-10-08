@@ -75,7 +75,7 @@ public class InformationResource {
     @OneToMany(mappedBy = "informationResource", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InfresOrganization> infresOrganizations;
 
-    @ManyToMany(cascade = CascadeType.ALL) //дисциплины наблюдений
+    @ManyToMany //дисциплины наблюдений
     @JoinTable(
             name = "infres_observdiscipl",
             joinColumns = { @JoinColumn(name = "id_information_resource") },
@@ -83,7 +83,7 @@ public class InformationResource {
     )
     private Set<ObservationDiscipline> observationDisciplines = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL) //виды наблюдений
+    @ManyToMany //виды наблюдений
     @JoinTable(
             name = "infres_observtype",
             joinColumns = { @JoinColumn(name = "id_information_resource") },
@@ -91,7 +91,7 @@ public class InformationResource {
     )
     private Set<ObservationType> observationTypes = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL) //параметры наблюдений
+    @ManyToMany //параметры наблюдений
     @JoinTable(
             name = "infres_observparam",
             joinColumns = { @JoinColumn(name = "id_information_resource") },
@@ -99,7 +99,7 @@ public class InformationResource {
     )
     private Set<ObservationParameter> observationParameters = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL) //сферы наблюдений
+    @ManyToMany //сферы наблюдений
     @JoinTable(
             name = "infres_observscope",
             joinColumns = { @JoinColumn(name = "id_information_resource") },
@@ -108,7 +108,7 @@ public class InformationResource {
     private Set<ObservationScope> observationScopes = new HashSet<>();
 
 
-    @ManyToMany(cascade = CascadeType.ALL) //географические объекты
+    @ManyToMany //географические объекты
     @JoinTable(
             name = "infres_geogrobject",
             joinColumns = { @JoinColumn(name = "id_information_resource") },
@@ -151,24 +151,6 @@ public class InformationResource {
         this.duplicate = duplicate;
         this.dateOfEntering = dateOfEntering;
     }
-
-    ////////////////////////////////////////////////////
-    public InformationResource(List<UploadedFile> uploadedFiles,
-                               List<InfresOrganization> infresOrganizations,
-                               Set<ObservationDiscipline> observationDisciplines,
-                               Set<ObservationType> observationTypes,
-                               Set<ObservationParameter> observationParameters,
-                               Set<ObservationScope> observationScopes,
-                               Set<GeographicalObject> geographicalObjects) {
-        this.uploadedFiles = uploadedFiles;
-        this.infresOrganizations = infresOrganizations;
-        this.observationDisciplines = observationDisciplines;
-        this.observationTypes = observationTypes;
-        this.observationParameters = observationParameters;
-        this.observationScopes = observationScopes;
-        this.geographicalObjects = geographicalObjects;
-    }
-    //////////////////////////////////////////////////////
 
     public void addUploadedFiles(List<UploadedFile> uploadedFiles) {
         this.uploadedFiles.addAll(uploadedFiles);

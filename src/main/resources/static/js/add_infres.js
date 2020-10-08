@@ -77,21 +77,33 @@ jQuery(document).ready(function () {
     $('.getObservationDiscipline').on("change", changeTypes);
     $('.getObservationType').on("change", changeParameters);
 
+    function delDisc() {
+        $(this).parents('.discDiv').first().remove();
+    }
+    function delType() {
+        $(this).parents('.typeDiv').first().remove();
+    }
+    function delParam() {
+        $(this).parents('.paramDiv').first().remove();
+    }
+
+    function delScope() {
+        $(this).parents('.scopeDiv').first().remove();
+    }
+    function delGeographicalObj() {
+        $(this).parents('.geographicalObjDiv').first().remove();
+    }
+    function delOrganization() {
+        $(this).parents('.organizationDiv').first().remove();
+    }
+
     let getDiscId = 0;
     let getTypeId = 0;
     let getParamId = 0;
 
-    function delDisc() {
-        $(this).parents('.discDiv').first().remove();
-    }
-
-    function delType() {
-        $(this).parents('.typeDiv').first().remove();
-    }
-
-    function delParam() {
-        $(this).parents('.paramDiv').first().remove();
-    }
+    let getScopeId = 0;
+    let getGeogrObjId = 0;
+    let getOrganizationId = 0;
 
     function addDisc() {
         let tpl =
@@ -230,7 +242,80 @@ jQuery(document).ready(function () {
         }
     }
 
+    function addScope() {
+        let tpl =   '<div class="scopeDiv">' +
+                        '<div class="form-group row mt-3">' +
+                            '<label class="col-sm-3 col-form-label">Сфера наблюдений:</label>' +
+                            '<div class="col-sm-9 input-group">' +
+                                '<select name="observationScope" class="browser-default custom-select getObservationScope" id="getObservationScope'+ getScopeId +'">' +
+                                    '<option value="0">-- Выберите сферу наблюдений --</option>' +
+                                    scopes +
+                                '</select>' +
+                                '<div class="input-group-append">' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delScope" type="button" id="delScope'+ getScopeId +'">x</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+
+        $(this).parents('div').first().before(tpl);
+
+        $('#delScope'+ getScopeId).on("click", delScope);
+
+        getScopeId++;
+    }
+
+    function addGeogrObj() {
+        let tpl =   '<div class="geographicalObjDiv">' +
+                        '<div class="form-group row mt-3">' +
+                            '<label class="col-sm-3 col-form-label">Территория наблюдений:</label>' +
+                            '<div class="col-sm-9 input-group">' +
+                                '<select name="geographicalObject" class="browser-default custom-select getGeographicalObject" id="getGeographicalObject' + getGeogrObjId +'">' +
+                                    '<option value="0">-- Выберите территорию наблюдений --</option>' +
+                                    geogrObjects +
+                                '</select>' +
+                                '<div class="input-group-append">' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delGeogrObj" type="button" id="delGeogrObj'+ getGeogrObjId +'">x</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+
+        $(this).parents('div').first().before(tpl);
+
+        $('#delGeogrObj'+ getGeogrObjId).on("click", delGeographicalObj);
+
+        getGeogrObjId++;
+    }
+
+    function addOrganization() {
+        let tpl =   '<div class="organizationDiv">' +
+                        '<div class="form-group row mt-3">' +
+                            '<label class="col-sm-3 col-form-label">Организация:</label>' +
+                            '<div class="col-sm-9 input-group">' +
+                                '<select name="organization" class="browser-default custom-select getOrganization" id="getOrganization'+ getOrganizationId +'">' +
+                                    '<option value="0">-- Выберите организацию --</option>' +
+                                    organizations +
+                                '</select>' +
+                                '<div class="input-group-append">' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delOrganization" type="button" id="delOrganization'+ getOrganizationId +'">x</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+
+        $(this).parents('div').first().before(tpl);
+
+        $('#delOrganization'+ getOrganizationId).on("click", delOrganization);
+
+        getOrganizationId++;
+    }
+
     $('.addDisc').on("click", addDisc);
     $('.addType').on("click", addType);
     $('.addParam').on("click", addParam);
+
+    $('.addScope').on("click", addScope);
+    $('.addGeogrObj').on("click", addGeogrObj);
+    $('.addOrganization').on("click", addOrganization);
 });

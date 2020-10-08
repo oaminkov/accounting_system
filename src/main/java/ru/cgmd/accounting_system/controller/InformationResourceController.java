@@ -63,7 +63,6 @@ public class InformationResourceController {
             Model model
     ){
         Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationResource(informationResource);
-
         model.addAttribute("informationResource", informationResource);
         model.addAttribute("uploadedFiles", uploadedFiles);
         return "view_information_resource_full";
@@ -170,11 +169,6 @@ public class InformationResourceController {
             @RequestParam RelatedProject relatedProject,
             @RequestParam Country country,
             @RequestParam ObservationMethod observationMethod,
-
-            @RequestParam(value = "observationDiscipline") ObservationDiscipline[] observationDisciplines,
-            //@RequestParam(value = "observationType") ObservationType[] observationTypes,
-            //@RequestParam(value = "observationParameter") ObservationParameter[] observationParameters,
-
             @RequestParam String inventoryNumber,
             @RequestParam String fullnameCdrom,
             @RequestParam String abbreviationCdrom,
@@ -184,25 +178,82 @@ public class InformationResourceController {
             @RequestParam String volume,
             @RequestParam String receivedDate,
             @RequestParam(defaultValue = "0") boolean duplicate,
-            @RequestParam(value = "uploadFiles") MultipartFile[] files
+            @RequestParam(value = "uploadFiles") MultipartFile[] files,
+            @RequestParam(value = "observationParameter") ObservationParameter[] observationParameters,
+
+            @RequestParam(value = "observationScope") ObservationScope[] observationScopes,
+            @RequestParam(value = "geographicalObject") GeographicalObject[] geographicalObjects,
+            @RequestParam(value = "organization") Organization[] organizations
     ) throws IOException {
-
-        for (ObservationDiscipline observationDiscipline : observationDisciplines) {
-            System.out.println(observationDiscipline.getName());
-        }
-
-        System.out.println("---END---");
 
         LocalDateTime myDateObj = LocalDateTime.now();
         String dateOfEntering = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
 
-        /*InformationResource informationResource = new InformationResource(
+        InformationResource informationResource = new InformationResource(
                         operator, language, relatedProject, country, observationMethod,
                         inventoryNumber, fullnameCdrom, abbreviationCdrom, dateObservationStart, dateObservationEnd,
-                        briefContent, volume, receivedDate, duplicate, dateOfEntering);*/
+                        briefContent, volume, receivedDate, duplicate, dateOfEntering);
+
+        if (observationParameters != null) {
+            Set<ObservationDiscipline> observationDisciplineSet = new HashSet<>();
+            Set<ObservationType> observationTypeSet = new HashSet<>();
+            Set<ObservationParameter> observationParameterSet = new HashSet<>();
+
+            for (ObservationParameter observationParameter : observationParameters) {
+                if (observationParameter != null) {
+                    observationDisciplineSet.add(observationParameter.getObservationType().getObservationDiscipline());
+                    observationTypeSet.add(observationParameter.getObservationType());
+                    observationParameterSet.add(observationParameter);
+                }
+            }
+
+            informationResource.setObservationDisciplines(observationDisciplineSet);
+            informationResource.setObservationTypes(observationTypeSet);
+            informationResource.setObservationParameters(observationParameterSet);
+        }
+
+        if (observationScopes != null) {
+            Set<ObservationScope> observationScopeSet = new HashSet<>();
+
+            for (ObservationScope observationScope : observationScopes) {
+                if (observationScope != null) {
+                    observationScopeSet.add(observationScope);
+                }
+            }
+
+            informationResource.setObservationScopes(observationScopeSet);
+        }
+
+        if (geographicalObjects != null) {
+            Set<GeographicalObject> geographicalObjectSet = new HashSet<>();
+
+            for (GeographicalObject geographicalObject : geographicalObjects) {
+                if (geographicalObject != null) {
+                    geographicalObjectSet.add(geographicalObject);
+                }
+            }
+
+            informationResource.setGeographicalObjects(geographicalObjectSet);
+        }
+
+        if (organizations != null) {
+            List<InfresOrganization> infresOrganizationList = new ArrayList<>();
+            boolean main = true;
+
+            for (Organization organization : organizations) {
+                if (organization != null) {
+                    infresOrganizationList.add(new InfresOrganization(main, informationResource, organization));
+
+                    if (main) {
+                        main = false;
+                    }
+                }
+            }
+
+            informationResource.setInfresOrganizations(infresOrganizationList);
+        }
 
         List<UploadedFile> uploadedFiles = new ArrayList<>();
-
         if(files[0].getSize() != 0) {
             for (MultipartFile file : files) {
                 if (file != null) {
@@ -217,15 +268,15 @@ public class InformationResourceController {
                     String resultFilename = uuidFile + "." + file.getOriginalFilename();
                     String resultFilepath = uploadDirPath + "/" + resultFilename;
 
-                    //file.transferTo(new File(resultFilepath));
+                    file.transferTo(new File(resultFilepath));
 
-                    //uploadedFiles.add(new UploadedFile(resultFilename, resultFilepath, informationResource));
+                    uploadedFiles.add(new UploadedFile(resultFilename, resultFilepath, informationResource));
                 }
             }
-            //informationResource.setUploadedFiles(uploadedFiles);
+            informationResource.setUploadedFiles(uploadedFiles);
         }
 
-        //informationResourceService.save(informationResource);
+        informationResourceService.save(informationResource);
 
         return "redirect:/information_resources";
     }

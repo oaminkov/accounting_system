@@ -11,7 +11,7 @@
         <tbody>
         <#list organizations as organization>
             <tr>
-                <td>${organization.fullName}</td>
+                <td>${organization.name}</td>
                 <td>${organization.abbreviation}</td>
                 <td>${organization.country.name}</td>
             </tr>

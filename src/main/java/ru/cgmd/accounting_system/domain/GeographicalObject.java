@@ -14,7 +14,7 @@ public class GeographicalObject {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "infres_geogrobject",
             joinColumns = { @JoinColumn(name = "id_geographical_object") },

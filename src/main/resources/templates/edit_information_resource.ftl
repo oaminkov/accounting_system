@@ -10,10 +10,10 @@
                         <#list relatedProjects as relatedProject>
                             <#if relatedProject == informationResource.relatedProject>
                                 <option selected value="${relatedProject.id}"
-                                >${relatedProject.fullName}</option>
+                                >${relatedProject.name}</option>
                             <#else>
                                 <option value="${relatedProject.id}"
-                                >${relatedProject.fullName}</option>
+                                >${relatedProject.name}</option>
                             </#if>
                         </#list>
                     </select>
@@ -122,10 +122,10 @@
                         <#list organizations as organization>
                             <#if organization == informationResource.organization>
                                 <option selected value="${organization.id}"
-                                >${organization.fullName}</option>
+                                >${organization.name}</option>
                             <#else>
                                 <option value="${organization.id}"
-                                >${organization.fullName}</option>
+                                >${organization.name}</option>
                             </#if>
                         </#list>
                     </select>

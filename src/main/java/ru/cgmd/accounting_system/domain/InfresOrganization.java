@@ -3,7 +3,7 @@ package ru.cgmd.accounting_system.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "infprod_organization")
+@Table(name = "infres_organization")
 public class InfresOrganization {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

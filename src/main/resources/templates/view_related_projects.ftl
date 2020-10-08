@@ -12,7 +12,7 @@
         <#list relatedProjects as relatedProject>
             <tr>
                 <td>${relatedProject.type}</td>
-                <td>${relatedProject.fullName}</td>
+                <td>${relatedProject.name}</td>
                 <td>${relatedProject.abbreviation}</td>
             </tr>
         </#list>

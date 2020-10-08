@@ -117,7 +117,7 @@ public class AjaxController {
                 if (item.getOrganization().equals(organization)) {
                     Container container = new Container();
                     container.setId(item.getOrganization().getId());
-                    container.setName(item.getOrganization().getFullName());
+                    container.setName(item.getOrganization().getName());
                     containers.add(container);
                     break;
                 }

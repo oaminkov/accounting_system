@@ -13,7 +13,7 @@
         <label class="col-sm-3 col-form-label">Название:</label>
         <div class="col-sm-9">
             <input required autofocus type="text"
-                   name="fullName" class="form-control ${(messageError??)?string('is-invalid', '')}"
+                   name="name" class="form-control ${(messageError??)?string('is-invalid', '')}"
                    placeholder="Введите полное название">
 
             <#if messageError??>

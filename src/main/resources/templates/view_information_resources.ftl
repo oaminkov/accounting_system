@@ -10,11 +10,7 @@
                 <tr>
                     <th>Инвентарный номер</th>
                     <th>Страна</th>
-                    <th>Дисциплина наблюдений</th>
-                    <th>Вид наблюдений</th>
                     <th>Период наблюдений</th>
-                    <th>Территория наблюдений</th>
-                    <th>Организация</th>
                     <th>Загруженные файлы</th>
                     <th>Просмотреть полностью</th>
                     <th>Изменить</th>
@@ -26,11 +22,7 @@
                 <tr>
                     <td>${informationResource.inventoryNumber}</td>
                     <td>${informationResource.country.name}</td>
-                    <td>${informationResource.observationDiscipline.name}</td>
-                    <td>${informationResource.observationType.name}</td>
                     <td>${informationResource.dateObservationStart}<br>${informationResource.dateObservationEnd}</td>
-                    <td>${informationResource.geographicalObject.name}</td>
-                    <td>${informationResource.organization.fullName}</td>
                     <td>
                         <#if auth_user??>
                             <div class="btn-group">
@@ -44,7 +36,7 @@
                                 <div class="dropdown-menu">
                                     <#list uploadedFiles as uploadedFile>
                                         <#if informationResource.id == uploadedFile.informationResource.id>
-                                            <a href="/file/${informationResource.organization.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
+                                            <a href="/file/${informationResource.country.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
                                                class="dropdown-item" target="_blank">${uploadedFile.name}</a>
                                         </#if>
                                     </#list>

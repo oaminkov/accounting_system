@@ -22,7 +22,7 @@ public class ObservationType { //вид наблюдения
     @JoinColumn (nullable = false, name = "id_observation_discipline")
     private ObservationDiscipline observationDiscipline;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "infres_observtype",
             joinColumns = { @JoinColumn(name = "id_observation_type") },

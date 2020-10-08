@@ -18,7 +18,7 @@ public class ObservationDiscipline {
     @OneToMany(mappedBy = "observationDiscipline", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ObservationType> observationTypes;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "infres_observdiscipl",
             joinColumns = { @JoinColumn(name = "id_observation_discipline") },

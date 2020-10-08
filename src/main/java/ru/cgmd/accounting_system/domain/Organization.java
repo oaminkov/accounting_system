@@ -11,7 +11,7 @@ public class Organization { //организация
     private Long id;
 
     @Column(nullable = false, name="fullname", unique = true)
-    private String fullName;
+    private String name;
 
     @Column(nullable = false, name="abbreviation")
     private String abbreviation;
@@ -25,9 +25,9 @@ public class Organization { //организация
 
     public Organization() { }
 
-    public Organization(Country country, String fullName, String abbreviation) {
+    public Organization(Country country, String name, String abbreviation) {
         this.country = country;
-        this.fullName = fullName;
+        this.name = name;
         this.abbreviation = abbreviation;
     }
 
@@ -45,11 +45,11 @@ public class Organization { //организация
         this.country = country;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAbbreviation() {
