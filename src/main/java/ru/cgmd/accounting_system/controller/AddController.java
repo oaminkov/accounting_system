@@ -20,8 +20,6 @@ public class AddController {
     @Autowired
     private ObservationMethodService observationMethodService;
     @Autowired
-    private GeographicalObjectService geographicalObjectService;
-    @Autowired
     private ObservationDisciplineService observationDisciplineService;
     @Autowired
     private ObservationTypeService observationTypeService;
@@ -29,6 +27,8 @@ public class AddController {
     private ObservationParameterService observationParameterService;
     @Autowired
     private ObservationScopeService observationScopeService;
+    @Autowired
+    private ObservationTerritoryService observationTerritoryService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -64,10 +64,10 @@ public class AddController {
     @PostMapping("related_projects/add")
     public String saveRelatedProject(
             @RequestParam String type,
-            @RequestParam String fullName,
+            @RequestParam String name,
             @RequestParam String abbreviation
     ) {
-        RelatedProject relatedProject = new RelatedProject(type, fullName, abbreviation);
+        RelatedProject relatedProject = new RelatedProject(type, name, abbreviation);
         relatedProjectService.save(relatedProject);
         return "redirect:/related_projects";
     }
@@ -119,28 +119,6 @@ public class AddController {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_observation_method";
-    }
-    //GEOGRAPHICAL OBJECT
-    @PostMapping("geographical_objects/add")
-    public String saveGeographicalObject(@RequestParam String name, Model model) {
-        name = name.trim();
-
-        if(!name.isEmpty()) {
-            name = firstUpperCase(name);
-
-            if(!geographicalObjectService.isExists(name)) {
-                GeographicalObject geographicalObject = new GeographicalObject(name);
-                geographicalObjectService.save(geographicalObject);
-                return "redirect:/geographical_objects";
-            }
-            else {
-                model.addAttribute("messageError", "Такой географический объект уже есть в базе");
-            }
-        }
-        else {
-            model.addAttribute("messageError", "Вы ввели пустую строку");
-        }
-        return "add_geographical_object";
     }
     //OBSERVATION DISCIPLINE
     @PostMapping("observation_disciplines/add")
@@ -203,6 +181,28 @@ public class AddController {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_observation_scope";
+    }
+    //OBSERVATION TERRITORY
+    @PostMapping("observation_territories/add")
+    public String saveObservationTerritory(@RequestParam String name, Model model) {
+        name = name.trim();
+
+        if(!name.isEmpty()) {
+            name = firstUpperCase(name);
+
+            if(!observationTerritoryService.isExists(name)) {
+                ObservationTerritory observationTerritory = new ObservationTerritory(name);
+                observationTerritoryService.save(observationTerritory);
+                return "redirect:/observation_territories";
+            }
+            else {
+                model.addAttribute("messageError", "Такая территория наблюдений уже есть в базе");
+            }
+        }
+        else {
+            model.addAttribute("messageError", "Вы ввели пустую строку");
+        }
+        return "add_observation_territory";
     }
     //ORGANIZATION
     @PostMapping("organizations/add")

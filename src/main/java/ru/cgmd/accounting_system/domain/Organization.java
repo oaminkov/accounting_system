@@ -5,15 +5,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "organization")
-public class Organization { //организация
+public class Organization {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, name="fullname", unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, name="abbreviation")
+    @Column(nullable = false)
     private String abbreviation;
 
     @ManyToOne(fetch = FetchType.LAZY)

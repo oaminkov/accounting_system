@@ -27,23 +27,23 @@ public class InformationResourceController {
     @Value("${upload.path}")
     private String uploadPath;
     @Autowired
-    private CountryService countryService;
-    @Autowired
-    private GeographicalObjectService geographicalObjectService;
+    private InformationResourceService informationResourceService;
     @Autowired
     private LanguageService languageService;
     @Autowired
     private RelatedProjectService relatedProjectService;
     @Autowired
+    private CountryService countryService;
+    @Autowired
+    private ObservationMethodService observationMethodService;
+    @Autowired
     private ObservationDisciplineService observationDisciplineService;
     @Autowired
     private ObservationScopeService observationScopeService;
     @Autowired
-    private ObservationMethodService observationMethodService;
+    private ObservationTerritoryService observationTerritoryService;
     @Autowired
     private OrganizationService organizationService;
-    @Autowired
-    private InformationResourceService informationResourceService;
     @Autowired
     private UploadedFileRepository uploadedFileRepository;
 
@@ -104,23 +104,25 @@ public class InformationResourceController {
 
     @GetMapping("information_resources/add")
     public String showNewInformationProductPage(Model model) {
-        List<Country> countries = countryService.listAll();
-        List<GeographicalObject> geographicalObjects = geographicalObjectService.listAll();
         List<Language> languages = languageService.listAll();
         List<RelatedProject> relatedProjects = relatedProjectService.listAll();
-        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
-        List<ObservationScope> observationScopes = observationScopeService.listAll();
-        List<Organization> organizations = organizationService.listAll();
+        List<Country> countries = countryService.listAll();
         List<ObservationMethod> observationMethods = observationMethodService.listAll();
 
-        model.addAttribute("countries", countries);
-        model.addAttribute("geographicalObjects", geographicalObjects);
+        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
+        List<ObservationScope> observationScopes = observationScopeService.listAll();
+        List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
+        List<Organization> organizations = organizationService.listAll();
+
         model.addAttribute("languages", languages);
         model.addAttribute("relatedProjects", relatedProjects);
+        model.addAttribute("countries", countries);
+        model.addAttribute("observationMethods", observationMethods);
+
         model.addAttribute("observationDisciplines", observationDisciplines);
         model.addAttribute("observationScopes", observationScopes);
+        model.addAttribute("observationTerritories", observationTerritories);
         model.addAttribute("organizations", organizations);
-        model.addAttribute("observationMethods", observationMethods);
 
         return "add_information_resource";
     }
@@ -133,8 +135,8 @@ public class InformationResourceController {
         List<Country> listCountry = countryService.listAll(); //select стран
         model.addAttribute("listCountry", listCountry);
 
-        List<GeographicalObject> listGeographicalObject = geographicalObjectService.listAll(); //select географического объекта
-        model.addAttribute("listGeographicalObject", listGeographicalObject);
+        List<ObservationTerritory> listObservationTerritory = geographicalObjectService.listAll(); //select географического объекта
+        model.addAttribute("listObservationTerritory", listObservationTerritory);
 
         List<Language> listLanguage = languageService.listAll(); //select языка
         model.addAttribute("listLanguage", listLanguage);
@@ -180,9 +182,8 @@ public class InformationResourceController {
             @RequestParam(defaultValue = "0") boolean duplicate,
             @RequestParam(value = "uploadFiles") MultipartFile[] files,
             @RequestParam(value = "observationParameter") ObservationParameter[] observationParameters,
-
             @RequestParam(value = "observationScope") ObservationScope[] observationScopes,
-            @RequestParam(value = "geographicalObject") GeographicalObject[] geographicalObjects,
+            @RequestParam(value = "observationTerritories") ObservationTerritory[] observationTerritories,
             @RequestParam(value = "organization") Organization[] organizations
     ) throws IOException {
 
@@ -224,16 +225,16 @@ public class InformationResourceController {
             informationResource.setObservationScopes(observationScopeSet);
         }
 
-        if (geographicalObjects != null) {
-            Set<GeographicalObject> geographicalObjectSet = new HashSet<>();
+        if (observationTerritories != null) {
+            Set<ObservationTerritory> observationTerritorySet = new HashSet<>();
 
-            for (GeographicalObject geographicalObject : geographicalObjects) {
-                if (geographicalObject != null) {
-                    geographicalObjectSet.add(geographicalObject);
+            for (ObservationTerritory observationTerritory : observationTerritories) {
+                if (observationTerritory != null) {
+                    observationTerritorySet.add(observationTerritory);
                 }
             }
 
-            informationResource.setGeographicalObjects(geographicalObjectSet);
+            informationResource.setObservationTerritories(observationTerritorySet);
         }
 
         if (organizations != null) {
@@ -291,7 +292,7 @@ public class InformationResourceController {
             @RequestParam ObservationDiscipline observationDiscipline,
             @RequestParam ObservationType observationType,
             @RequestParam ObservationScope observationScope,
-            @RequestParam GeographicalObject geographicalObject,
+            @RequestParam ObservationTerritory geographicalObject,
             @RequestParam Organization organization,
             @RequestParam String inventoryNumber,
             @RequestParam String fullnameCdrom,
@@ -352,7 +353,7 @@ public class InformationResourceController {
         informationProduct.setObservationDiscipline(observationDiscipline);
         informationProduct.setObservationType(observationType);
         informationProduct.setObservationScope(observationScope);
-        informationProduct.setGeographicalObject(geographicalObject);
+        informationProduct.setObservationTerritory(geographicalObject);
         informationProduct.setOrganization(organization);
         informationProduct.setInventoryNumber(inventoryNumber);
         informationProduct.setFullnameCdrom(fullnameCdrom);
@@ -418,8 +419,8 @@ public class InformationResourceController {
         List<Country> listCountry = countryService.listAll(); //select стран
         model.addAttribute("listCountry", listCountry);
 
-        List<GeographicalObject> listGeographicalObject = geographicalObjectService.listAll(); //select географического объекта
-        model.addAttribute("listGeographicalObject", listGeographicalObject);
+        List<ObservationTerritory> listObservationTerritory = geographicalObjectService.listAll(); //select географического объекта
+        model.addAttribute("listObservationTerritory", listObservationTerritory);
 
         List<Language> listLanguage = languageService.listAll(); //select языка
         model.addAttribute("listLanguage", listLanguage);

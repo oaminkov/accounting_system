@@ -27,7 +27,7 @@
                     <a class="dropdown-item" href="/observation_types">Виды наблюдений</a>
                     <a class="dropdown-item" href="/observation_parameters">Параметры наблюдений</a>
                     <a class="dropdown-item" href="/observation_scopes">Сферы наблюдений</a>
-                    <a class="dropdown-item" href="/geographical_objects">Территории наблюдений</a>
+                    <a class="dropdown-item" href="/observation_territories">Территории наблюдений</a>
                     <a class="dropdown-item" href="/organizations">Организации</a>
                 </div>
             </li>

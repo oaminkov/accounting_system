@@ -165,21 +165,21 @@
             </div>
             <hr>
 
-            <div class="geographicalObjDiv">
+            <div class="territoryDiv">
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
                     <div class="col-sm-9">
-                        <select name="geographicalObject" class="browser-default custom-select getGeographicalObject">
+                        <select name="observationTerritory" class="browser-default custom-select getObservationTerritory">
                             <option value="0">-- Выберите территорию наблюдений --</option>
-                            <#list geographicalObjects as geographicalObject>
-                                <option value="${geographicalObject.id}">${geographicalObject.name}</option>
+                            <#list observationTerritories as observationTerritory>
+                                <option value="${observationTerritory.id}">${observationTerritory.name}</option>
                             </#list>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="form-group row mt-3">
-                <a class="col-sm btn btn-primary addGeogrObj">Добавить территорию</a>
+                <a class="col-sm btn btn-primary addTerritory">Добавить территорию</a>
             </div>
             <hr>
 
@@ -228,8 +228,8 @@
         let scopes =    '<#list observationScopes as observationScope>' +
                             '<option value="${observationScope.id}">${observationScope.name}</option>' +
                         '</#list>';
-        let geogrObjects =  '<#list geographicalObjects as geographicalObject>' +
-                                '<option value="${geographicalObject.id}">${geographicalObject.name}</option>' +
+        let territories =   '<#list observationTerritories as observationTerritory>' +
+                                '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
                             '</#list>';
         let organizations = '<#list organizations as organization>' +
                                 '<option value="${organization.id}">${organization.name}</option>' +

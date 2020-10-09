@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "geographical_object")
-public class GeographicalObject {
+@Table(name = "observation_territory")
+public class ObservationTerritory {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -16,15 +16,15 @@ public class GeographicalObject {
 
     @ManyToMany
     @JoinTable(
-            name = "infres_geogrobject",
-            joinColumns = { @JoinColumn(name = "id_geographical_object") },
+            name = "infres_observterritory",
+            joinColumns = { @JoinColumn(name = "id_observation_territory") },
             inverseJoinColumns = { @JoinColumn(name = "id_information_resource") }
     )
     private Set<InformationResource> informationResources = new HashSet<>();
 
-    public GeographicalObject() { }
+    public ObservationTerritory() { }
 
-    public GeographicalObject(String name) {
+    public ObservationTerritory(String name) {
         this.name = name;
     }
 

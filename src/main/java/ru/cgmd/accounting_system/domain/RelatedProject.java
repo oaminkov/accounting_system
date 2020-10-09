@@ -12,8 +12,8 @@ public class RelatedProject {
 
     @Column(nullable = false, name="type")
     private String type;
-    @Column(nullable = false, name="fullname")
-    private String fullName;
+    @Column(nullable = false, name="name")
+    private String name;
     @Column(nullable = false, name="abbreviation")
     private String abbreviation;
 
@@ -22,9 +22,9 @@ public class RelatedProject {
 
     public RelatedProject() { }
 
-    public RelatedProject(String type, String fullName, String abbreviation) {
+    public RelatedProject(String type, String name, String abbreviation) {
         this.type = type;
-        this.fullName = fullName;
+        this.name = name;
         this.abbreviation = abbreviation;
     }
 
@@ -42,11 +42,11 @@ public class RelatedProject {
         this.type = type;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAbbreviation() {

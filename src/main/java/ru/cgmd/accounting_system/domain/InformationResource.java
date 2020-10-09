@@ -108,13 +108,13 @@ public class InformationResource {
     private Set<ObservationScope> observationScopes = new HashSet<>();
 
 
-    @ManyToMany //географические объекты
+    @ManyToMany
     @JoinTable(
-            name = "infres_geogrobject",
+            name = "infres_observterritory",
             joinColumns = { @JoinColumn(name = "id_information_resource") },
-            inverseJoinColumns = { @JoinColumn(name = "id_geographical_object") }
+            inverseJoinColumns = { @JoinColumn(name = "id_observation_territory") }
     )
-    private Set<GeographicalObject> geographicalObjects = new HashSet<>();
+    private Set<ObservationTerritory> observationTerritories = new HashSet<>();
 
     public InformationResource() { }
 
@@ -317,11 +317,11 @@ public class InformationResource {
         this.observationScopes = observationScopes;
     }
 
-    public Set<GeographicalObject> getGeographicalObjects() {
-        return geographicalObjects;
+    public Set<ObservationTerritory> getObservationTerritories() {
+        return observationTerritories;
     }
-    public void setGeographicalObjects(Set<GeographicalObject> geographicalObjects) {
-        this.geographicalObjects = geographicalObjects;
+    public void setObservationTerritories(Set<ObservationTerritory> observationTerritories) {
+        this.observationTerritories = observationTerritories;
     }
 
     public List<InfresOrganization> getInfresOrganizations() {

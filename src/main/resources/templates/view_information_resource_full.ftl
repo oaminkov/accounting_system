@@ -41,7 +41,7 @@
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Географический объект:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.geographicalObject.name}">
+                <input type="text" readonly class="form-control" value="${informationResource.observationTerritory.name}">
             </div>
         </div>
         <div class="form-group row">

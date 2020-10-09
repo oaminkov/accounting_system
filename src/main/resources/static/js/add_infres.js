@@ -90,8 +90,8 @@ jQuery(document).ready(function () {
     function delScope() {
         $(this).parents('.scopeDiv').first().remove();
     }
-    function delGeographicalObj() {
-        $(this).parents('.geographicalObjDiv').first().remove();
+    function delTerritory() {
+        $(this).parents('.territoryDiv').first().remove();
     }
     function delOrganization() {
         $(this).parents('.organizationDiv').first().remove();
@@ -102,7 +102,7 @@ jQuery(document).ready(function () {
     let getParamId = 0;
 
     let getScopeId = 0;
-    let getGeogrObjId = 0;
+    let getTerritoryId = 0;
     let getOrganizationId = 0;
 
     function addDisc() {
@@ -265,17 +265,17 @@ jQuery(document).ready(function () {
         getScopeId++;
     }
 
-    function addGeogrObj() {
-        let tpl =   '<div class="geographicalObjDiv">' +
+    function addTerritory() {
+        let tpl =   '<div class="territoryDiv">' +
                         '<div class="form-group row mt-3">' +
                             '<label class="col-sm-3 col-form-label">Территория наблюдений:</label>' +
                             '<div class="col-sm-9 input-group">' +
-                                '<select name="geographicalObject" class="browser-default custom-select getGeographicalObject" id="getGeographicalObject' + getGeogrObjId +'">' +
+                                '<select name="observationTerritory" class="browser-default custom-select getObservationTerritory" id="getObservationTerritory' + getTerritoryId +'">' +
                                     '<option value="0">-- Выберите территорию наблюдений --</option>' +
-                                    geogrObjects +
+                                    territories +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delGeogrObj" type="button" id="delGeogrObj'+ getGeogrObjId +'">x</button>' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delGeogrObj" type="button" id="delTerritory'+ getTerritoryId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
@@ -283,9 +283,9 @@ jQuery(document).ready(function () {
 
         $(this).parents('div').first().before(tpl);
 
-        $('#delGeogrObj'+ getGeogrObjId).on("click", delGeographicalObj);
+        $('#delTerritory'+ getTerritoryId).on("click", delTerritory);
 
-        getGeogrObjId++;
+        getTerritoryId++;
     }
 
     function addOrganization() {
@@ -316,6 +316,6 @@ jQuery(document).ready(function () {
     $('.addParam').on("click", addParam);
 
     $('.addScope').on("click", addScope);
-    $('.addGeogrObj').on("click", addGeogrObj);
+    $('.addTerritory').on("click", addTerritory);
     $('.addOrganization').on("click", addOrganization);
 });

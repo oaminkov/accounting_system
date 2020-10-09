@@ -1,5 +1,5 @@
 <#import "parts/view_table.ftl" as v>
-<@v.view "/geographical_objects/add" "Территории наблюдений" "Добавить территорию наблюдений">
+<@v.view "/observation_territories/add" "Территории наблюдений" "Добавить территорию наблюдений">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
             <tr>
@@ -7,9 +7,9 @@
             </tr>
         </thead>
         <tbody>
-        <#list geographicalObjects as geographicalObject>
+        <#list observationTerritories as observationTerritory>
             <tr>
-                <td>${geographicalObject.name}</td>
+                <td>${observationTerritory.name}</td>
             </tr>
         </#list>
         </tbody>

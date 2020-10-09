@@ -29,7 +29,7 @@ public class ViewController {
     @Autowired
     private ObservationScopeService observationScopeService;
     @Autowired
-    private GeographicalObjectService geographicalObjectService;
+    private ObservationTerritoryService observationTerritoryService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -87,20 +87,6 @@ public class ViewController {
         ObservationMethod observationMethod = new ObservationMethod();
         model.addAttribute("observationMethod", observationMethod);
         return "add_observation_method";
-    }
-
-    //GEOGRAPHICAL OBJECT
-    @GetMapping("geographical_objects")
-    public String viewAllGeographicalObjects(Model model) {
-        List<GeographicalObject> geographicalObjects = geographicalObjectService.listAll();
-        model.addAttribute("geographicalObjects", geographicalObjects);
-        return "view_geographical_objects";
-    }
-    @GetMapping("geographical_objects/add")
-    public String showNewGeographicalObjectPage(Model model) {
-        GeographicalObject geographicalObject = new GeographicalObject();
-        model.addAttribute("geographicalObject", geographicalObject);
-        return "add_geographical_object";
     }
 
     //OBSERVATION DISCIPLINE
@@ -161,6 +147,20 @@ public class ViewController {
         ObservationScope observationScope = new ObservationScope();
         model.addAttribute("observationScope", observationScope);
         return "add_observation_scope";
+    }
+
+    //OBSERVATION TERRITORY
+    @GetMapping("observation_territories")
+    public String viewAllObservationTerritories(Model model) {
+        List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
+        model.addAttribute("observationTerritories", observationTerritories);
+        return "view_observation_territories";
+    }
+    @GetMapping("observation_territories/add")
+    public String showNewObservationTerritoryPage(Model model) {
+        ObservationTerritory observationTerritory = new ObservationTerritory();
+        model.addAttribute("observationTerritory", observationTerritory);
+        return "add_observation_territory";
     }
 
     //ORGANIZATION

@@ -102,14 +102,14 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Географический объект:</label>
                 <div class="col-sm-9">
-                    <select name="geographicalObject" class="browser-default custom-select">
-                        <#list geographicalObjects as geographicalObject>
-                            <#if geographicalObject == informationResource.geographicalObject>
-                                <option selected value="${geographicalObject.id}"
-                                >${geographicalObject.name}</option>
+                    <select name="observationTerritory" class="browser-default custom-select">
+                        <#list observationTerritories as observationTerritory>
+                            <#if observationTerritory == informationResource.observationTerritory>
+                                <option selected value="${observationTerritory.id}"
+                                >${observationTerritory.name}</option>
                             <#else>
-                                <option value="${geographicalObject.id}"
-                                >${geographicalObject.name}</option>
+                                <option value="${observationTerritory.id}"
+                                >${observationTerritory.name}</option>
                             </#if>
                         </#list>
                     </select>
