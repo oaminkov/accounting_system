@@ -47,6 +47,28 @@ public class InformationResourceController {
     @Autowired
     private UploadedFileRepository uploadedFileRepository;
 
+    public void selectDataFromDbToModel(Model model) {
+        List<Language> languages = languageService.listAll();
+        List<RelatedProject> relatedProjects = relatedProjectService.listAll();
+        List<Country> countries = countryService.listAll();
+        List<ObservationMethod> observationMethods = observationMethodService.listAll();
+
+        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
+        List<ObservationScope> observationScopes = observationScopeService.listAll();
+        List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
+        List<Organization> organizations = organizationService.listAll();
+
+        model.addAttribute("languages", languages);
+        model.addAttribute("relatedProjects", relatedProjects);
+        model.addAttribute("countries", countries);
+        model.addAttribute("observationMethods", observationMethods);
+
+        model.addAttribute("observationDisciplines", observationDisciplines);
+        model.addAttribute("observationScopes", observationScopes);
+        model.addAttribute("observationTerritories", observationTerritories);
+        model.addAttribute("organizations", organizations);
+    }
+
     @GetMapping("information_resources")
     public String viewAllInformationResources(Model model) {
         List<InformationResource> informationResources = informationResourceService.listAll();
@@ -60,11 +82,8 @@ public class InformationResourceController {
     @GetMapping("information_resources/{id}")
     public String viewInformationResourceFull(
             @PathVariable("id") InformationResource informationResource,
-            Model model
-    ){
-        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationResource(informationResource);
+            Model model){
         model.addAttribute("informationResource", informationResource);
-        model.addAttribute("uploadedFiles", uploadedFiles);
         return "view_information_resource_full";
     }
 
@@ -97,70 +116,29 @@ public class InformationResourceController {
     }
 
     @GetMapping("information_resources/delete/{id}")
-    public String deleteInformationResource(@PathVariable("id") Long id) {
-        informationResourceService.delete(id);
+    public String deleteInformationResource(@PathVariable("id") InformationResource informationResource) {
+        informationResourceService.delete(informationResource);
         return "redirect:/information_resources";
     }
 
     @GetMapping("information_resources/add")
     public String showNewInformationProductPage(Model model) {
-        List<Language> languages = languageService.listAll();
-        List<RelatedProject> relatedProjects = relatedProjectService.listAll();
-        List<Country> countries = countryService.listAll();
-        List<ObservationMethod> observationMethods = observationMethodService.listAll();
-
-        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
-        List<ObservationScope> observationScopes = observationScopeService.listAll();
-        List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
-        List<Organization> organizations = organizationService.listAll();
-
-        model.addAttribute("languages", languages);
-        model.addAttribute("relatedProjects", relatedProjects);
-        model.addAttribute("countries", countries);
-        model.addAttribute("observationMethods", observationMethods);
-
-        model.addAttribute("observationDisciplines", observationDisciplines);
-        model.addAttribute("observationScopes", observationScopes);
-        model.addAttribute("observationTerritories", observationTerritories);
-        model.addAttribute("organizations", organizations);
+        selectDataFromDbToModel(model);
 
         return "add_information_resource";
     }
 
-    /*@GetMapping("/information_product/edit/{id}")
-    public String showUpdateInformationProduct(@PathVariable("id") InformationProduct informationProduct,
-                                               Model model){
-        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationProduct(informationProduct);
+    @GetMapping("information_resources/edit/{id}")
+    public String showEditInformationProductPage(
+            @PathVariable("id") InformationResource informationResource,
+            Model model
+    ){
+        selectDataFromDbToModel(model);
 
-        List<Country> listCountry = countryService.listAll(); //select стран
-        model.addAttribute("listCountry", listCountry);
+        model.addAttribute("informationResource", informationResource);
 
-        List<ObservationTerritory> listObservationTerritory = geographicalObjectService.listAll(); //select географического объекта
-        model.addAttribute("listObservationTerritory", listObservationTerritory);
-
-        List<Language> listLanguage = languageService.listAll(); //select языка
-        model.addAttribute("listLanguage", listLanguage);
-
-        List<ProjectOrProgram> listProjectOrProgram = projectOrProgramService.listAll(); //проекты/программы
-        model.addAttribute("listProjectOrProgram", listProjectOrProgram);
-
-        List<ObservationDiscipline> listObservationDiscipline = observationDisciplineService.listAll();
-        model.addAttribute("listObservationDiscipline", listObservationDiscipline);
-
-        List<ObservationType> listObservationType = observationTypeRepository.findByObservationDiscipline(informationProduct.getObservationDiscipline());
-        model.addAttribute("listObservationType", listObservationType);
-
-        List<ObservationScope> listObservationScope = observationScopeService.listAll();
-        model.addAttribute("listObservationScope", listObservationScope);
-
-        List<Organization> listOrganization = organizationService.listAll();
-        model.addAttribute("listOrganization", listOrganization);
-
-        model.addAttribute("informationProduct",informationProduct);
-        model.addAttribute("uploadedFiles", uploadedFiles);
-
-        return "update_informationproduct";
-    }*/
+        return "edit_information_resource";
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,7 +161,7 @@ public class InformationResourceController {
             @RequestParam(value = "uploadFiles") MultipartFile[] files,
             @RequestParam(value = "observationParameter") ObservationParameter[] observationParameters,
             @RequestParam(value = "observationScope") ObservationScope[] observationScopes,
-            @RequestParam(value = "observationTerritories") ObservationTerritory[] observationTerritories,
+            @RequestParam(value = "observationTerritory") ObservationTerritory[] observationTerritories,
             @RequestParam(value = "organization") Organization[] organizations
     ) throws IOException {
 
@@ -282,8 +260,8 @@ public class InformationResourceController {
         return "redirect:/information_resources";
     }
 
-    /*@PostMapping("/information_resources/update/{id}")
-    public String updateInformationResource(
+    /*@PostMapping("/information_resources/edit/{id}")
+    public String editInformationResource(
             @PathVariable("id") InformationProduct informationProduct,
             @AuthenticationPrincipal User editor,
             @RequestParam ProjectOrProgram projectOrProgram,
@@ -318,7 +296,7 @@ public class InformationResourceController {
 
         if (!organizationTemp.equals(organization) || !inventoryNumberTemp.equals(inventoryNumber))
         {
-            String uploadDirPath = uploadPath + "/" + organization.getId() + "/" + inventoryNumber;
+            String uploadDirPath = uploadPath + "/" + country.getId() + "/" + inventoryNumber;
             File uploadDir = new File(uploadDirPath);
 
 

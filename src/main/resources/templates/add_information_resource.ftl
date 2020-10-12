@@ -6,7 +6,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Инвентарный номер:</label>
                 <div class="col-sm-9">
-                    <input  type="text" name="inventoryNumber" class="form-control" placeholder="Введите инвентарный номер">
+                    <input required type="text" name="inventoryNumber" class="form-control" placeholder="Введите инвентарный номер">
                 </div>
             </div>
             <div class="form-group row">
@@ -59,8 +59,7 @@
                     <select name="language" class="browser-default custom-select">
                         <option value="">-- Выберите язык --</option>
                         <#list languages as language>
-                            <option value="${language.id}"
-                            >${language.name}</option>
+                            <option value="${language.id}">${language.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -71,8 +70,7 @@
                     <select name="relatedProject" class="browser-default custom-select">
                         <option value="">-- Выберите связанный проект --</option>
                         <#list relatedProjects as relatedProject>
-                            <option value="${relatedProject.id}"
-                            >${relatedProject.name}</option>
+                            <option value="${relatedProject.id}">${relatedProject.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -83,8 +81,7 @@
                     <select name="country" class="browser-default custom-select">
                         <option value="">-- Выберите страну --</option>
                         <#list countries as country>
-                            <option value="${country.id}"
-                            >${country.name}</option>
+                            <option value="${country.id}">${country.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -95,8 +92,7 @@
                     <select name="observationMethod" class="browser-default custom-select">
                         <option value="">-- Выберите метод наблюдений --</option>
                         <#list observationMethods as observationMethod>
-                            <option value="${observationMethod.id}"
-                            >${observationMethod.name}</option>
+                            <option value="${observationMethod.id}">${observationMethod.name}</option>
                         </#list>
                     </select>
                 </div>

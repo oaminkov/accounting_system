@@ -10,22 +10,22 @@ public class RelatedProject {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, name="type")
-    private String type;
-    @Column(nullable = false, name="name")
+    @Column(nullable = false)
     private String name;
-    @Column(nullable = false, name="abbreviation")
+    @Column(nullable = false)
     private String abbreviation;
+    @Column(nullable = false)
+    private String type;
 
     @OneToMany(mappedBy = "relatedProject", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationResource> informationResources;
 
     public RelatedProject() { }
 
-    public RelatedProject(String type, String name, String abbreviation) {
-        this.type = type;
+    public RelatedProject(String name, String abbreviation, String type) {
         this.name = name;
         this.abbreviation = abbreviation;
+        this.type = type;
     }
 
     public Long getId() {
@@ -33,13 +33,6 @@ public class RelatedProject {
     }
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getName() {
@@ -54,6 +47,13 @@ public class RelatedProject {
     }
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 
     public List<InformationResource> getInformationResources() {

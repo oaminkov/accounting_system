@@ -63,11 +63,11 @@ public class AddController {
     //RELATED PROJECT
     @PostMapping("related_projects/add")
     public String saveRelatedProject(
-            @RequestParam String type,
             @RequestParam String name,
-            @RequestParam String abbreviation
+            @RequestParam String abbreviation,
+            @RequestParam String type
     ) {
-        RelatedProject relatedProject = new RelatedProject(type, name, abbreviation);
+        RelatedProject relatedProject = new RelatedProject(name, abbreviation, type);
         relatedProjectService.save(relatedProject);
         return "redirect:/related_projects";
     }

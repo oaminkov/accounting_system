@@ -27,7 +27,7 @@ public class InformationResourceService {
         return informationResourceRepository.findById(id).get();
     }
 
-    public void delete(long id) {
-        informationResourceRepository.deleteById(id);
+    public void delete(InformationResource informationResource) {
+        informationResourceRepository.delete(informationResource);
     }
 }

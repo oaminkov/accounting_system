@@ -1,58 +1,7 @@
 <#include "parts/head.ftl">
     <#include "parts/navbar.ftl">
     <div class="container">
-        <h1 class="mb-3" align="center">Просмотр информационного продукта</h1>
-        <div class="form-group row mt-3">
-            <label class="col-sm-3 col-form-label">Связанный проект:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.relatedProject.name}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Страна:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.country.name}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Язык:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.language.name}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.observationDiscipline.name}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.observationType.name}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.observationScope.name}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Географический объект:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.observationTerritory.name}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Организация:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.organization.name}">
-            </div>
-        </div>
-
-        <hr>
-
+        <h1 class="mb-3" align="center">Просмотр информационного ресурса</h1>
         <div class="form-group row mt-3">
             <label class="col-sm-3 col-form-label">Инвентарный номер:</label>
             <div class="col-sm-9">
@@ -95,45 +44,102 @@
                 <input readonly type="date" name="receivedDate" class="form-control" value="${informationResource.receivedDate}">
             </div>
         </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Оператор:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.user.username}">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Дата ввода в систему:</label>
-            <div class="col-sm-9">
-                <input readonly type="text" class="form-control" value="${informationResource.dateOfEntering}">
-            </div>
-        </div>
-
-        <#if informationResource.editor??>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Редактор:</label>
-                <div class="col-sm-9">
-                    <input readonly type="text" class="form-control" value="${informationResource.editor.username}">
-                </div>
-            </div>
-        </#if>
-
-        <#if informationResource.dateOfEdit??>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Дата редактирования:</label>
-                <div class="col-sm-9">
-                    <input readonly type="text" class="form-control" value="${informationResource.dateOfEdit}">
-                </div>
-            </div>
-        </#if>
-
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Краткое описание:</label>
             <div class="col-sm-9">
                 <textarea readonly name="briefContent" class="form-control" rows="4">${informationResource.briefContent}</textarea>
             </div>
         </div>
+        <hr>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Язык:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control" value="${informationResource.language.name}">
+            </div>
+        </div>
+        <div class="form-group row mt-3">
+            <label class="col-sm-3 col-form-label">Связанный проект:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control" value="${informationResource.relatedProject.name}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Страна:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control" value="${informationResource.country.name}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Метод наблюдений:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control" value="${informationResource.observationMethod.name}">
+            </div>
+        </div>
+        <hr>
+
+        <#list informationResource.observationDisciplines as observationDiscipline>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
+                <div class="col-sm-9">
+                    <input type="text" readonly class="form-control" value="${observationDiscipline.name}">
+                </div>
+            </div>
+
+            <#list informationResource.observationTypes as observationType>
+                <#if observationDiscipline.observationTypes?seq_contains(observationType)>
+                    <br>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly class="form-control" value="${observationType.name}">
+                        </div>
+                    </div>
+
+                    <#list informationResource.observationParameters as observationParameter>
+                        <#if observationType.observationParameters?seq_contains(observationParameter)>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" readonly class="form-control" value="${observationParameter.name}">
+                                </div>
+                            </div>
+                        </#if>
+                    </#list>
+                </#if>
+            </#list>
+            <hr>
+        </#list>
+
+        <#list informationResource.observationScopes as observationScope>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
+                <div class="col-sm-9">
+                    <input type="text" readonly class="form-control" value="${observationScope.name}">
+                </div>
+            </div>
+            <hr>
+        </#list>
+
+        <#list informationResource.observationTerritories as observationTerritory>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
+                <div class="col-sm-9">
+                    <input type="text" readonly class="form-control" value="${observationTerritory.name}">
+                </div>
+            </div>
+            <hr>
+        </#list>
+
+        <#list informationResource.infresOrganizations as infresOrganization>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Организация:</label>
+                <div class="col-sm-9">
+                    <input type="text" readonly class="form-control" value="${infresOrganization.organization.name}">
+                </div>
+            </div>
+            <hr>
+        </#list>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Дубликат:</label>
@@ -150,19 +156,54 @@
         </a>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
-                <form action="/information_resources/download/${informationResource.id}">
-                    <#if uploadedFiles?has_content>
+                <#if informationResource.uploadedFiles?has_content>
+                    <form action="/information_resources/download/${informationResource.id}">
                         <button type="submit" class="btn btn-success btn-block mb-2">Скачать архив</button>
-                    <#else>
-                        <p align="center">Файлы отсутствуют</p>
-                    </#if>
-                </form>
-                <#list uploadedFiles as uploadedFile>
-                    <a href="/file/${informationResource.organization.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
-                       class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
-                </#list>
+
+                        <#list informationResource.uploadedFiles as uploadedFile>
+                            <a href="/file/${informationResource.country.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
+                               class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
+                        </#list>
+                    </form>
+                <#else>
+                    <p align="center">Файлы отсутствуют</p>
+                </#if>
             </div>
         </div>
+        <hr>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Оператор:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control" value="${informationResource.operator.username}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Дата ввода в систему:</label>
+            <div class="col-sm-9">
+                <input readonly type="text" class="form-control" value="${informationResource.dateOfEntering}">
+            </div>
+        </div>
+        <hr>
+
+        <#if informationResource.editor??>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Редактор:</label>
+                <div class="col-sm-9">
+                    <input readonly type="text" class="form-control" value="${informationResource.editor.username}">
+                </div>
+            </div>
+
+            <#if informationResource.dateOfEdit??>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Дата редактирования:</label>
+                    <div class="col-sm-9">
+                        <input readonly type="text" class="form-control" value="${informationResource.dateOfEdit}">
+                    </div>
+                </div>
+            </#if>
+            <hr>
+        </#if>
 
         <div class="row mt-3">
             <div class="col">
@@ -174,7 +215,6 @@
                 </#if>
             </div>
         </div>
-
         <a href="/information_resources" class="btn btn-blue-grey m-0 mt-3 mb-3">Назад</a>
     </div>
     <#include "parts/scripts.ftl">

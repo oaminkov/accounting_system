@@ -25,23 +25,25 @@
                     <td>${informationResource.dateObservationStart}<br>${informationResource.dateObservationEnd}</td>
                     <td>
                         <#if auth_user??>
-                            <div class="btn-group">
-                                <form action="/information_resources/download/${informationResource.id}">
-                                    <button type="submit" class="btn btn-sm btn-secondary">Скачать</button>
-                                </form>
-                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle px-2" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false" data-reference="parent">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <#list uploadedFiles as uploadedFile>
-                                        <#if informationResource.id == uploadedFile.informationResource.id>
+                            <#if informationResource.uploadedFiles?has_content>
+                                <div class="btn-group">
+                                    <form action="/information_resources/download/${informationResource.id}">
+                                        <button type="submit" class="btn btn-sm btn-secondary">Скачать</button>
+                                    </form>
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle px-2" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false" data-reference="parent">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <#list informationResource.uploadedFiles as uploadedFile>
                                             <a href="/file/${informationResource.country.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
                                                class="dropdown-item" target="_blank">${uploadedFile.name}</a>
-                                        </#if>
-                                    </#list>
+                                        </#list>
+                                    </div>
                                 </div>
-                            </div>
+                            <#else>
+                                <p align="center">Файлы отсутствуют</p>
+                            </#if>
                         </#if>
                     </td>
                     <td>

@@ -254,10 +254,10 @@ public class InformationResource {
         this.language = language;
     }
 
-    public RelatedProject getProjectType() {
+    public RelatedProject getRelatedProject() {
         return relatedProject;
     }
-    public void setProjectType(RelatedProject relatedProject) {
+    public void setRelatedProject(RelatedProject relatedProject) {
         this.relatedProject = relatedProject;
     }
 
