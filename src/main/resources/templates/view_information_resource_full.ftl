@@ -86,8 +86,8 @@
                 </div>
             </div>
 
-            <#list informationResource.observationTypes as observationType>
-                <#if observationDiscipline.observationTypes?seq_contains(observationType)>
+            <#list observationDiscipline.observationTypes as observationType>
+                <#if informationResource.observationTypes?seq_contains(observationType)>
                     <br>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
@@ -96,8 +96,8 @@
                         </div>
                     </div>
 
-                    <#list informationResource.observationParameters as observationParameter>
-                        <#if observationType.observationParameters?seq_contains(observationParameter)>
+                    <#list observationType.observationParameters as observationParameter>
+                        <#if informationResource.observationParameters?seq_contains(observationParameter)>
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
                                 <div class="col-sm-9">
@@ -118,8 +118,8 @@
                     <input type="text" readonly class="form-control" value="${observationScope.name}">
                 </div>
             </div>
-            <hr>
         </#list>
+        <hr>
 
         <#list informationResource.observationTerritories as observationTerritory>
             <div class="form-group row">
@@ -128,8 +128,8 @@
                     <input type="text" readonly class="form-control" value="${observationTerritory.name}">
                 </div>
             </div>
-            <hr>
         </#list>
+        <hr>
 
         <#list informationResource.infresOrganizations as infresOrganization>
             <div class="form-group row">
@@ -138,8 +138,8 @@
                     <input type="text" readonly class="form-control" value="${infresOrganization.organization.name}">
                 </div>
             </div>
-            <hr>
         </#list>
+        <hr>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Дубликат:</label>
@@ -151,12 +151,12 @@
             </div>
         </div>
 
-        <a class="btn btn-secondary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            Файлы<i class="fas fa-chevron-down ml-2"></i>
-        </a>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <#if informationResource.uploadedFiles?has_content>
+        <#if informationResource.uploadedFiles?has_content>
+            <a class="btn btn-secondary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Файлы<i class="fas fa-chevron-down ml-2"></i>
+            </a>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
                     <form action="/information_resources/download/${informationResource.id}">
                         <button type="submit" class="btn btn-success btn-block mb-2">Скачать архив</button>
 
@@ -165,12 +165,10 @@
                                class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
                         </#list>
                     </form>
-                <#else>
-                    <p align="center">Файлы отсутствуют</p>
-                </#if>
+                </div>
             </div>
-        </div>
-        <hr>
+            <br><br>
+        </#if>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Оператор:</label>

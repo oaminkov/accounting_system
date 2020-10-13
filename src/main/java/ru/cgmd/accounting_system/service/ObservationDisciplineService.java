@@ -22,7 +22,7 @@ public class ObservationDisciplineService {
     }
 
     public List<ObservationDiscipline> listAll() {
-        return observationDisciplineRepository.findAll();
+        return observationDisciplineRepository.findAllByOrderByIdAsc();
     }
 
     /*public List<ObservationDiscipline> findByInformationResourcesExists() {

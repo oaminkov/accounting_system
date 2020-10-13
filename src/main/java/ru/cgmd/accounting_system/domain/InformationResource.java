@@ -156,6 +156,13 @@ public class InformationResource {
         this.uploadedFiles.addAll(uploadedFiles);
     }
 
+    public List<UploadedFile> getUploadedFiles() {
+        return uploadedFiles;
+    }
+    public void setUploadedFiles(List<UploadedFile> uploadedFiles) {
+        this.uploadedFiles = uploadedFiles;
+    }
+
     public Long getId() {
         return id;
     }
@@ -238,13 +245,6 @@ public class InformationResource {
     }
     public void setDateOfEdit(String dateOfEdit) {
         this.dateOfEdit = dateOfEdit;
-    }
-
-    public List<UploadedFile> getUploadedFiles() {
-        return uploadedFiles;
-    }
-    public void setUploadedFiles(List<UploadedFile> uploadedFiles) {
-        this.uploadedFiles = uploadedFiles;
     }
 
     public Language getLanguage() {

@@ -102,7 +102,7 @@
             <div class="discDiv">
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-9 input-group">
                         <select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline">
                             <option value="0">-- Выберите дисциплину --</option>
                             <#list observationDisciplines as observationDiscipline>
@@ -114,7 +114,7 @@
                 <div class="typeDiv">
                     <div class="form-group row mt-3">
                         <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9 input-group">
                             <select name="observationType" class="browser-default custom-select getObservationType" disabled>
                                 <option value="0">-- Выберите вид наблюдений --</option>
                             </select>
@@ -123,7 +123,7 @@
                     <div class="paramDiv">
                         <div class="form-group row mt-3">
                             <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-9 input-group">
                                 <select name="observationParameter" class="browser-default custom-select getObservationParameter" disabled>
                                     <option value="0">-- Выберите параметр наблюдений --</option>
                                 </select>
@@ -146,7 +146,7 @@
             <div class="scopeDiv">
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-9 input-group">
                         <select name="observationScope" class="browser-default custom-select getObservationScope">
                             <option value="0">-- Выберите сферу наблюдений --</option>
                             <#list observationScopes as observationScope>
@@ -164,7 +164,7 @@
             <div class="territoryDiv">
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-9 input-group">
                         <select name="observationTerritory" class="browser-default custom-select getObservationTerritory">
                             <option value="0">-- Выберите территорию наблюдений --</option>
                             <#list observationTerritories as observationTerritory>
@@ -182,7 +182,7 @@
             <div class="organizationDiv">
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Организация:</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-9 input-group">
                         <select name="organization" class="browser-default custom-select getOrganization">
                             <option value="0">-- Выберите организацию --</option>
                             <#list organizations as organization>
@@ -221,9 +221,9 @@
         let disciplines =   '<#list observationDisciplines as observationDiscipline>' +
                                 '<option value="${observationDiscipline.id}">${observationDiscipline.name}</option>' +
                             '</#list>';
-        let scopes =    '<#list observationScopes as observationScope>' +
-                            '<option value="${observationScope.id}">${observationScope.name}</option>' +
-                        '</#list>';
+        let scopes =        '<#list observationScopes as observationScope>' +
+                                '<option value="${observationScope.id}">${observationScope.name}</option>' +
+                            '</#list>';
         let territories =   '<#list observationTerritories as observationTerritory>' +
                                 '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
                             '</#list>';

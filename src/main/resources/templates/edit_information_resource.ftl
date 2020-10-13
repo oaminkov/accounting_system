@@ -111,90 +111,180 @@
             </div>
             <hr>
 
-            <#--<div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
-                <div class="col-sm-9">
-                    <select name="observationDiscipline" class="browser-default custom-select" id="getObservationDiscipline">
-                        <#list observationDisciplines as observationDiscipline>
-                            <#if observationDiscipline == informationResource.observationDiscipline>
-                                <option selected value="${observationDiscipline.id}"
-                                >${observationDiscipline.name}</option>
-                            <#else>
-                                <option value="${observationDiscipline.id}"
-                                >${observationDiscipline.name}</option>
-                            </#if>
-                        </#list>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
-                <div class="col-sm-9">
-                    <select name="observationType" class="browser-default custom-select" id="getObservationType">
-                        <#list observationTypes as observationType>
-                            <#if observationType == informationResource.observationType>
-                                <option selected value="${observationType.id}"
-                                >${observationType.name}</option>
-                            <#else>
-                                <option value="${observationType.id}"
-                                >${observationType.name}</option>
-                            </#if>
-                        </#list>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
-                <div class="col-sm-9">
-                    <select name="observationScope" class="browser-default custom-select">
-                        <#list observationScopes as observationScope>
-                            <#if observationScope == informationResource.observationScope>
-                                <option selected value="${observationScope.id}"
-                                >${observationScope.name}</option>
-                            <#else>
-                                <option value="${observationScope.id}"
-                                >${observationScope.name}</option>
-                            </#if>
-                        </#list>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Географический объект:</label>
-                <div class="col-sm-9">
-                    <select name="observationTerritory" class="browser-default custom-select">
-                        <#list observationTerritories as observationTerritory>
-                            <#if observationTerritory == informationResource.observationTerritory>
-                                <option selected value="${observationTerritory.id}"
-                                >${observationTerritory.name}</option>
-                            <#else>
-                                <option value="${observationTerritory.id}"
-                                >${observationTerritory.name}</option>
-                            </#if>
-                        </#list>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Организация:</label>
-                <div class="col-sm-9">
-                    <select name="organization" class="browser-default custom-select">
-                        <#list organizations as organization>
-                            <#if organization == informationResource.organization>
-                                <option selected value="${organization.id}"
-                                >${organization.name}</option>
-                            <#else>
-                                <option value="${organization.id}"
-                                >${organization.name}</option>
-                            </#if>
-                        </#list>
-                    </select>
-                </div>
-            </div>
+            <#list informationResource.observationDisciplines as infresObservationDiscipline>
+                <div class="discDiv">
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
+                        <div class="col-sm-9 input-group">
+                            <select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline">
+                                <#list observationDisciplines as observationDiscipline>
+                                    <#if observationDiscipline == infresObservationDiscipline>
+                                        <option selected value="${observationDiscipline.id}">${observationDiscipline.name}</option>
+                                    <#else>
+                                        <option value="${observationDiscipline.id}">${observationDiscipline.name}</option>
+                                    </#if>
+                                </#list>
+                            </select>
 
+                            <#if !(infresObservationDiscipline == informationResource.observationDisciplines[0])>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delDisc" type="button">x</button>
+                                </div>
+                            </#if>
+                        </div>
+                    </div>
+                    <#list infresObservationDiscipline.observationTypes as infresObservationType>
+                        <#if informationResource.observationTypes?seq_contains(infresObservationType)>
+                            <div class="typeDiv">
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
+                                    <div class="col-sm-9 input-group">
+                                        <select name="observationType" class="browser-default custom-select getObservationType">
+                                            <#list infresObservationDiscipline.observationTypes as observationType>
+                                                <#if observationType == infresObservationType>
+                                                    <option selected value="${observationType.id}">${observationType.name}</option>
+                                                <#else>
+                                                    <option value="${observationType.id}">${observationType.name}</option>
+                                                </#if>
+                                            </#list>
+                                        </select>
+
+                                        <#if !(infresObservationType == infresObservationDiscipline.observationTypes[0])>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delType" type="button">x</button>
+                                            </div>
+                                        </#if>
+                                    </div>
+                                </div>
+
+                                <#list infresObservationType.observationParameters as infresObservationParameter>
+                                    <#if informationResource.observationParameters?seq_contains(infresObservationParameter)>
+                                        <div class="paramDiv">
+                                            <div class="form-group row mt-3">
+                                                <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
+                                                <div class="col-sm-9 input-group">
+                                                    <select name="observationParameter" class="browser-default custom-select getObservationParameter">
+                                                        <#list infresObservationType.observationParameters as observationParameter>
+                                                            <#if observationParameter == infresObservationParameter>
+                                                                <option selected value="${observationParameter.id}">${observationParameter.name}</option>
+                                                            <#else>
+                                                                <option value="${observationParameter.id}">${observationParameter.name}</option>
+                                                            </#if>
+                                                        </#list>
+                                                    </select>
+
+                                                    <#if !(infresObservationParameter == infresObservationType.observationParameters[0])>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delParam" type="button">x</button>
+                                                        </div>
+                                                    </#if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#if>
+                                </#list>
+                                <div class="form-group row mt-3">
+                                    <a class="col-sm btn btn-primary addParam">Добавить параметр</a>
+                                </div>
+                            </div>
+                        </#if>
+                    </#list>
+                    <div class="form-group row mt-3">
+                        <a class="col-sm btn btn-primary addType">Добавить вид</a>
+                    </div>
+                </div>
+            </#list>
+            <div class="form-group row mt-3">
+                <a class="col-sm btn btn-primary addDisc">Добавить дисциплину</a>
+            </div>
             <hr>
 
-            -->
+            <#list informationResource.observationScopes as infresObservationScope>
+                <div class="scopeDiv">
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
+                        <div class="col-sm-9 input-group">
+                            <select name="observationScope" class="browser-default custom-select getObservationScope">
+                                <#list observationScopes as observationScope>
+                                    <#if observationScope == infresObservationScope>
+                                        <option selected value="${observationScope.id}">${observationScope.name}</option>
+                                    <#else>
+                                        <option value="${observationScope.id}">${observationScope.name}</option>
+                                    </#if>
+                                </#list>
+                            </select>
+
+                            <#if !(infresObservationScope == informationResource.observationScopes[0])>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delScope" type="button">x</button>
+                                </div>
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+            </#list>
+            <div class="form-group row mt-3">
+                <a class="col-sm btn btn-primary addScope">Добавить сферу</a>
+            </div>
+            <hr>
+
+            <#list informationResource.observationTerritories as infresObservationTerritory>
+                <div class="territoryDiv">
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
+                        <div class="col-sm-9 input-group">
+                            <select name="observationTerritory" class="browser-default custom-select getObservationTerritory">
+                                <#list observationTerritories as observationTerritory>
+                                    <#if observationTerritory == infresObservationTerritory>
+                                        <option selected value="${observationTerritory.id}">${observationTerritory.name}</option>
+                                    <#else>
+                                        <option value="${observationTerritory.id}">${observationTerritory.name}</option>
+                                    </#if>
+                                </#list>
+                            </select>
+
+                            <#if !(infresObservationTerritory == informationResource.observationTerritories[0])>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delTerritory" type="button">x</button>
+                                </div>
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+            </#list>
+            <div class="form-group row mt-3">
+                <a class="col-sm btn btn-primary addTerritory">Добавить территорию</a>
+            </div>
+            <hr>
+
+            <#list informationResource.infresOrganizations as infresOrganization>
+                <div class="organizationDiv">
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-3 col-form-label">Организация:</label>
+                        <div class="col-sm-9 input-group">
+                            <select name="organization" class="browser-default custom-select getOrganization">
+                                <#list organizations as organization>
+                                    <#if organization == infresOrganization.organization>
+                                        <option selected value="${organization.id}">${organization.name}</option>
+                                    <#else>
+                                        <option value="${organization.id}">${organization.name}</option>
+                                    </#if>
+                                </#list>
+                            </select>
+
+                            <#if !infresOrganization.main>
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delOrganization" type="button">x</button>
+                                </div>
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+            </#list>
+            <div class="form-group row mt-3">
+                <a class="col-sm btn btn-primary addOrganization">Добавить организацию</a>
+            </div>
+            <hr>
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Дубликат:</label>
@@ -237,17 +327,17 @@
     <#include "parts/scripts.ftl">
     <script>
         let disciplines =   '<#list observationDisciplines as observationDiscipline>' +
-            '<option value="${observationDiscipline.id}">${observationDiscipline.name}</option>' +
-            '</#list>';
-        let scopes =    '<#list observationScopes as observationScope>' +
-            '<option value="${observationScope.id}">${observationScope.name}</option>' +
-            '</#list>';
+                                '<option value="${observationDiscipline.id}">${observationDiscipline.name}</option>' +
+                            '</#list>';
+        let scopes =        '<#list observationScopes as observationScope>' +
+                                '<option value="${observationScope.id}">${observationScope.name}</option>' +
+                            '</#list>';
         let territories =   '<#list observationTerritories as observationTerritory>' +
-            '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
-            '</#list>';
+                                '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
+                            '</#list>';
         let organizations = '<#list organizations as organization>' +
-            '<option value="${organization.id}">${organization.name}</option>' +
-            '</#list>';
+                                '<option value="${organization.id}">${organization.name}</option>' +
+                            '</#list>';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>
 <#include "parts/foot.ftl">

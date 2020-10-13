@@ -177,7 +177,7 @@ jQuery(document).ready(function () {
                                     changedObjHtml +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delDisc" type="button" id="delType'+ getTypeId +'">x</button>' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delType" type="button" id="delType'+ getTypeId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
@@ -226,7 +226,7 @@ jQuery(document).ready(function () {
                                     changedObjHtml +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delDisc" type="button" id="delParam'+ getParamId +'">x</button>' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delParam" type="button" id="delParam'+ getParamId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
@@ -275,7 +275,7 @@ jQuery(document).ready(function () {
                                     territories +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delGeogrObj" type="button" id="delTerritory'+ getTerritoryId +'">x</button>' +
+                                    '<button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delTerritory" type="button" id="delTerritory'+ getTerritoryId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
@@ -314,8 +314,14 @@ jQuery(document).ready(function () {
     $('.addDisc').on("click", addDisc);
     $('.addType').on("click", addType);
     $('.addParam').on("click", addParam);
-
     $('.addScope').on("click", addScope);
     $('.addTerritory').on("click", addTerritory);
     $('.addOrganization').on("click", addOrganization);
+
+    $('.delDisc').on("click", delDisc);
+    $('.delType').on("click", delType);
+    $('.delParam').on("click", delParam);
+    $('.delScope').on("click", delScope);
+    $('.delTerritory').on("click", delTerritory);
+    $('.delOrganization').on("click", delOrganization);
 });
