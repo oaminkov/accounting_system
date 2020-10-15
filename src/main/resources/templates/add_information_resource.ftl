@@ -181,9 +181,9 @@
 
             <div class="organizationDiv">
                 <div class="form-group row mt-3">
-                    <label class="col-sm-3 col-form-label">Организация:</label>
+                    <label class="col-sm-3 col-form-label">Главная организация:</label>
                     <div class="col-sm-9 input-group">
-                        <select name="organization" class="browser-default custom-select getOrganization">
+                        <select name="mainOrganization" class="browser-default custom-select getOrganization">
                             <option value="0">-- Выберите организацию --</option>
                             <#list organizations as organization>
                                 <option value="${organization.id}">${organization.name}</option>

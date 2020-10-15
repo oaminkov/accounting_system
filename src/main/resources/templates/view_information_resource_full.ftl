@@ -131,11 +131,17 @@
         </#list>
         <hr>
 
-        <#list informationResource.infresOrganizations as infresOrganization>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Главная организация:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control" value="${informationResource.mainOrganization.name}">
+            </div>
+        </div>
+        <#list informationResource.organizations as organization>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Организация:</label>
                 <div class="col-sm-9">
-                    <input type="text" readonly class="form-control" value="${infresOrganization.organization.name}">
+                    <input type="text" readonly class="form-control" value="${organization.name}">
                 </div>
             </div>
         </#list>
@@ -161,7 +167,7 @@
                         <button type="submit" class="btn btn-success btn-block mb-2">Скачать архив</button>
 
                         <#list informationResource.uploadedFiles as uploadedFile>
-                            <a href="/file/${informationResource.country.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
+                            <a href="/file/${informationResource.country.id}/${informationResource.mainOrganization.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
                                class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
                         </#list>
                     </form>

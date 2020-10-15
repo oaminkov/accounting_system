@@ -18,13 +18,8 @@ public class InformationResourceService {
         return informationResourceRepository.findAll();
     }
 
-
     public void save(InformationResource informationResource) {
         informationResourceRepository.save(informationResource);
-    }
-
-    public InformationResource findByIdInformationResource(long id) {
-        return informationResourceRepository.findById(id).get();
     }
 
     public void delete(InformationResource informationResource) {

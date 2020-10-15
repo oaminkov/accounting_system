@@ -2,7 +2,7 @@
     <#include "parts/navbar.ftl">
     <div class="container">
         <h1 class="mb-3" align="center">Изменить мета-описание информационного ресурса</h1>
-        <form action="/information_resources/update/${informationResource.id}" enctype="multipart/form-data" method="post">
+        <form action="/information_resources/edit/${informationResource.id}" enctype="multipart/form-data" method="post">
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Инвентарный номер:</label>
                 <div class="col-sm-9">
@@ -257,26 +257,39 @@
             </div>
             <hr>
 
-            <#list informationResource.infresOrganizations as infresOrganization>
+            <div class="organizationDiv">
+                <div class="form-group row mt-3">
+                    <label class="col-sm-3 col-form-label">Главная организация:</label>
+                    <div class="col-sm-9 input-group">
+                        <select name="mainOrganization" class="browser-default custom-select getOrganization">
+                            <#list organizations as organization>
+                                <#if organization == informationResource.mainOrganization>
+                                    <option selected value="${organization.id}">${organization.name}</option>
+                                <#else>
+                                    <option value="${organization.id}">${organization.name}</option>
+                                </#if>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <#list informationResource.organizations as infresOrganization>
                 <div class="organizationDiv">
                     <div class="form-group row mt-3">
                         <label class="col-sm-3 col-form-label">Организация:</label>
                         <div class="col-sm-9 input-group">
                             <select name="organization" class="browser-default custom-select getOrganization">
                                 <#list organizations as organization>
-                                    <#if organization == infresOrganization.organization>
+                                    <#if organization == infresOrganization>
                                         <option selected value="${organization.id}">${organization.name}</option>
                                     <#else>
                                         <option value="${organization.id}">${organization.name}</option>
                                     </#if>
                                 </#list>
                             </select>
-
-                            <#if !infresOrganization.main>
-                                <div class="input-group-append">
-                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delOrganization" type="button">x</button>
-                                </div>
-                            </#if>
+                            <div class="input-group-append">
+                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delOrganization" type="button">x</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -297,21 +310,24 @@
             </div>
 
             <#if informationResource.uploadedFiles?has_content>
-                <a class="btn btn-secondary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Файлы<i class="fas fa-chevron-down ml-2"></i>
-                </a>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <button type="submit" class="btn btn-danger btn-block mb-2" formaction="/information_products/delete_files/${informationResource.id}">
-                            Удалить все прикреплённые файлы
-                        </button>
-                        <#list informationResource.uploadedFiles as uploadedFile>
-                            <a href="/file/${informationResource.country.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
-                               class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
-                        </#list>
+                <input type="hidden" name="delAttachedFiles" id="delAttachedFiles" value="0">
+                <div class="divAttachedFiles">
+                    <a class="btn btn-secondary btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Файлы<i class="fas fa-chevron-down ml-2"></i>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <button type="button" class="btn btn-danger btn-block mb-2 delAllAttachedFiles">
+                                Удалить все прикреплённые файлы
+                            </button>
+                            <#list informationResource.uploadedFiles as uploadedFile>
+                                <a href="/file/${informationResource.country.id}/${informationResource.mainOrganization.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
+                                   class="btn btn-block mb-2" target="_blank">${uploadedFile.name}</a>
+                            </#list>
+                        </div>
                     </div>
+                    <br><br>
                 </div>
-                <br><br>
             </#if>
 
             <div class="input-group" align="center">
@@ -338,6 +354,8 @@
         let organizations = '<#list organizations as organization>' +
                                 '<option value="${organization.id}">${organization.name}</option>' +
                             '</#list>';
+
+        let infresId = '${informationResource.id}';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>
 <#include "parts/foot.ftl">

@@ -1,7 +1,9 @@
 package ru.cgmd.accounting_system.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "organization")
@@ -20,8 +22,13 @@ public class Organization {
     @JoinColumn (nullable = false, name = "id_country")
     private Country country;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InfresOrganization> infresOrganizations;
+    @ManyToMany
+    @JoinTable(
+            name = "infres_organization",
+            joinColumns = { @JoinColumn(name = "id_organization") },
+            inverseJoinColumns = { @JoinColumn(name = "id_information_resource") }
+    )
+    private Set<InformationResource> informationResources = new HashSet<>();
 
     public Organization() { }
 
@@ -59,10 +66,10 @@ public class Organization {
         this.abbreviation = abbreviation;
     }
 
-    public List<InfresOrganization> getInfresOrganizations() {
-        return infresOrganizations;
+    public Set<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setInfresOrganizations(List<InfresOrganization> infresOrganizations) {
-        this.infresOrganizations = infresOrganizations;
+    public void setInformationResources(Set<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 }

@@ -12,6 +12,11 @@ insert into country (id, name)
            (2, 'Украина'),
            (3, 'Великобритания');
 
+insert into organization (id, name, abbreviation, id_country)
+    values (1, 'Организация1', 'О1', 1),
+           (2, 'Организация2', 'О2', 2),
+           (3, 'Организация3', 'О3', 3);
+
 insert into observation_method (id, name)
     values (1, 'Замеры'),
            (2, 'Наблюдение');
@@ -43,8 +48,3 @@ insert into observation_scope (id, name)
 insert into observation_territory (id, name)
     values (1, 'Территория1'),
            (2, 'Территория2');
-
-insert into organization (id, name, abbreviation, id_country)
-    values (1, 'Организация1', 'О1', 1),
-           (2, 'Организация2', 'О2', 2),
-           (3, 'Организация3', 'О3', 3);

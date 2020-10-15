@@ -57,6 +57,10 @@ public class InformationResource {
     @JoinColumn (name = "id_country", nullable = false)
     private Country country;
 
+    @ManyToOne(fetch = FetchType.LAZY) //главная организация
+    @JoinColumn (name = "id_main_organization", nullable = false)
+    private Organization mainOrganization;
+
     @ManyToOne(fetch = FetchType.LAZY) //метод наблюдений
     @JoinColumn (name = "id_observation_method", nullable = false)
     private ObservationMethod observationMethod;
@@ -71,9 +75,6 @@ public class InformationResource {
 
     @OneToMany(mappedBy = "informationResource", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UploadedFile> uploadedFiles;
-
-    @OneToMany(mappedBy = "informationResource", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InfresOrganization> infresOrganizations;
 
     @ManyToMany //дисциплины наблюдений
     @JoinTable(
@@ -108,7 +109,7 @@ public class InformationResource {
     private Set<ObservationScope> observationScopes = new HashSet<>();
 
 
-    @ManyToMany
+    @ManyToMany //территории наблюдений
     @JoinTable(
             name = "infres_observterritory",
             joinColumns = { @JoinColumn(name = "id_information_resource") },
@@ -116,14 +117,17 @@ public class InformationResource {
     )
     private Set<ObservationTerritory> observationTerritories = new HashSet<>();
 
+    @ManyToMany //организации
+    @JoinTable(
+            name = "infres_organization",
+            joinColumns = { @JoinColumn(name = "id_information_resource") },
+            inverseJoinColumns = { @JoinColumn(name = "id_organization") }
+    )
+    private Set<Organization> organizations = new HashSet<>();
+
     public InformationResource() { }
 
     public InformationResource(
-            User operator,
-            Language language,
-            RelatedProject relatedProject,
-            Country country,
-            ObservationMethod observationMethod,
             String inventoryNumber,
             String fullnameCdrom,
             String abbreviationCdrom,
@@ -132,14 +136,15 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
+            Language language,
+            RelatedProject relatedProject,
+            Country country,
+            Organization mainOrganization,
+            ObservationMethod observationMethod,
             boolean duplicate,
+            User operator,
             String dateOfEntering
     ) {
-        this.operator = operator;
-        this.language = language;
-        this.relatedProject = relatedProject;
-        this.country = country;
-        this.observationMethod = observationMethod;
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
         this.abbreviationCdrom = abbreviationCdrom;
@@ -148,8 +153,50 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
+        this.language = language;
+        this.relatedProject = relatedProject;
+        this.country = country;
+        this.mainOrganization = mainOrganization;
+        this.observationMethod = observationMethod;
         this.duplicate = duplicate;
+        this.operator = operator;
         this.dateOfEntering = dateOfEntering;
+    }
+
+    public void setEditedFields(
+            String inventoryNumber,
+            String fullnameCdrom,
+            String abbreviationCdrom,
+            String dateObservationStart,
+            String dateObservationEnd,
+            String briefContent,
+            String volume,
+            String receivedDate,
+            Language language,
+            RelatedProject relatedProject,
+            Country country,
+            Organization mainOrganization,
+            ObservationMethod observationMethod,
+            boolean duplicate,
+            User editor,
+            String dateOfEdit
+    ) {
+        this.inventoryNumber = inventoryNumber;
+        this.fullnameCdrom = fullnameCdrom;
+        this.abbreviationCdrom = abbreviationCdrom;
+        this.dateObservationStart = dateObservationStart;
+        this.dateObservationEnd = dateObservationEnd;
+        this.briefContent = briefContent;
+        this.volume = volume;
+        this.receivedDate = receivedDate;
+        this.language = language;
+        this.relatedProject = relatedProject;
+        this.country = country;
+        this.mainOrganization = mainOrganization;
+        this.observationMethod = observationMethod;
+        this.duplicate = duplicate;
+        this.editor = editor;
+        this.dateOfEdit = dateOfEdit;
     }
 
     public void addUploadedFiles(List<UploadedFile> uploadedFiles) {
@@ -233,20 +280,6 @@ public class InformationResource {
         this.duplicate = duplicate;
     }
 
-    public String getDateOfEntering() {
-        return dateOfEntering;
-    }
-    public void setDateOfEntering(String dateOfEntering) {
-        this.dateOfEntering = dateOfEntering;
-    }
-
-    public String getDateOfEdit() {
-        return dateOfEdit;
-    }
-    public void setDateOfEdit(String dateOfEdit) {
-        this.dateOfEdit = dateOfEdit;
-    }
-
     public Language getLanguage() {
         return language;
     }
@@ -268,6 +301,13 @@ public class InformationResource {
         this.country = country;
     }
 
+    public Organization getMainOrganization() {
+        return mainOrganization;
+    }
+    public void setMainOrganization(Organization mainOrganization) {
+        this.mainOrganization = mainOrganization;
+    }
+
     public ObservationMethod getObservationMethod() {
         return observationMethod;
     }
@@ -282,11 +322,25 @@ public class InformationResource {
         this.operator = user;
     }
 
+    public String getDateOfEntering() {
+        return dateOfEntering;
+    }
+    public void setDateOfEntering(String dateOfEntering) {
+        this.dateOfEntering = dateOfEntering;
+    }
+
     public User getEditor() {
         return editor;
     }
     public void setEditor(User editor) {
         this.editor = editor;
+    }
+
+    public String getDateOfEdit() {
+        return dateOfEdit;
+    }
+    public void setDateOfEdit(String dateOfEdit) {
+        this.dateOfEdit = dateOfEdit;
     }
 
     public Set<ObservationDiscipline> getObservationDisciplines() {
@@ -324,10 +378,10 @@ public class InformationResource {
         this.observationTerritories = observationTerritories;
     }
 
-    public List<InfresOrganization> getInfresOrganizations() {
-        return infresOrganizations;
+    public Set<Organization> getOrganizations() {
+        return organizations;
     }
-    public void setInfresOrganizations(List<InfresOrganization> infresOrganizations) {
-        this.infresOrganizations = infresOrganizations;
+    public void setOrganizations(Set<Organization> organizations) {
+        this.organizations = organizations;
     }
 }

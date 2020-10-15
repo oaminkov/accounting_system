@@ -36,7 +36,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <#list informationResource.uploadedFiles as uploadedFile>
-                                            <a href="/file/${informationResource.country.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
+                                            <a href="/file/${informationResource.country.id}/${informationResource.mainOrganization.id}/${informationResource.inventoryNumber}/${uploadedFile.name}"
                                                class="dropdown-item" target="_blank">${uploadedFile.name}</a>
                                         </#list>
                                     </div>
@@ -55,7 +55,7 @@
                         </#if>
                     </td>
                     <td>
-                        <#if auth_user??>
+                        <#if auth_isAdmin>
                             <form action="/information_resources/delete/${informationResource.id}"><button type="submit" class="btn btn-danger btn-sm m-0">Удалить</button></form>
                         </#if>
                     </td>

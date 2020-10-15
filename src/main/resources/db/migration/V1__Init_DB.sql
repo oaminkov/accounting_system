@@ -33,6 +33,14 @@ create table country (
     primary key (id)
 );
 
+create table organization (
+    id int8 not null,
+    name varchar(255) not null,
+    abbreviation varchar(255) not null,
+    id_country int8 not null,
+    primary key (id)
+);
+
 create table observation_method (
     id int8 not null,
     name varchar(255) not null,
@@ -71,14 +79,6 @@ create table observation_territory (
     primary key (id)
 );
 
-create table organization (
-    id int8 not null,
-    name varchar(255) not null,
-    abbreviation varchar(255) not null,
-    id_country int8 not null,
-    primary key (id)
-);
-
 create table uploaded_file (
     id int8 not null,
     name varchar(255) not null,
@@ -101,6 +101,7 @@ create table information_resource (
     id_language int8 not null,
     id_related_project int8 not null,
     id_country int8 not null,
+    id_main_organization int8 not null,
     id_observation_method int8 not null,
     id_operator int8 not null,
     date_of_entering varchar(255) not null,
@@ -110,58 +111,57 @@ create table information_resource (
 );
 
 create table infres_observdiscipl (
-    id_observation_discipline int8 not null,
     id_information_resource int8 not null,
+    id_observation_discipline int8 not null,
     primary key (id_information_resource, id_observation_discipline)
 );
 
 create table infres_observtype (
-    id_observation_type int8 not null,
     id_information_resource int8 not null,
+    id_observation_type int8 not null,
     primary key (id_information_resource, id_observation_type)
 );
 
 create table infres_observparam (
-    id_observation_parameter int8 not null,
     id_information_resource int8 not null,
+    id_observation_parameter int8 not null,
     primary key (id_information_resource, id_observation_parameter)
 );
 
 create table infres_observscope (
-    id_observation_scope int8 not null,
     id_information_resource int8 not null,
+    id_observation_scope int8 not null,
     primary key (id_information_resource, id_observation_scope)
 );
 
 create table infres_observterritory (
-    id_observation_territory int8 not null,
     id_information_resource int8 not null,
+    id_observation_territory int8 not null,
     primary key (id_information_resource, id_observation_territory)
 );
 
 create table infres_organization (
-    id int8 not null,
-    main boolean not null,
-    id_information_product int8 not null,
+    id_information_resource int8 not null,
     id_organization int8 not null,
-    primary key (id)
+    primary key (id_information_resource, id_organization)
 );
 
 alter table usr add constraint usr__username_uk unique (username);
 alter table uploaded_file add constraint uploaded_file__path_uk unique (path);
 alter table language add constraint language__name_uk unique (name);
 alter table country add constraint country__name_uk unique (name);
+alter table organization add constraint organization__name_uk unique (name);
 alter table observation_method add constraint observ_method__name_uk unique (name);
-alter table information_resource add constraint inf_res__inventory_number_uk unique (inventory_number);
 alter table observation_discipline add constraint observ_discipline__name_uk unique (name);
 alter table observation_type add constraint observ_type__name_uk unique (name);
 alter table observation_parameter add constraint observ_parameter__name_uk unique (name);
 alter table observation_scope add constraint observ_scope__name_uk unique (name);
 alter table observation_territory add constraint observ_territory__name_uk unique (name);
-alter table organization add constraint organization__name_uk unique (name);
+alter table information_resource add constraint inf_res__inventory_number_uk unique (inventory_number);
 
 alter table information_resource add constraint inf_res__language_fk foreign key (id_language) references language;
 alter table information_resource add constraint inf_res__country_fk foreign key (id_country) references country;
+alter table information_resource add constraint inf_res__organization_fk foreign key (id_main_organization) references organization;
 alter table information_resource add constraint inf_res__observ_method_fk foreign key (id_observation_method) references observation_method;
 alter table information_resource add constraint inf_res__related_project_fk foreign key (id_related_project) references related_project;
 alter table information_resource add constraint inf_res__operator_fk foreign key (id_operator) references usr;
@@ -193,5 +193,5 @@ alter table infres_observscope add constraint infres_observscope__observ_scope_f
 alter table infres_observterritory add constraint infres_observterritory__inf_res_fk foreign key (id_information_resource) references information_resource;
 alter table infres_observterritory add constraint infres_observterritory__observ_territory_fk foreign key (id_observation_territory) references observation_territory;
 
-alter table infres_organization add constraint infres_organization__inf_res_fk foreign key (id_information_product) references information_resource;
+alter table infres_organization add constraint infres_organization__inf_res_fk foreign key (id_information_resource) references information_resource;
 alter table infres_organization add constraint infres_organization__organization_fk foreign key (id_organization) references organization;

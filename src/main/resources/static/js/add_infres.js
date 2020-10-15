@@ -97,6 +97,11 @@ jQuery(document).ready(function () {
         $(this).parents('.organizationDiv').first().remove();
     }
 
+    function delAllAttachedFiles() {
+        $('#delAttachedFiles').val(1);
+        $(this).parents('.divAttachedFiles').first().remove();
+    }
+
     let getDiscId = 0;
     let getTypeId = 0;
     let getParamId = 0;
@@ -324,4 +329,6 @@ jQuery(document).ready(function () {
     $('.delScope').on("click", delScope);
     $('.delTerritory').on("click", delTerritory);
     $('.delOrganization').on("click", delOrganization);
+
+    $('.delAllAttachedFiles').on("click", delAllAttachedFiles);
 });

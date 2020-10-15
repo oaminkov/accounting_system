@@ -69,17 +69,15 @@ public class InformationResourceGetController {
     @GetMapping("information_resources")
     public String viewAllInformationResources(Model model) {
         List<InformationResource> informationResources = informationResourceService.listAll();
-        List<UploadedFile> uploadedFiles = uploadedFileRepository.findAll();
-
         model.addAttribute("informationResources", informationResources);
-        model.addAttribute("uploadedFiles", uploadedFiles);
         return "view_information_resources";
     }
 
     @GetMapping("information_resources/{id}")
     public String viewInformationResourceFull(
             @PathVariable("id") InformationResource informationResource,
-            Model model){
+            Model model
+    ) {
         model.addAttribute("informationResource", informationResource);
         return "view_information_resource_full";
     }
@@ -87,18 +85,23 @@ public class InformationResourceGetController {
     @GetMapping("information_resources/add")
     public String showNewInformationProductPage(Model model) {
         selectDataFromDbToModel(model);
-
         return "add_information_resource";
     }
 
     @GetMapping("information_resources/edit/{id}")
     public String showEditInformationProductPage(
             @PathVariable("id") InformationResource informationResource,
-            Model model){
+            Model model
+    ){
         selectDataFromDbToModel(model);
         model.addAttribute("informationResource", informationResource);
-
         return "edit_information_resource";
+    }
+
+    @GetMapping("information_resources/delete/{id}")
+    public String deleteInformationResource(@PathVariable("id") InformationResource informationResource) {
+        informationResourceService.delete(informationResource);
+        return "redirect:/information_resources";
     }
 
     @GetMapping(value="information_resources/download/{id}", produces="application/zip")
@@ -127,11 +130,5 @@ public class InformationResourceGetController {
             zipOutputStream.closeEntry();
         }
         zipOutputStream.close();
-    }
-
-    @GetMapping("information_resources/delete/{id}")
-    public String deleteInformationResource(@PathVariable("id") InformationResource informationResource) {
-        informationResourceService.delete(informationResource);
-        return "redirect:/information_resources";
     }
 }
