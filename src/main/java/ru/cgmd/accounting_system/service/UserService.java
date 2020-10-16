@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.cgmd.accounting_system.domain.Role;
 import ru.cgmd.accounting_system.domain.User;
-import ru.cgmd.accounting_system.repos.UserRepository;
+import ru.cgmd.accounting_system.repo.UserRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;

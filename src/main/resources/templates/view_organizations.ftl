@@ -3,16 +3,18 @@
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
             <tr>
-                <th>Полное название организации</th>
                 <th>Аббревиатура организации</th>
+                <th>Русское название организации</th>
+                <th>Английское название организации</th>
                 <th>Страна организации</th>
             </tr>
         </thead>
         <tbody>
         <#list organizations as organization>
             <tr>
-                <td>${organization.name}</td>
                 <td>${organization.abbreviation}</td>
+                <td>${organization.nameRus}</td>
+                <td>${organization.nameEng}</td>
                 <td>${organization.country.name}</td>
             </tr>
         </#list>

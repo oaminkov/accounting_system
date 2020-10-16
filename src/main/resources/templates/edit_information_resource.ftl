@@ -54,20 +54,6 @@
             <hr>
 
             <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Язык:</label>
-                <div class="col-sm-9">
-                    <select name="language" class="browser-default custom-select">
-                        <#list languages as language>
-                            <#if language == informationResource.language>
-                                <option selected value="${language.id}">${language.name}</option>
-                            <#else>
-                                <option value="${language.id}">${language.name}</option>
-                            </#if>
-                        </#list>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
                     <select name="relatedProject" class="browser-default custom-select">
@@ -76,6 +62,20 @@
                                 <option selected value="${relatedProject.id}">${relatedProject.name}</option>
                             <#else>
                                 <option value="${relatedProject.id}">${relatedProject.name}</option>
+                            </#if>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <label class="col-sm-3 col-form-label">Язык:</label>
+                <div class="col-sm-9">
+                    <select name="language" class="browser-default custom-select">
+                        <#list languages as language>
+                            <#if language == informationResource.language>
+                                <option selected value="${language.id}">${language.name}</option>
+                            <#else>
+                                <option value="${language.id}">${language.name}</option>
                             </#if>
                         </#list>
                     </select>
@@ -264,9 +264,9 @@
                         <select name="mainOrganization" class="browser-default custom-select getOrganization">
                             <#list organizations as organization>
                                 <#if organization == informationResource.mainOrganization>
-                                    <option selected value="${organization.id}">${organization.name}</option>
+                                    <option selected value="${organization.id}">${organization.abbreviation}</option>
                                 <#else>
-                                    <option value="${organization.id}">${organization.name}</option>
+                                    <option value="${organization.id}">${organization.abbreviation}</option>
                                 </#if>
                             </#list>
                         </select>
@@ -281,9 +281,9 @@
                             <select name="organization" class="browser-default custom-select getOrganization">
                                 <#list organizations as organization>
                                     <#if organization == infresOrganization>
-                                        <option selected value="${organization.id}">${organization.name}</option>
+                                        <option selected value="${organization.id}">${organization.abbreviation}</option>
                                     <#else>
-                                        <option value="${organization.id}">${organization.name}</option>
+                                        <option value="${organization.id}">${organization.abbreviation}</option>
                                     </#if>
                                 </#list>
                             </select>
@@ -352,7 +352,7 @@
                                 '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
                             '</#list>';
         let organizations = '<#list organizations as organization>' +
-                                '<option value="${organization.id}">${organization.name}</option>' +
+                                '<option value="${organization.id}">${organization.abbreviation}</option>' +
                             '</#list>';
 
         let infresId = '${informationResource.id}';

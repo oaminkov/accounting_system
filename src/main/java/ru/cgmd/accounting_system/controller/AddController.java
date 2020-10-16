@@ -38,6 +38,33 @@ public class AddController {
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
+    //RELATED PROJECT
+    @PostMapping("related_projects/add")
+    public String saveRelatedProject(
+            @RequestParam String name,
+            @RequestParam String abbreviation,
+            @RequestParam String type,
+            Model model
+    ) {
+        name = name.trim();
+
+        if(!name.isEmpty()) {
+            name = firstUpperCase(name);
+
+            if(!relatedProjectService.isExists(name, type)) {
+                RelatedProject relatedProject = new RelatedProject(name, abbreviation, type);
+                relatedProjectService.save(relatedProject);
+                return "redirect:/related_projects";
+            }
+            else {
+                model.addAttribute("messageError", "Такой связанный проект уже есть в базе");
+            }
+        }
+        else {
+            model.addAttribute("messageError", "Вы ввели пустое название");
+        }
+        return "add_related_project";
+    }
     //LANGUAGE
     @PostMapping("languages/add")
     public String saveLanguage(@RequestParam String name, Model model) {
@@ -59,17 +86,6 @@ public class AddController {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_language";
-    }
-    //RELATED PROJECT
-    @PostMapping("related_projects/add")
-    public String saveRelatedProject(
-            @RequestParam String name,
-            @RequestParam String abbreviation,
-            @RequestParam String type
-    ) {
-        RelatedProject relatedProject = new RelatedProject(name, abbreviation, type);
-        relatedProjectService.save(relatedProject);
-        return "redirect:/related_projects";
     }
     //COUNTRY
     @PostMapping("countries/add")
@@ -97,6 +113,12 @@ public class AddController {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_country";
+    }
+    //ORGANIZATION
+    @PostMapping("organizations/add")
+    public String saveOrganization(@ModelAttribute Organization organization) {
+        organizationService.save(organization);
+        return "redirect:/organizations";
     }
     //OBSERVATION METHOD
     @PostMapping("observation_methods/add")
@@ -203,11 +225,5 @@ public class AddController {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_observation_territory";
-    }
-    //ORGANIZATION
-    @PostMapping("organizations/add")
-    public String saveOrganization(@ModelAttribute Organization organization) {
-        organizationService.save(organization);
-        return "redirect:/organizations";
     }
 }

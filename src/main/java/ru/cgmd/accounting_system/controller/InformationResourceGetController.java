@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.cgmd.accounting_system.domain.*;
-import ru.cgmd.accounting_system.repos.UploadedFileRepository;
+import ru.cgmd.accounting_system.repo.UploadedFileRepository;
 import ru.cgmd.accounting_system.service.*;
 
 import javax.servlet.http.HttpServletResponse;

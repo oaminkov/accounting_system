@@ -45,13 +45,13 @@ public class InformationResource {
     @Column(name="date_of_edit")
     private String dateOfEdit;
 
-    @ManyToOne(fetch = FetchType.LAZY) //язык
-    @JoinColumn (name = "id_language", nullable = false)
-    private Language language;
-
     @ManyToOne(fetch = FetchType.LAZY) //связанный проект (проект или программа)
     @JoinColumn (name = "id_related_project", nullable = false)
     private RelatedProject relatedProject;
+
+    @ManyToOne(fetch = FetchType.LAZY) //язык
+    @JoinColumn (name = "id_language", nullable = false)
+    private Language language;
 
     @ManyToOne(fetch = FetchType.LAZY) //страна
     @JoinColumn (name = "id_country", nullable = false)
@@ -136,8 +136,8 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
-            Language language,
             RelatedProject relatedProject,
+            Language language,
             Country country,
             Organization mainOrganization,
             ObservationMethod observationMethod,
@@ -153,8 +153,8 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
-        this.language = language;
         this.relatedProject = relatedProject;
+        this.language = language;
         this.country = country;
         this.mainOrganization = mainOrganization;
         this.observationMethod = observationMethod;
@@ -172,8 +172,8 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
-            Language language,
             RelatedProject relatedProject,
+            Language language,
             Country country,
             Organization mainOrganization,
             ObservationMethod observationMethod,
@@ -189,8 +189,8 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
-        this.language = language;
         this.relatedProject = relatedProject;
+        this.language = language;
         this.country = country;
         this.mainOrganization = mainOrganization;
         this.observationMethod = observationMethod;
@@ -280,18 +280,18 @@ public class InformationResource {
         this.duplicate = duplicate;
     }
 
-    public Language getLanguage() {
-        return language;
-    }
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
     public RelatedProject getRelatedProject() {
         return relatedProject;
     }
     public void setRelatedProject(RelatedProject relatedProject) {
         this.relatedProject = relatedProject;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public Country getCountry() {

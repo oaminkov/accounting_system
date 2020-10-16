@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.cgmd.accounting_system.domain.ObservationDiscipline;
-import ru.cgmd.accounting_system.repos.ObservationDisciplineRepository;
+import ru.cgmd.accounting_system.repo.ObservationDisciplineRepository;
 
 import java.util.List;
 

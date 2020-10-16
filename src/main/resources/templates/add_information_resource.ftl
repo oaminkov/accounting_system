@@ -54,23 +54,23 @@
             <hr>
 
             <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Язык:</label>
-                <div class="col-sm-9">
-                    <select name="language" class="browser-default custom-select">
-                        <option value="">-- Выберите язык --</option>
-                        <#list languages as language>
-                            <option value="${language.id}">${language.name}</option>
-                        </#list>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
                     <select name="relatedProject" class="browser-default custom-select">
                         <option value="">-- Выберите связанный проект --</option>
                         <#list relatedProjects as relatedProject>
                             <option value="${relatedProject.id}">${relatedProject.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <label class="col-sm-3 col-form-label">Язык:</label>
+                <div class="col-sm-9">
+                    <select name="language" class="browser-default custom-select">
+                        <option value="">-- Выберите язык --</option>
+                        <#list languages as language>
+                            <option value="${language.id}">${language.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -186,7 +186,7 @@
                         <select name="mainOrganization" class="browser-default custom-select getOrganization">
                             <option value="0">-- Выберите организацию --</option>
                             <#list organizations as organization>
-                                <option value="${organization.id}">${organization.name}</option>
+                                <option value="${organization.id}">${organization.abbreviation}</option>
                             </#list>
                         </select>
                     </div>
@@ -228,7 +228,7 @@
                                 '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
                             '</#list>';
         let organizations = '<#list organizations as organization>' +
-                                '<option value="${organization.id}">${organization.name}</option>' +
+                                '<option value="${organization.id}">${organization.abbreviation}</option>' +
                             '</#list>';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>

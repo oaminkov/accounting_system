@@ -1,21 +1,26 @@
-insert into language (id, name)
-    values (1, 'Русский'),
-           (2, 'Украинский'),
-           (3, 'Английский');
-
 insert into related_project (id, name, abbreviation, type)
     values (1, 'Проект1', 'Проект1', 'Проект'),
            (2, 'Программа1', 'Программа1', 'Программа');
 
-insert into country (id, name)
-    values (1, 'Россия'),
-           (2, 'Украина'),
-           (3, 'Великобритания');
+insert into language (id, name)
+    values (1, 'Английский'), (2, 'Греческий'), (3, 'Испанский'), (4, 'Китайский'), (5, 'Немецкий'),
+           (6, 'Русский'), (7, 'Французский'), (8, 'Чешский'), (9, 'Японский');
 
-insert into organization (id, name, abbreviation, id_country)
-    values (1, 'Организация1', 'О1', 1),
-           (2, 'Организация2', 'О2', 2),
-           (3, 'Организация3', 'О3', 3);
+insert into country (id, name)
+    values (1, 'Австралия'), (2, 'Австрия'), (3, 'Азербайджан'), (4, 'Албания'), (5, 'Алжир'),
+           (6, 'Ангола'), (7, 'Антигуа И Барбуда'), (8, 'Аомынь (Макао)'), (9, 'Арабская Республика Египет'), (10, 'Аргентина'),
+           (11, 'Армения'), (12, 'Афганистан'), (13, 'Багамские Острова'), (14, 'Бангладеш'), (15, 'Барбадос'),
+           (16, 'Бахрейн'), (17, 'Беларусь'), (18, 'Белиз'), (19, 'Бельгия'), (20, 'Бенин (Дагомея)'),
+           (21, 'Берег Слоновой Кости (Кабо-Верде)'), (22, 'Бирма'), (23, 'Болгария'), (24, 'Боливия'), (25, 'Ботсвана'),
+           (26, 'Бразилия'), (27, 'Бруней'), (28, 'Буркина-Фасо'), (29, 'Бурунди'), (30, 'Вануату, Республика'),
+           (31, 'Великобритания'), (32, 'Венгрия'), (33, 'Венесуэла'), (34, 'Вьетнам'), (35, 'Габон'),
+           (36, 'Гаити'), (37, 'Гайна'), (38, 'Гамбия'), (39, 'Гана'), (40, 'Гватемала'),
+           (41, 'Гвиана, Французская'), (42, 'Гвинея'), (43, 'Гвинея, Экваториальная'),
+           (44, 'Российская Федерация');
+
+insert into organization (id, abbreviation, name_rus, name_eng, id_country)
+    values (1, 'Моск.ГМБ', 'АНО "Московское ГМБ"', '', 44),
+           (2, 'AORI', 'Институт исследования атмосферы и океана Токио', 'Atmosphere and Ocean Research Institute of the University of Tokyo', 44);
 
 insert into observation_method (id, name)
     values (1, 'Замеры'),
@@ -48,3 +53,15 @@ insert into observation_scope (id, name)
 insert into observation_territory (id, name)
     values (1, 'Территория1'),
            (2, 'Территория2');
+
+select setval('hibernate_sequence',
+              (select max(id) FROM related_project) +
+              (select max(id) FROM language) +
+              (select max(id) FROM country) +
+              (select max(id) FROM organization) +
+              (select max(id) FROM observation_method) +
+              (select max(id) FROM observation_discipline) +
+              (select max(id) FROM observation_type) +
+              (select max(id) FROM observation_parameter) +
+              (select max(id) FROM observation_scope) +
+              (select max(id) FROM observation_territory));

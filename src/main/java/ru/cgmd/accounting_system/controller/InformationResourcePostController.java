@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.cgmd.accounting_system.domain.*;
-import ru.cgmd.accounting_system.repos.UploadedFileRepository;
+import ru.cgmd.accounting_system.repo.UploadedFileRepository;
 import ru.cgmd.accounting_system.service.InformationResourceService;
 
 import java.io.File;
@@ -26,6 +26,105 @@ public class InformationResourcePostController {
     @Autowired
     private UploadedFileRepository uploadedFileRepository;
 
+    @PostMapping("information_resources/add")
+    public String saveInformationResource(
+            @AuthenticationPrincipal User operator,
+            @RequestParam String inventoryNumber,
+            @RequestParam String fullnameCdrom,
+            @RequestParam String abbreviationCdrom,
+            @RequestParam String dateObservationStart,
+            @RequestParam String dateObservationEnd,
+            @RequestParam String briefContent,
+            @RequestParam String volume,
+            @RequestParam String receivedDate,
+            @RequestParam RelatedProject relatedProject,
+            @RequestParam Language language,
+            @RequestParam Country country,
+            @RequestParam Organization mainOrganization,
+            @RequestParam ObservationMethod observationMethod,
+            @RequestParam(defaultValue = "0") boolean duplicate,
+            @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
+            @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
+            @RequestParam(name = "observationTerritory") ObservationTerritory[] observationTerritories,
+            @RequestParam(name = "organization", required = false) Organization[] organizations,
+            @RequestParam(name = "uploadFiles") MultipartFile[] files
+    ) throws IOException {
+        LocalDateTime myDateObj = LocalDateTime.now();
+        String dateOfEntering = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+
+        InformationResource informationResource = new InformationResource(
+                inventoryNumber, fullnameCdrom, abbreviationCdrom,
+                dateObservationStart, dateObservationEnd,
+                briefContent, volume, receivedDate,
+                relatedProject, language, country, mainOrganization, observationMethod,
+                duplicate, operator, dateOfEntering);
+
+        setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
+
+        List<UploadedFile> uploadedFiles = saveFiles(informationResource, files);
+        informationResource.setUploadedFiles(uploadedFiles);
+
+        informationResourceService.save(informationResource);
+        return "redirect:/information_resources";
+    }
+
+    @Transactional
+    @PostMapping("/information_resources/edit/{id}")
+    public String editInformationResource(
+            @PathVariable("id") InformationResource informationResource,
+            @AuthenticationPrincipal User editor,
+            @RequestParam String inventoryNumber,
+            @RequestParam String fullnameCdrom,
+            @RequestParam String abbreviationCdrom,
+            @RequestParam String dateObservationStart,
+            @RequestParam String dateObservationEnd,
+            @RequestParam String briefContent,
+            @RequestParam String volume,
+            @RequestParam String receivedDate,
+            @RequestParam RelatedProject relatedProject,
+            @RequestParam Language language,
+            @RequestParam Country country,
+            @RequestParam Organization mainOrganization,
+            @RequestParam ObservationMethod observationMethod,
+            @RequestParam(defaultValue = "0") boolean duplicate,
+            @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
+            @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
+            @RequestParam(name = "observationTerritory") ObservationTerritory[] observationTerritories,
+            @RequestParam(name = "organization", required = false) Organization[] organizations,
+            @RequestParam(name = "uploadFiles") MultipartFile[] files,
+            @RequestParam(required = false) boolean delAttachedFiles
+    ) throws IOException {
+
+        if (delAttachedFiles) {
+            deleteAttachedFiles(informationResource);
+        }
+
+        if (informationResource.getUploadedFiles() != null) {
+            transferAttachedFiles(informationResource, inventoryNumber, country, mainOrganization);
+        }
+
+        LocalDateTime myDateObj = LocalDateTime.now();
+        String dateOfEdit = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+
+        informationResource.setEditedFields(
+                inventoryNumber, fullnameCdrom, abbreviationCdrom,
+                dateObservationStart, dateObservationEnd,
+                briefContent, volume, receivedDate,
+                relatedProject, language, country, mainOrganization, observationMethod,
+                duplicate, editor, dateOfEdit);
+
+        setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
+
+        List<UploadedFile> uploadedFiles = saveFiles(informationResource, files);
+        if (uploadedFiles != null) {
+            informationResource.addUploadedFiles(uploadedFiles);
+        }
+
+        informationResourceService.save(informationResource);
+        return String.format("redirect:/information_resources/edit/%d", informationResource.getId());
+    }
+
+    //Вспомогательные функции
     public void setInformationResourceManyToManyFields(
             InformationResource informationResource,
             ObservationParameter[] observationParameters,
@@ -87,9 +186,9 @@ public class InformationResourcePostController {
             for (MultipartFile file : files) {
                 if (file != null) {
                     String uploadDirPath =  uploadPath + "/" +
-                                            informationResource.getCountry().getId() + "/" +
-                                            informationResource.getMainOrganization().getId() + "/" +
-                                            informationResource.getInventoryNumber();
+                            informationResource.getCountry().getId() + "/" +
+                            informationResource.getMainOrganization().getId() + "/" +
+                            informationResource.getInventoryNumber();
                     File uploadDir = new File(uploadDirPath);
 
                     if (!uploadDir.exists()) {
@@ -111,7 +210,7 @@ public class InformationResourcePostController {
     }
 
     @Transactional
-    public void deleteAllAttachedFiles(InformationResource informationResource) {
+    public void deleteAttachedFiles(InformationResource informationResource) {
         Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationResource(informationResource);
         for (UploadedFile uploadedFile : uploadedFiles) {
             File file = new File(uploadedFile.getPath());
@@ -123,138 +222,44 @@ public class InformationResourcePostController {
         uploadedFileRepository.deleteByInformationResource(informationResource);
     }
 
-    @PostMapping("information_resources/add")
-    public String saveInformationResource(
-            @AuthenticationPrincipal User operator,
-            @RequestParam String inventoryNumber,
-            @RequestParam String fullnameCdrom,
-            @RequestParam String abbreviationCdrom,
-            @RequestParam String dateObservationStart,
-            @RequestParam String dateObservationEnd,
-            @RequestParam String briefContent,
-            @RequestParam String volume,
-            @RequestParam String receivedDate,
-            @RequestParam Language language,
-            @RequestParam RelatedProject relatedProject,
-            @RequestParam Country country,
-            @RequestParam Organization mainOrganization,
-            @RequestParam ObservationMethod observationMethod,
-            @RequestParam(defaultValue = "0") boolean duplicate,
-            @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
-            @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
-            @RequestParam(name = "observationTerritory") ObservationTerritory[] observationTerritories,
-            @RequestParam(name = "organization", required = false) Organization[] organizations,
-            @RequestParam(name = "uploadFiles") MultipartFile[] files
-    ) throws IOException {
-        LocalDateTime myDateObj = LocalDateTime.now();
-        String dateOfEntering = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+    public void transferAttachedFiles(InformationResource informationResource, String inventoryNumber, Country country, Organization mainOrganization) {
+        Country countryTemp = informationResource.getCountry();
+        Organization mainOrganizationTemp = informationResource.getMainOrganization();
+        String inventoryNumberTemp = informationResource.getInventoryNumber();
 
-        InformationResource informationResource = new InformationResource(
-                inventoryNumber, fullnameCdrom, abbreviationCdrom,
-                dateObservationStart, dateObservationEnd,
-                briefContent, volume, receivedDate,
-                language, relatedProject, country, mainOrganization, observationMethod,
-                duplicate, operator, dateOfEntering);
+        if (!countryTemp.equals(country) || !mainOrganizationTemp.equals(mainOrganization) || !inventoryNumberTemp.equals(inventoryNumber)) {
+            String uploadDirPath =  uploadPath + "/" +
+                    country.getId() + "/" +
+                    mainOrganization.getId() + "/" +
+                    inventoryNumber;
+            File uploadDir = new File(uploadDirPath);
 
-        setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
 
-        List<UploadedFile> uploadedFiles = saveFiles(informationResource, files);
-        informationResource.setUploadedFiles(uploadedFiles);
+            Set<UploadedFile> uploadedFilesTemp = uploadedFileRepository.findByInformationResource(informationResource);
 
-        informationResourceService.save(informationResource);
-        return "redirect:/information_resources";
-    }
+            for (UploadedFile uploadedFile : uploadedFilesTemp) {
+                File file = new File(uploadedFile.getPath());
+                String filename = file.getName();
+                String filepath = uploadDirPath + "/" + filename;
 
-    @Transactional
-    @PostMapping("/information_resources/edit/{id}")
-    public String editInformationResource(
-            @PathVariable("id") InformationResource informationResource,
-            @AuthenticationPrincipal User editor,
-            @RequestParam String inventoryNumber,
-            @RequestParam String fullnameCdrom,
-            @RequestParam String abbreviationCdrom,
-            @RequestParam String dateObservationStart,
-            @RequestParam String dateObservationEnd,
-            @RequestParam String briefContent,
-            @RequestParam String volume,
-            @RequestParam String receivedDate,
-            @RequestParam Language language,
-            @RequestParam RelatedProject relatedProject,
-            @RequestParam Country country,
-            @RequestParam Organization mainOrganization,
-            @RequestParam ObservationMethod observationMethod,
-            @RequestParam(defaultValue = "0") boolean duplicate,
-            @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
-            @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
-            @RequestParam(name = "observationTerritory") ObservationTerritory[] observationTerritories,
-            @RequestParam(name = "organization", required = false) Organization[] organizations,
-            @RequestParam(name = "uploadFiles") MultipartFile[] files,
-            @RequestParam(required = false) boolean delAttachedFiles
-    ) throws IOException {
-
-        if (delAttachedFiles) {
-            deleteAllAttachedFiles(informationResource);
-        }
-
-        LocalDateTime myDateObj = LocalDateTime.now();
-        String dateOfEdit = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-
-        if (informationResource.getUploadedFiles() != null) {
-            Country countryTemp = informationResource.getCountry();
-            Organization mainOrganizationTemp = informationResource.getMainOrganization();
-            String inventoryNumberTemp = informationResource.getInventoryNumber();
-
-            if (!countryTemp.equals(country) || !mainOrganizationTemp.equals(mainOrganization) || !inventoryNumberTemp.equals(inventoryNumber)) {
-                String uploadDirPath =  uploadPath + "/" +
-                                        country.getId() + "/" +
-                                        mainOrganization.getId() + "/" +
-                                        inventoryNumber;
-                File uploadDir = new File(uploadDirPath);
-
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
+                if (file.exists()) {
+                    file.renameTo(new File(filepath));
                 }
+                uploadedFile.setPath(filepath);
+                uploadedFileRepository.save(uploadedFile);
+            }
+            String oldUploadDirPath =   uploadPath + "/" +
+                    countryTemp.getId() + "/" +
+                    mainOrganizationTemp.getId() + "/" +
+                    inventoryNumberTemp;
+            File oldUploadDir = new File(oldUploadDirPath);
 
-                Set<UploadedFile> uploadedFilesTemp = uploadedFileRepository.findByInformationResource(informationResource);
-
-                for (UploadedFile uploadedFile : uploadedFilesTemp) {
-                    File file = new File(uploadedFile.getPath());
-                    String filename = file.getName();
-                    String filepath = uploadDirPath + "/" + filename;
-
-                    if (file.exists()) {
-                        file.renameTo(new File(filepath));
-                    }
-                    uploadedFile.setPath(filepath);
-                    uploadedFileRepository.save(uploadedFile);
-                }
-                String oldUploadDirPath =   uploadPath + "/" +
-                                            countryTemp.getId() + "/" +
-                                            mainOrganizationTemp.getId() + "/" +
-                                            inventoryNumberTemp;
-                File oldUploadDir = new File(oldUploadDirPath);
-
-                if (oldUploadDir.exists()) {
-                    oldUploadDir.delete();
-                }
+            if (oldUploadDir.exists()) {
+                oldUploadDir.delete();
             }
         }
-
-        setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
-
-        informationResource.setEditedFields(
-                inventoryNumber, fullnameCdrom, abbreviationCdrom,
-                dateObservationStart, dateObservationEnd,
-                briefContent, volume, receivedDate,
-                language, relatedProject, country, mainOrganization, observationMethod,
-                duplicate, editor, dateOfEdit);
-
-        List<UploadedFile> uploadedFiles = saveFiles(informationResource, files);
-        if (uploadedFiles != null) {
-            informationResource.addUploadedFiles(uploadedFiles);
-        }
-
-        informationResourceService.save(informationResource);
-        return String.format("redirect:/information_resources/edit/%d", informationResource.getId());
     }
 }

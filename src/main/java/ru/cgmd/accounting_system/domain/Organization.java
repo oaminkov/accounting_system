@@ -13,10 +13,13 @@ public class Organization {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name;
-
-    @Column(nullable = false)
     private String abbreviation;
+
+    @Column(name="name_rus")
+    private String nameRus;
+
+    @Column(name="name_eng")
+    private String nameEng;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (nullable = false, name = "id_country")
@@ -32,10 +35,11 @@ public class Organization {
 
     public Organization() { }
 
-    public Organization(Country country, String name, String abbreviation) {
-        this.country = country;
-        this.name = name;
+    public Organization(String abbreviation, String nameRus, String nameEng, Country country) {
         this.abbreviation = abbreviation;
+        this.nameRus = nameRus;
+        this.nameEng = nameEng;
+        this.country = country;
     }
 
     public Long getId() {
@@ -45,25 +49,32 @@ public class Organization {
         this.id = id;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getAbbreviation() {
         return abbreviation;
     }
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getNameRus() {
+        return nameRus;
+    }
+    public void setNameRus(String nameRus) {
+        this.nameRus = nameRus;
+    }
+
+    public String getNameEng() {
+        return nameEng;
+    }
+    public void setNameEng(String nameEng) {
+        this.nameEng = nameEng;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Set<InformationResource> getInformationResources() {

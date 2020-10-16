@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.cgmd.accounting_system.domain.ObservationDiscipline;
 import ru.cgmd.accounting_system.domain.ObservationType;
-import ru.cgmd.accounting_system.repos.ObservationDisciplineRepository;
-import ru.cgmd.accounting_system.repos.ObservationTypeRepository;
+import ru.cgmd.accounting_system.repo.ObservationDisciplineRepository;
+import ru.cgmd.accounting_system.repo.ObservationTypeRepository;
 
 import java.util.List;
 

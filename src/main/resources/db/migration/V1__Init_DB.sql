@@ -13,17 +13,17 @@ create table user_role (
     roles varchar(255)
 );
 
-create table language (
-    id int8 not null,
-    name varchar(255) not null,
-    primary key (id)
-);
-
 create table related_project (
     id int8 not null,
     name varchar(255) not null,
     abbreviation varchar(255) not null,
     type varchar(255) not null,
+    primary key (id)
+);
+
+create table language (
+    id int8 not null,
+    name varchar(255) not null,
     primary key (id)
 );
 
@@ -35,8 +35,9 @@ create table country (
 
 create table organization (
     id int8 not null,
-    name varchar(255) not null,
     abbreviation varchar(255) not null,
+    name_rus varchar(255),
+    name_eng varchar(255),
     id_country int8 not null,
     primary key (id)
 );
@@ -98,8 +99,8 @@ create table information_resource (
     volume varchar(255) not null,
     received_date varchar(255) not null,
     duplicate boolean not null,
-    id_language int8 not null,
     id_related_project int8 not null,
+    id_language int8 not null,
     id_country int8 not null,
     id_main_organization int8 not null,
     id_observation_method int8 not null,
@@ -150,7 +151,7 @@ alter table usr add constraint usr__username_uk unique (username);
 alter table uploaded_file add constraint uploaded_file__path_uk unique (path);
 alter table language add constraint language__name_uk unique (name);
 alter table country add constraint country__name_uk unique (name);
-alter table organization add constraint organization__name_uk unique (name);
+alter table organization add constraint organization__abbreviation_uk unique (abbreviation);
 alter table observation_method add constraint observ_method__name_uk unique (name);
 alter table observation_discipline add constraint observ_discipline__name_uk unique (name);
 alter table observation_type add constraint observ_type__name_uk unique (name);

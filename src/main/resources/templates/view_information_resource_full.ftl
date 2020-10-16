@@ -52,16 +52,16 @@
         </div>
         <hr>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Язык:</label>
-            <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.language.name}">
-            </div>
-        </div>
         <div class="form-group row mt-3">
             <label class="col-sm-3 col-form-label">Связанный проект:</label>
             <div class="col-sm-9">
                 <input type="text" readonly class="form-control" value="${informationResource.relatedProject.name}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Язык:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control" value="${informationResource.language.name}">
             </div>
         </div>
         <div class="form-group row">
@@ -134,14 +134,14 @@
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Главная организация:</label>
             <div class="col-sm-9">
-                <input type="text" readonly class="form-control" value="${informationResource.mainOrganization.name}">
+                <input type="text" readonly class="form-control" value="${informationResource.mainOrganization.abbreviation}">
             </div>
         </div>
         <#list informationResource.organizations as organization>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Организация:</label>
                 <div class="col-sm-9">
-                    <input type="text" readonly class="form-control" value="${organization.name}">
+                    <input type="text" readonly class="form-control" value="${organization.abbreviation}">
                 </div>
             </div>
         </#list>
