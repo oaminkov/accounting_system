@@ -6,7 +6,8 @@ import javax.persistence.*;
 @Table(name = "uploaded_file")
 public class UploadedFile {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uploaded_file_generator")
+    @SequenceGenerator(name="uploaded_file_generator", sequenceName = "uploaded_file_seq", allocationSize=50)
     private Long id;
 
     @Column(nullable = false, name="name")

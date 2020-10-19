@@ -9,7 +9,8 @@ import java.util.Set;
 @Table(name = "observation_discipline")
 public class ObservationDiscipline {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_discipline_generator")
+    @SequenceGenerator(name="observation_discipline_generator", sequenceName = "observation_discipline_seq", allocationSize=50)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)

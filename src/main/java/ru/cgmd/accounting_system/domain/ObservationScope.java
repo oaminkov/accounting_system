@@ -8,7 +8,8 @@ import java.util.Set;
 @Table(name = "observation_scope")  //сфера наблюдений
 public class ObservationScope {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_scope_generator")
+    @SequenceGenerator(name="observation_scope_generator", sequenceName = "observation_scope_seq", allocationSize=50)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)

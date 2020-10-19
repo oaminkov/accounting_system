@@ -9,7 +9,8 @@ import java.util.Set;
 @Table(name = "observation_type")
 public class ObservationType { //вид наблюдения
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_type_generator")
+    @SequenceGenerator(name="observation_type_generator", sequenceName = "observation_type_seq", allocationSize=50)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)

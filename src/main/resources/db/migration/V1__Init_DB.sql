@@ -1,5 +1,19 @@
 create sequence hibernate_sequence start 1 increment 1;
 
+create sequence usr_seq start 1 increment 50;
+create sequence related_project_seq start 1 increment 50;
+create sequence language_seq start 1 increment 50;
+create sequence country_seq start 1 increment 50;
+create sequence organization_seq start 1 increment 50;
+create sequence observation_method_seq start 1 increment 50;
+create sequence observation_discipline_seq start 1 increment 50;
+create sequence observation_type_seq start 1 increment 50;
+create sequence observation_parameter_seq start 1 increment 50;
+create sequence observation_scope_seq start 1 increment 50;
+create sequence observation_territory_seq start 1 increment 50;
+create sequence uploaded_file_seq start 1 increment 50;
+create sequence information_resource_seq start 1 increment 50;
+
 create table usr (
     id int8 not null,
     active boolean,
