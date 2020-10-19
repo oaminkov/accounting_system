@@ -54,14 +54,13 @@ insert into observation_territory (id, name)
     values (1, 'Территория1'),
            (2, 'Территория2');
 
-select setval('hibernate_sequence',
-              (select max(id) FROM related_project) +
-              (select max(id) FROM language) +
-              (select max(id) FROM country) +
-              (select max(id) FROM organization) +
-              (select max(id) FROM observation_method) +
-              (select max(id) FROM observation_discipline) +
-              (select max(id) FROM observation_type) +
-              (select max(id) FROM observation_parameter) +
-              (select max(id) FROM observation_scope) +
-              (select max(id) FROM observation_territory));
+select setval('related_project_seq', (select max(id) FROM related_project));
+select setval('language_seq', (select max(id) FROM language));
+select setval('country_seq', (select max(id) FROM country));
+select setval('organization_seq', (select max(id) FROM organization));
+select setval('observation_method_seq', (select max(id) FROM observation_method));
+select setval('observation_discipline_seq', (select max(id) FROM observation_discipline));
+select setval('observation_type_seq', (select max(id) FROM observation_type));
+select setval('observation_parameter_seq', (select max(id) FROM observation_parameter));
+select setval('observation_scope_seq', (select max(id) FROM observation_scope));
+select setval('observation_territory_seq', (select max(id) FROM observation_territory));

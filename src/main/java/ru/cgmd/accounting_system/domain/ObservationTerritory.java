@@ -8,7 +8,8 @@ import java.util.Set;
 @Table(name = "observation_territory")
 public class ObservationTerritory {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_territory_generator")
+    @SequenceGenerator(name="observation_territory_generator", sequenceName = "observation_territory_seq", allocationSize=50)
     private Long id;
 
     @Column(nullable = false, unique = true)

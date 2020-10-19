@@ -10,7 +10,8 @@ import java.util.Set;
 @Table(name = "usr")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usr_generator")
+    @SequenceGenerator(name="usr_generator", sequenceName = "usr_seq", allocationSize=50)
     private Long id;
 
     @Column(nullable = false, name = "username", unique = true)

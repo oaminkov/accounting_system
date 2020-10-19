@@ -9,7 +9,8 @@ import java.util.Set;
 @Table(name = "information_resource")
 public class InformationResource {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "information_resource_generator")
+    @SequenceGenerator(name="information_resource_generator", sequenceName = "information_resource_seq", allocationSize=50)
     private Long id;
 
     @Column(nullable = false, name="inventory_number", unique = true)
