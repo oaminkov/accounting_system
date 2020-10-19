@@ -1,15 +1,14 @@
 package ru.cgmd.accounting_system.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import ru.cgmd.accounting_system.domain.Role;
 import ru.cgmd.accounting_system.domain.User;
 import ru.cgmd.accounting_system.service.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Controller

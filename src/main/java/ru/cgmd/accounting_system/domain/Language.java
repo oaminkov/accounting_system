@@ -8,39 +8,38 @@ import java.util.List;
 public class Language {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_language")
-    private Long idLanguage;
+    private Long id;
 
-    @Column(nullable = false, name="name_language", unique = true)
-    private String nameLanguage;
+    @Column(nullable = false, name="name", unique = true)
+    private String name;
 
     @OneToMany(mappedBy = "language", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    private List<InformationResource> informationResources;
 
     public Language() { }
 
-    public Language(String nameLanguage) {
-        this.nameLanguage = nameLanguage;
+    public Language(String name) {
+        this.name = name;
     }
 
-    public Long getIdLanguage() {
-        return idLanguage;
+    public Long getId() {
+        return id;
     }
-    public void setIdLanguage(Long idLanguage) {
-        this.idLanguage = idLanguage;
-    }
-
-    public String getNameLanguage() {
-        return nameLanguage;
-    }
-    public void setNameLanguage(String nameLanguage) {
-        this.nameLanguage = nameLanguage;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public List<InformationProduct> getInformationProducts() {
-        return informationProducts;
+    public String getName() {
+        return name;
     }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<InformationResource> getInformationResources() {
+        return informationResources;
+    }
+    public void setInformationResources(List<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 }

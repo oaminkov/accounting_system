@@ -18,7 +18,7 @@
                 <form action="/login" method="post" class="text-center border border-light p-5">
                     <p class="h4 mb-4">Авторизация</p>
                     <!-- Login -->
-                    <input type="text" name="username" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Логин" autofocus>
+                    <input type="text" name="username" id="defaultLoginFormUsername" class="form-control mb-4" placeholder="Логин" autofocus>
                     <!-- Password -->
                     <input type="password" name="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Пароль">
                     <!-- Sign in button -->

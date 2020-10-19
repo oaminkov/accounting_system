@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/","/login","/main", "/view_informationproduct", "/search", "/static/**", "/js/**", "/css/**").permitAll()
+            .antMatchers("/","/login","/main", "/information_resources", "/search", "/static/**", "/js/**", "/css/**").permitAll()
             .antMatchers("/getObservationTypeList1", "/getCountryList1", "/getOrganizationList1").permitAll()
             .antMatchers("/registration").access("hasAuthority('ADMIN')")
             .anyRequest().authenticated()
@@ -45,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService)
-                .passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 }

@@ -1,11 +1,11 @@
 package ru.cgmd.accounting_system.service;
 
-import ru.cgmd.accounting_system.domain.Language;
-import ru.cgmd.accounting_system.repos.LanguageRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.cgmd.accounting_system.domain.Language;
+import ru.cgmd.accounting_system.repo.LanguageRepository;
+
 import java.util.List;
 
 @Service
@@ -15,7 +15,7 @@ public class LanguageService {
     private LanguageRepository languageRepository;
 
     public boolean isExists(String name) {
-        if (languageRepository.findByNameLanguage(name) == null) {
+        if (languageRepository.findByName(name) == null) {
             return false;
         }
         return true;
@@ -25,19 +25,19 @@ public class LanguageService {
         return languageRepository.findAll();
     }
 
-    public List<Language> findByInformationProductsExists() {
-        return languageRepository.findByInformationProductsNotEmpty();
+    public List<Language> findByInformationResourcesExists() {
+        return languageRepository.findByInformationResourcesNotEmpty();
     }
 
     public void save(Language language) {
         languageRepository.save(language);
     }
 
-    public Language get(long idLanguage) {
-        return languageRepository.findById(idLanguage).get();
+    public Language get(long id) {
+        return languageRepository.findById(id).get();
     }
 
-    public void delete(long idLanguage) {
-        languageRepository.deleteById(idLanguage);
+    public void delete(long id) {
+        languageRepository.deleteById(id);
     }
 }

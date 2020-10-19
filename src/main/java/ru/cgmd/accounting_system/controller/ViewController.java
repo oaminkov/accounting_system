@@ -1,149 +1,181 @@
 package ru.cgmd.accounting_system.controller;
 
-import ru.cgmd.accounting_system.domain.*;
-import ru.cgmd.accounting_system.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.cgmd.accounting_system.domain.*;
+import ru.cgmd.accounting_system.service.*;
+
 import java.util.List;
 
 @Controller
 public class ViewController {
     @Autowired
-    private CountryService countryService;
-    @Autowired
-    private GeographicalObjectService geographicalObjectService;
-    @Autowired
     private LanguageService languageService;
     @Autowired
-    private ProjectOrProgramService projectOrProgramService;
+    private RelatedProjectService relatedProjectService;
+    @Autowired
+    private CountryService countryService;
+    @Autowired
+    private ObservationMethodService observationMethodService;
     @Autowired
     private ObservationDisciplineService observationDisciplineService;
     @Autowired
+    private ObservationTypeService observationTypeService;
+    @Autowired
+    private ObservationParameterService observationParameterService;
+    @Autowired
     private ObservationScopeService observationScopeService;
     @Autowired
-    private ObservationTypeService observationTypeService;
+    private ObservationTerritoryService observationTerritoryService;
     @Autowired
     private OrganizationService organizationService;
 
-    //COUNTRY
-    @GetMapping("/view_country")
-    public String viewAllCountry(@AuthenticationPrincipal User user, Model model) {
-        List<Country> listCountry = countryService.listAll();
-        model.addAttribute("listCountry", listCountry);
-        return "view_country";
-    }
-    @GetMapping("/add_country")
-    public String showNewCountryPage(Model model) {
-        Country country = new Country();
-        model.addAttribute("country", country);
-        return "add_country";
-    }
-
-    //GEOGRAPHICAL OBJECT
-    @GetMapping("/view_geographicalobject")
-    public String viewAllGeographicalObject(Model model) {
-        List<GeographicalObject> listGeographicalObject = geographicalObjectService.listAll();
-        model.addAttribute("listGeographicalObject", listGeographicalObject);
-        return "view_geographicalobject";
-    }
-    @GetMapping("/add_geographicalobject")
-    public String showNewGeographicalObjectPage(Model model) {
-        GeographicalObject geographicalObject = new GeographicalObject();
-        model.addAttribute("geographicalObject", geographicalObject);
-        return "add_geographicalobject";
-    }
-
     //LANGUAGE
-    @GetMapping("/view_language")
-    public String viewAllLanguage(Model model) {
-        List<Language> listLanguage = languageService.listAll();
-        model.addAttribute("listLanguage", listLanguage);
-        return "view_language";
+    @GetMapping("languages")
+    public String viewAllLanguages(Model model) {
+        List<Language> languages = languageService.listAll();
+        model.addAttribute("languages", languages);
+        return "view_languages";
     }
-    @GetMapping("/add_language")
+    @GetMapping("languages/add")
     public String showNewLanguagePage(Model model) {
         Language language = new Language();
         model.addAttribute("language", language);
         return "add_language";
     }
 
-    //OBSERVATION DISCIPLINE
-    @GetMapping("/view_observationdiscipline")
-    public String viewAllObservationDiscipline(Model model) {
-        List<ObservationDiscipline> listObservationDiscipline = observationDisciplineService.listAll();
-        model.addAttribute("listObservationDiscipline", listObservationDiscipline);
-        return "view_observationdiscipline";
+    //RELATED PROJECT
+    @GetMapping("related_projects")
+    public String viewAllProjectTypes(Model model) {
+        List<RelatedProject> relatedProjects = relatedProjectService.listAll();
+        model.addAttribute("relatedProjects", relatedProjects);
+        return "view_related_projects";
     }
-    @GetMapping("/add_observationdiscipline")
+    @GetMapping("related_projects/add")
+    public String showNewProjectTypePage(Model model) {
+        RelatedProject relatedProject = new RelatedProject();
+        model.addAttribute("relatedProject", relatedProject);
+        return "add_related_project";
+    }
+
+    //COUNTRY
+    @GetMapping("countries")
+    public String viewAllCountries(@AuthenticationPrincipal User user, Model model) {
+        List<Country> countries = countryService.listAll();
+        model.addAttribute("countries", countries);
+        return "view_countries";
+    }
+    @GetMapping("countries/add")
+    public String showNewCountryPage(Model model) {
+        Country country = new Country();
+        model.addAttribute("country", country);
+        return "add_country";
+    }
+
+    //OBSERVATION METHOD
+    @GetMapping("observation_methods")
+    public String viewAllObservationMethods(@AuthenticationPrincipal User user, Model model) {
+        List<ObservationMethod> observationMethods = observationMethodService.listAll();
+        model.addAttribute("observationMethods", observationMethods);
+        return "view_observation_methods";
+    }
+    @GetMapping("observation_methods/add")
+    public String showNewObservationMethodPage(Model model) {
+        ObservationMethod observationMethod = new ObservationMethod();
+        model.addAttribute("observationMethod", observationMethod);
+        return "add_observation_method";
+    }
+
+    //OBSERVATION DISCIPLINE
+    @GetMapping("observation_disciplines")
+    public String viewAllObservationDisciplines(Model model) {
+        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
+        model.addAttribute("observationDisciplines", observationDisciplines);
+        return "view_observation_disciplines";
+    }
+    @GetMapping("observation_disciplines/add")
     public String showNewObservationDisciplinePage(Model model) {
         ObservationDiscipline observationDiscipline = new ObservationDiscipline();
         model.addAttribute("observationDiscipline", observationDiscipline);
-        return "add_observationdiscipline";
+        return "add_observation_discipline";
     }
 
     //OBSERVATION TYPE
-    @GetMapping("/view_observationtype")
-    public String viewAllObservationType(Model model) {
-        List<ObservationType> listObservationType = observationTypeService.listAll();
-        model.addAttribute("listObservationType", listObservationType);
-        return "view_observationtype";
+    @GetMapping("observation_types")
+    public String viewAllObservationTypes(Model model) {
+        List<ObservationType> observationTypes = observationTypeService.listAll();
+        model.addAttribute("observationTypes", observationTypes);
+        return "view_observation_types";
     }
-    @GetMapping("/add_observationtype")
+    @GetMapping("observation_types/add")
     public String showNewObservationTypePage(Model model) {
         ObservationType observationType = new ObservationType();
+        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
         model.addAttribute("observationType", observationType);
+        model.addAttribute("observationDisciplines", observationDisciplines);
+        return "add_observation_type";
+    }
 
-        List<ObservationDiscipline> listObservationDiscipline = observationDisciplineService.listAll();
-        model.addAttribute("listObservationDiscipline", listObservationDiscipline);
-        return "add_observationtype";
+    // OBSERVATION PARAMETER
+    @GetMapping("observation_parameters")
+    public String viewAllObservationParameters(Model model) {
+        List<ObservationParameter> observationParameters = observationParameterService.listAll();
+        model.addAttribute("observationParameters", observationParameters);
+        return "view_observation_parameters";
+    }
+    @GetMapping("observation_parameters/add")
+    public String showNewObservationParameterPage(Model model) {
+        ObservationParameter observationParameter = new ObservationParameter();
+        List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
+        model.addAttribute("observationParameter", observationParameter);
+        model.addAttribute("observationDisciplines", observationDisciplines);
+        return "add_observation_parameter";
     }
 
     //OBSERVATION SCOPE
-    @GetMapping("/view_observationscope")
+    @GetMapping("observation_scopes")
     public String viewAllObservationScope(Model model) {
-        List<ObservationScope> listObservationScope = observationScopeService.listAll();
-        model.addAttribute("listObservationScope", listObservationScope);
-        return "view_observationscope";
+        List<ObservationScope> observationScopes = observationScopeService.listAll();
+        model.addAttribute("observationScopes", observationScopes);
+        return "view_observation_scopes";
     }
-    @GetMapping("/add_observationscope")
+    @GetMapping("observation_scopes/add")
     public String showNewObservationScopePage(Model model) {
         ObservationScope observationScope = new ObservationScope();
         model.addAttribute("observationScope", observationScope);
-        return "add_observationscope";
+        return "add_observation_scope";
+    }
+
+    //OBSERVATION TERRITORY
+    @GetMapping("observation_territories")
+    public String viewAllObservationTerritories(Model model) {
+        List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
+        model.addAttribute("observationTerritories", observationTerritories);
+        return "view_observation_territories";
+    }
+    @GetMapping("observation_territories/add")
+    public String showNewObservationTerritoryPage(Model model) {
+        ObservationTerritory observationTerritory = new ObservationTerritory();
+        model.addAttribute("observationTerritory", observationTerritory);
+        return "add_observation_territory";
     }
 
     //ORGANIZATION
-    @GetMapping("/view_organization")
+    @GetMapping("organizations")
     public String viewAllOrganization(Model model) {
-        List<Organization> listOrganization = organizationService.listAll();
-        model.addAttribute("listOrganization", listOrganization);
-        return "view_organization";
+        List<Organization> organizations = organizationService.listAll();
+        model.addAttribute("organizations", organizations);
+        return "view_organizations";
     }
-    @GetMapping("/add_organization")
+    @GetMapping("organizations/add")
     public String showNewOrganizationPage(Model model) {
-        List<Country> listCountry = countryService.listAll(); //select стран
-        model.addAttribute("listCountry", listCountry);
-
+        List<Country> countries = countryService.listAll();
         Organization organization = new Organization();
+        model.addAttribute("countries", countries);
         model.addAttribute("organization", organization);
         return "add_organization";
-    }
-
-    //PROJECT OR PROGRAM
-    @GetMapping("/view_projectorprogram")
-    public String viewAllProjectOrProgram(Model model) {
-        List<ProjectOrProgram> listProjectOrProgram = projectOrProgramService.listAll();
-        model.addAttribute("listProjectOrProgram", listProjectOrProgram);
-        return "view_projectorprogram";
-    }
-    @GetMapping("/add_projectorprogram")
-    public String showNewProjectOrProgramPage(Model model) {
-        ProjectOrProgram projectOrProgram = new ProjectOrProgram();
-        model.addAttribute("projectOrProgram", projectOrProgram);
-        return "add_projectorprogram";
     }
 }

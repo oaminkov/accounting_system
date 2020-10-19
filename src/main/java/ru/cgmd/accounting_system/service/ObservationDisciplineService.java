@@ -1,11 +1,11 @@
 package ru.cgmd.accounting_system.service;
 
-import ru.cgmd.accounting_system.domain.ObservationDiscipline;
-import ru.cgmd.accounting_system.repos.ObservationDisciplineRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.cgmd.accounting_system.domain.ObservationDiscipline;
+import ru.cgmd.accounting_system.repo.ObservationDisciplineRepository;
+
 import java.util.List;
 
 @Service
@@ -15,29 +15,29 @@ public class ObservationDisciplineService {
     private ObservationDisciplineRepository observationDisciplineRepository;
 
     public boolean isExists(String name) {
-        if (observationDisciplineRepository.findByNameObservationDiscipline(name) == null) {
+        if (observationDisciplineRepository.findByName(name) == null) {
             return false;
         }
         return true;
     }
 
     public List<ObservationDiscipline> listAll() {
-        return observationDisciplineRepository.findAll();
+        return observationDisciplineRepository.findAllByOrderByIdAsc();
     }
 
-    public List<ObservationDiscipline> findByInformationProductsExists() {
-        return observationDisciplineRepository.findByInformationProductsNotEmpty();
-    }
+    /*public List<ObservationDiscipline> findByInformationResourcesExists() {
+        return observationDisciplineRepository.findByInformationResourcesNotEmpty();
+    }*/
 
     public void save(ObservationDiscipline observationDiscipline) {
         observationDisciplineRepository.save(observationDiscipline);
     }
 
-    public ObservationDiscipline get(long idObservationDiscipline) {
-        return observationDisciplineRepository.findById(idObservationDiscipline).get();
+    public ObservationDiscipline get(long id) {
+        return observationDisciplineRepository.findById(id).get();
     }
 
-    public void delete(long idObservationDiscipline) {
-        observationDisciplineRepository.deleteById(idObservationDiscipline);
+    public void delete(long id) {
+        observationDisciplineRepository.deleteById(id);
     }
 }

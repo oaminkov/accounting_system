@@ -7,50 +7,49 @@ import javax.persistence.*;
 public class UploadedFile {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_uploaded_file")
-    private Long idUploadedFile;
+    private Long id;
 
-    @Column(nullable = false, name="name_uploaded_file")
-    private String nameUploadedFile;
+    @Column(nullable = false, name="name")
+    private String name;
 
-    @Column(nullable = false, name="path_uploaded_file", unique = true)
-    private String pathUploadedFile;
+    @Column(nullable = false, name="path", unique = true)
+    private String path;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "information_product")
-    private InformationProduct informationProduct;
+    @JoinColumn(name = "information_resource")
+    private InformationResource informationResource;
 
     public UploadedFile() { }
 
-    public UploadedFile(String nameUploadedFile, String pathUploadedFile, InformationProduct informationProduct) {
-        this.nameUploadedFile = nameUploadedFile;
-        this.pathUploadedFile = pathUploadedFile;
-        this.informationProduct = informationProduct;
+    public UploadedFile(String name, String path, InformationResource informationResource) {
+        this.name = name;
+        this.path = path;
+        this.informationResource = informationResource;
     }
 
-    public Long getIdUploadedFile() {
-        return idUploadedFile;
+    public Long getId() {
+        return id;
     }
-    public void setIdUploadedFile(Long idUploadedFile) {
-        this.idUploadedFile = idUploadedFile;
-    }
-
-    public String getNameUploadedFile() {
-        return nameUploadedFile;
-    }
-    public void setNameUploadedFile(String nameUploadedFile) {
-        this.nameUploadedFile = nameUploadedFile;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getPathUploadedFile() {
-        return pathUploadedFile;
+    public String getName() {
+        return name;
     }
-    public void setPathUploadedFile(String pathUploadedFile) {
-        this.pathUploadedFile = pathUploadedFile;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public InformationProduct getInformationProduct() {
-        return informationProduct;
+    public String getPath() {
+        return path;
     }
-    public void setInformationProduct(InformationProduct informationProduct) { this.informationProduct = informationProduct; }
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public InformationResource getInformationResource() {
+        return informationResource;
+    }
+    public void setInformationResource(InformationResource informationResource) { this.informationResource = informationResource; }
 }

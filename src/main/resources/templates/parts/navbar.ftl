@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="basicExampleNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/view_informationproduct">Информационные ресурсы
+                <a class="nav-link" href="/information_resources">Информационные ресурсы
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
@@ -19,14 +19,16 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Дополнительные сущности</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/view_country">Страны</a>
-                    <a class="dropdown-item" href="/view_geographicalobject">Территории наблюдений</a>
-                    <a class="dropdown-item" href="/view_language">Языки</a>
-                    <a class="dropdown-item" href="/view_observationdiscipline">Дисциплины наблюдений</a>
-                    <a class="dropdown-item" href="/view_observationtype">Виды наблюдений</a>
-                    <a class="dropdown-item" href="/view_observationscope">Сферы наблюдений</a>
-                    <a class="dropdown-item" href="/view_organization">Организации</a>
-                    <a class="dropdown-item" href="/view_projectorprogram">Проекты и программы</a>
+                    <a class="dropdown-item" href="/languages">Языки</a>
+                    <a class="dropdown-item" href="/related_projects">Связанные проекты</a>
+                    <a class="dropdown-item" href="/countries">Страны</a>
+                    <a class="dropdown-item" href="/observation_methods">Методы наблюдений</a>
+                    <a class="dropdown-item" href="/observation_disciplines">Дисциплины наблюдений</a>
+                    <a class="dropdown-item" href="/observation_types">Виды наблюдений</a>
+                    <a class="dropdown-item" href="/observation_parameters">Параметры наблюдений</a>
+                    <a class="dropdown-item" href="/observation_scopes">Сферы наблюдений</a>
+                    <a class="dropdown-item" href="/observation_territories">Территории наблюдений</a>
+                    <a class="dropdown-item" href="/organizations">Организации</a>
                 </div>
             </li>
 

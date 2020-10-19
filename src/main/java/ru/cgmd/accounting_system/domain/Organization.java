@@ -1,42 +1,73 @@
 package ru.cgmd.accounting_system.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "organization")
-public class Organization { //организация
+public class Organization {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id_organization")
-    private Long idOrganization;
+    private Long id;
 
-    @Column(nullable = false, name="fullname_organization", unique = true)
-    private String fullnameOrganization;
+    @Column(nullable = false, unique = true)
+    private String abbreviation;
 
-    @Column(nullable = false, name="abbreviation_organization")
-    private String abbreviationOrganization;
+    @Column(name="name_rus")
+    private String nameRus;
+
+    @Column(name="name_eng")
+    private String nameEng;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (nullable = false, name = "id_country")
     private Country country;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InformationProduct> informationProducts;
+    @ManyToMany
+    @JoinTable(
+            name = "infres_organization",
+            joinColumns = { @JoinColumn(name = "id_organization") },
+            inverseJoinColumns = { @JoinColumn(name = "id_information_resource") }
+    )
+    private Set<InformationResource> informationResources = new HashSet<>();
 
     public Organization() { }
 
-    public Organization(Country country, String fullnameOrganization, String abbreviationOrganization) {
+    public Organization(String abbreviation, String nameRus, String nameEng, Country country) {
+        this.abbreviation = abbreviation;
+        this.nameRus = nameRus;
+        this.nameEng = nameEng;
         this.country = country;
-        this.fullnameOrganization = fullnameOrganization;
-        this.abbreviationOrganization = abbreviationOrganization;
     }
 
-    public Long getIdOrganization() {
-        return idOrganization;
+    public Long getId() {
+        return id;
     }
-    public void setIdOrganization(Long idOrganization) {
-        this.idOrganization = idOrganization;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    public String getNameRus() {
+        return nameRus;
+    }
+    public void setNameRus(String nameRus) {
+        this.nameRus = nameRus;
+    }
+
+    public String getNameEng() {
+        return nameEng;
+    }
+    public void setNameEng(String nameEng) {
+        this.nameEng = nameEng;
     }
 
     public Country getCountry() {
@@ -46,24 +77,10 @@ public class Organization { //организация
         this.country = country;
     }
 
-    public String getFullnameOrganization() {
-        return fullnameOrganization;
+    public Set<InformationResource> getInformationResources() {
+        return informationResources;
     }
-    public void setFullnameOrganization(String fullnameOrganization) {
-        this.fullnameOrganization = fullnameOrganization;
-    }
-
-    public String getAbbreviationOrganization() {
-        return abbreviationOrganization;
-    }
-    public void setAbbreviationOrganization(String abbreviationOrganization) {
-        this.abbreviationOrganization = abbreviationOrganization;
-    }
-
-    public List<InformationProduct> getInformationProducts() {
-        return informationProducts;
-    }
-    public void setInformationProducts(List<InformationProduct> informationProducts) {
-        this.informationProducts = informationProducts;
+    public void setInformationResources(Set<InformationResource> informationResources) {
+        this.informationResources = informationResources;
     }
 }
