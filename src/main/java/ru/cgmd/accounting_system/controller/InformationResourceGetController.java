@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.cgmd.accounting_system.domain.*;
 import ru.cgmd.accounting_system.repo.UploadedFileRepository;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -106,20 +104,16 @@ public class InformationResourceGetController {
 
     @GetMapping(value="information_resources/download/{id}", produces="application/zip")
     public void zipFiles(HttpServletResponse response,
-                         @PathVariable("id") InformationResource informationResource,
-                         @ModelAttribute UploadedFile uploadedFile
-    ) throws IOException {
+                         @PathVariable("id") InformationResource informationResource) throws IOException {
         //Устанавливаем заголовки
         response.setStatus(HttpServletResponse.SC_OK);
         response.addHeader("Content-Disposition", "attachment; filename=\"uploadedFiles.zip\"");
 
         ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
-        Set<File> downloadFiles = new HashSet<>();
-        Set<UploadedFile> tempFiles = uploadedFileRepository.findByInformationResource(informationResource);
+        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationResource(informationResource);
 
-        for (UploadedFile file : tempFiles) {
-            File downloadFile = new File(file.getPath());
-            downloadFiles.add(downloadFile);
+        for (UploadedFile uploadedFile : uploadedFiles) {
+            File downloadFile = new File(uploadedFile.getPath());
 
             zipOutputStream.putNextEntry(new ZipEntry(downloadFile.getName()));
             FileInputStream fileInputStream = new FileInputStream(downloadFile);
