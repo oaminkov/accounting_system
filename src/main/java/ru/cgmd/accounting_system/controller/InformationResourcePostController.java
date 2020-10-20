@@ -209,19 +209,6 @@ public class InformationResourcePostController {
         else return null;
     }
 
-    @Transactional
-    public void deleteAttachedFiles(InformationResource informationResource) {
-        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationResource(informationResource);
-        for (UploadedFile uploadedFile : uploadedFiles) {
-            File file = new File(uploadedFile.getPath());
-
-            if (file.exists()) {
-                file.delete();
-            }
-        }
-        uploadedFileRepository.deleteByInformationResource(informationResource);
-    }
-
     public void transferAttachedFiles(InformationResource informationResource, String inventoryNumber, Country country, Organization mainOrganization) {
         Country countryTemp = informationResource.getCountry();
         Organization mainOrganizationTemp = informationResource.getMainOrganization();
@@ -261,5 +248,18 @@ public class InformationResourcePostController {
                 oldUploadDir.delete();
             }
         }
+    }
+
+    @Transactional
+    public void deleteAttachedFiles(InformationResource informationResource) {
+        Set<UploadedFile> uploadedFiles = uploadedFileRepository.findByInformationResource(informationResource);
+        for (UploadedFile uploadedFile : uploadedFiles) {
+            File file = new File(uploadedFile.getPath());
+
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        uploadedFileRepository.deleteByInformationResource(informationResource);
     }
 }

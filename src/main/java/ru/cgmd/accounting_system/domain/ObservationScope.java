@@ -9,7 +9,7 @@ import java.util.Set;
 public class ObservationScope {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_scope_generator")
-    @SequenceGenerator(name="observation_scope_generator", sequenceName = "observation_scope_seq", allocationSize=50)
+    @SequenceGenerator(name="observation_scope_generator", sequenceName = "observation_scope_seq", allocationSize=10)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)

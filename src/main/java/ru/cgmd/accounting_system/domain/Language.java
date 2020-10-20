@@ -8,7 +8,7 @@ import java.util.List;
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "language_generator")
-    @SequenceGenerator(name="language_generator", sequenceName = "language_seq", allocationSize=50)
+    @SequenceGenerator(name="language_generator", sequenceName = "language_seq", allocationSize=10)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)

@@ -10,7 +10,7 @@ import java.util.Set;
 public class ObservationDiscipline {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_discipline_generator")
-    @SequenceGenerator(name="observation_discipline_generator", sequenceName = "observation_discipline_seq", allocationSize=50)
+    @SequenceGenerator(name="observation_discipline_generator", sequenceName = "observation_discipline_seq", allocationSize=10)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)
