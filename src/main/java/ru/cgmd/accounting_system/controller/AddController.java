@@ -1,6 +1,5 @@
 package ru.cgmd.accounting_system.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,26 +10,40 @@ import ru.cgmd.accounting_system.service.*;
 
 @Controller
 public class AddController {
-    @Autowired
-    private LanguageService languageService;
-    @Autowired
-    private RelatedProjectService relatedProjectService;
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private ObservationMethodService observationMethodService;
-    @Autowired
-    private ObservationDisciplineService observationDisciplineService;
-    @Autowired
-    private ObservationTypeService observationTypeService;
-    @Autowired
-    private ObservationParameterService observationParameterService;
-    @Autowired
-    private ObservationScopeService observationScopeService;
-    @Autowired
-    private ObservationTerritoryService observationTerritoryService;
-    @Autowired
-    private OrganizationService organizationService;
+    private final LanguageService languageService;
+    private final RelatedProjectService relatedProjectService;
+    private final CountryService countryService;
+    private final ObservationMethodService observationMethodService;
+    private final ObservationDisciplineService observationDisciplineService;
+    private final ObservationTypeService observationTypeService;
+    private final ObservationParameterService observationParameterService;
+    private final ObservationScopeService observationScopeService;
+    private final ObservationTerritoryService observationTerritoryService;
+    private final OrganizationService organizationService;
+
+    public AddController(
+            LanguageService languageService,
+            RelatedProjectService relatedProjectService,
+            CountryService countryService,
+            ObservationMethodService observationMethodService,
+            ObservationDisciplineService observationDisciplineService,
+            ObservationTypeService observationTypeService,
+            ObservationParameterService observationParameterService,
+            ObservationScopeService observationScopeService,
+            ObservationTerritoryService observationTerritoryService,
+            OrganizationService organizationService
+    ) {
+        this.languageService = languageService;
+        this.relatedProjectService = relatedProjectService;
+        this.countryService = countryService;
+        this.observationMethodService = observationMethodService;
+        this.observationDisciplineService = observationDisciplineService;
+        this.observationTypeService = observationTypeService;
+        this.observationParameterService = observationParameterService;
+        this.observationScopeService = observationScopeService;
+        this.observationTerritoryService = observationTerritoryService;
+        this.organizationService = organizationService;
+    }
 
     //Делает первую букву слова заглавной, остальные - строчными
     public String firstUpperCase(String word){

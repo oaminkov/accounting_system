@@ -1,15 +1,16 @@
 package ru.cgmd.accounting_system.controller;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.cgmd.accounting_system.domain.*;
 import ru.cgmd.accounting_system.repo.UploadedFileRepository;
 import ru.cgmd.accounting_system.service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,27 +21,42 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @Controller
+@RequestMapping("information_resources")
 public class InformationResourceGetController {
-    @Autowired
-    private InformationResourceService informationResourceService;
-    @Autowired
-    private LanguageService languageService;
-    @Autowired
-    private RelatedProjectService relatedProjectService;
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private ObservationMethodService observationMethodService;
-    @Autowired
-    private ObservationDisciplineService observationDisciplineService;
-    @Autowired
-    private ObservationScopeService observationScopeService;
-    @Autowired
-    private ObservationTerritoryService observationTerritoryService;
-    @Autowired
-    private OrganizationService organizationService;
-    @Autowired
-    private UploadedFileRepository uploadedFileRepository;
+    private final InformationResourceService informationResourceService;
+    private final LanguageService languageService;
+    private final RelatedProjectService relatedProjectService;
+    private final CountryService countryService;
+    private final ObservationMethodService observationMethodService;
+    private final ObservationDisciplineService observationDisciplineService;
+    private final ObservationScopeService observationScopeService;
+    private final ObservationTerritoryService observationTerritoryService;
+    private final OrganizationService organizationService;
+    private final UploadedFileRepository uploadedFileRepository;
+
+    public InformationResourceGetController(
+            InformationResourceService informationResourceService,
+            LanguageService languageService,
+            RelatedProjectService relatedProjectService,
+            CountryService countryService,
+            ObservationMethodService observationMethodService,
+            ObservationDisciplineService observationDisciplineService,
+            ObservationScopeService observationScopeService,
+            ObservationTerritoryService observationTerritoryService,
+            OrganizationService organizationService,
+            UploadedFileRepository uploadedFileRepository
+    ) {
+        this.informationResourceService = informationResourceService;
+        this.languageService = languageService;
+        this.relatedProjectService = relatedProjectService;
+        this.countryService = countryService;
+        this.observationMethodService = observationMethodService;
+        this.observationDisciplineService = observationDisciplineService;
+        this.observationScopeService = observationScopeService;
+        this.observationTerritoryService = observationTerritoryService;
+        this.organizationService = organizationService;
+        this.uploadedFileRepository = uploadedFileRepository;
+    }
 
     public void selectDataFromDbToModel(Model model) {
         List<Language> languages = languageService.listAll();
@@ -64,14 +80,20 @@ public class InformationResourceGetController {
         model.addAttribute("organizations", organizations);
     }
 
-    @GetMapping("information_resources")
+    @GetMapping
     public String viewAllInformationResources(Model model) {
         List<InformationResource> informationResources = informationResourceService.listAll();
         model.addAttribute("informationResources", informationResources);
         return "view_information_resources";
     }
 
-    @GetMapping("information_resources/{id}")
+    @GetMapping("add")
+    public String showNewInformationProductPage(Model model) {
+        selectDataFromDbToModel(model);
+        return "add_information_resource";
+    }
+
+    @GetMapping("{id}")
     public String viewInformationResourceFull(
             @PathVariable("id") InformationResource informationResource,
             Model model
@@ -80,29 +102,26 @@ public class InformationResourceGetController {
         return "view_information_resource_full";
     }
 
-    @GetMapping("information_resources/add")
-    public String showNewInformationProductPage(Model model) {
-        selectDataFromDbToModel(model);
-        return "add_information_resource";
-    }
-
-    @GetMapping("information_resources/edit/{id}")
+    @GetMapping("edit/{id}")
     public String showEditInformationProductPage(
             @PathVariable("id") InformationResource informationResource,
-            Model model
+            Model model,
+            HttpServletRequest request
     ){
         selectDataFromDbToModel(model);
+
         model.addAttribute("informationResource", informationResource);
+        model.addAttribute("backAddress", request.getHeader("referer"));
         return "edit_information_resource";
     }
 
-    @GetMapping("information_resources/delete/{id}")
+    @GetMapping("delete/{id}")
     public String deleteInformationResource(@PathVariable("id") InformationResource informationResource) {
         informationResourceService.delete(informationResource);
         return "redirect:/information_resources";
     }
 
-    @GetMapping(value="information_resources/download/{id}", produces="application/zip")
+    @GetMapping(value="download/{id}", produces="application/zip")
     public void zipFiles(HttpServletResponse response,
                          @PathVariable("id") InformationResource informationResource) throws IOException {
         //Устанавливаем заголовки

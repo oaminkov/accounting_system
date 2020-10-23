@@ -1,6 +1,5 @@
 package ru.cgmd.accounting_system.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,11 @@ import java.util.Set;
 
 @Controller
 public class MainController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public MainController(UserService userService) {
+        this.userService = userService;
+    }
 
     public void isUserAuthorized(@AuthenticationPrincipal User user, Model model) {
         if (user != null) {

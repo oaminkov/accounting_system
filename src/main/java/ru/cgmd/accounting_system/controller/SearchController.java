@@ -1,7 +1,6 @@
 package ru.cgmd.accounting_system.controller;
 
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +15,11 @@ import java.util.List;
 
 @Controller
 public class SearchController {
-    @Autowired
-    private ObservationTypeService observationTypeService;
+    private final ObservationTypeService observationTypeService;
+
+    public SearchController(ObservationTypeService observationTypeService) {
+        this.observationTypeService = observationTypeService;
+    }
 
     //FOR SEARCH
     @GetMapping("/getObservationTypeList1")
