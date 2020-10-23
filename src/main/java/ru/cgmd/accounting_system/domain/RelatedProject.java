@@ -8,7 +8,7 @@ import java.util.List;
 public class RelatedProject {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "related_project_generator")
-    @SequenceGenerator(name="related_project_generator", sequenceName = "related_project_seq", allocationSize=50)
+    @SequenceGenerator(name="related_project_generator", sequenceName = "related_project_seq", allocationSize=10)
     private Long id;
 
     @Column(nullable = false)

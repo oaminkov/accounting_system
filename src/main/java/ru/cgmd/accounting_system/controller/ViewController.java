@@ -1,7 +1,6 @@
 package ru.cgmd.accounting_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,9 +40,7 @@ public class ViewController {
         return "view_languages";
     }
     @GetMapping("languages/add")
-    public String showNewLanguagePage(Model model) {
-        Language language = new Language();
-        model.addAttribute("language", language);
+    public String showNewLanguagePage() {
         return "add_language";
     }
 
@@ -55,37 +52,45 @@ public class ViewController {
         return "view_related_projects";
     }
     @GetMapping("related_projects/add")
-    public String showNewProjectTypePage(Model model) {
-        RelatedProject relatedProject = new RelatedProject();
-        model.addAttribute("relatedProject", relatedProject);
+    public String showNewProjectTypePage() {
         return "add_related_project";
     }
 
     //COUNTRY
     @GetMapping("countries")
-    public String viewAllCountries(@AuthenticationPrincipal User user, Model model) {
+    public String viewAllCountries(Model model) {
         List<Country> countries = countryService.listAll();
         model.addAttribute("countries", countries);
         return "view_countries";
     }
     @GetMapping("countries/add")
-    public String showNewCountryPage(Model model) {
-        Country country = new Country();
-        model.addAttribute("country", country);
+    public String showNewCountryPage() {
         return "add_country";
+    }
+
+    //ORGANIZATION
+    @GetMapping("organizations")
+    public String viewAllOrganization(Model model) {
+        List<Organization> organizations = organizationService.listAll();
+        model.addAttribute("organizations", organizations);
+        return "view_organizations";
+    }
+    @GetMapping("organizations/add")
+    public String showNewOrganizationPage(Model model) {
+        List<Country> countries = countryService.listAll();
+        model.addAttribute("countries", countries);
+        return "add_organization";
     }
 
     //OBSERVATION METHOD
     @GetMapping("observation_methods")
-    public String viewAllObservationMethods(@AuthenticationPrincipal User user, Model model) {
+    public String viewAllObservationMethods(Model model) {
         List<ObservationMethod> observationMethods = observationMethodService.listAll();
         model.addAttribute("observationMethods", observationMethods);
         return "view_observation_methods";
     }
     @GetMapping("observation_methods/add")
-    public String showNewObservationMethodPage(Model model) {
-        ObservationMethod observationMethod = new ObservationMethod();
-        model.addAttribute("observationMethod", observationMethod);
+    public String showNewObservationMethodPage() {
         return "add_observation_method";
     }
 
@@ -97,9 +102,7 @@ public class ViewController {
         return "view_observation_disciplines";
     }
     @GetMapping("observation_disciplines/add")
-    public String showNewObservationDisciplinePage(Model model) {
-        ObservationDiscipline observationDiscipline = new ObservationDiscipline();
-        model.addAttribute("observationDiscipline", observationDiscipline);
+    public String showNewObservationDisciplinePage() {
         return "add_observation_discipline";
     }
 
@@ -112,9 +115,7 @@ public class ViewController {
     }
     @GetMapping("observation_types/add")
     public String showNewObservationTypePage(Model model) {
-        ObservationType observationType = new ObservationType();
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
-        model.addAttribute("observationType", observationType);
         model.addAttribute("observationDisciplines", observationDisciplines);
         return "add_observation_type";
     }
@@ -128,9 +129,7 @@ public class ViewController {
     }
     @GetMapping("observation_parameters/add")
     public String showNewObservationParameterPage(Model model) {
-        ObservationParameter observationParameter = new ObservationParameter();
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
-        model.addAttribute("observationParameter", observationParameter);
         model.addAttribute("observationDisciplines", observationDisciplines);
         return "add_observation_parameter";
     }
@@ -143,9 +142,7 @@ public class ViewController {
         return "view_observation_scopes";
     }
     @GetMapping("observation_scopes/add")
-    public String showNewObservationScopePage(Model model) {
-        ObservationScope observationScope = new ObservationScope();
-        model.addAttribute("observationScope", observationScope);
+    public String showNewObservationScopePage() {
         return "add_observation_scope";
     }
 
@@ -157,25 +154,7 @@ public class ViewController {
         return "view_observation_territories";
     }
     @GetMapping("observation_territories/add")
-    public String showNewObservationTerritoryPage(Model model) {
-        ObservationTerritory observationTerritory = new ObservationTerritory();
-        model.addAttribute("observationTerritory", observationTerritory);
+    public String showNewObservationTerritoryPage() {
         return "add_observation_territory";
-    }
-
-    //ORGANIZATION
-    @GetMapping("organizations")
-    public String viewAllOrganization(Model model) {
-        List<Organization> organizations = organizationService.listAll();
-        model.addAttribute("organizations", organizations);
-        return "view_organizations";
-    }
-    @GetMapping("organizations/add")
-    public String showNewOrganizationPage(Model model) {
-        List<Country> countries = countryService.listAll();
-        Organization organization = new Organization();
-        model.addAttribute("countries", countries);
-        model.addAttribute("organization", organization);
-        return "add_organization";
     }
 }

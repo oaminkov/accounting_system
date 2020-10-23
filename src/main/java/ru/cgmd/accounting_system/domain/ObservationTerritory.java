@@ -9,7 +9,7 @@ import java.util.Set;
 public class ObservationTerritory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_territory_generator")
-    @SequenceGenerator(name="observation_territory_generator", sequenceName = "observation_territory_seq", allocationSize=50)
+    @SequenceGenerator(name="observation_territory_generator", sequenceName = "observation_territory_seq", allocationSize=10)
     private Long id;
 
     @Column(nullable = false, unique = true)

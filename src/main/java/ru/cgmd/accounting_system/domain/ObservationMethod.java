@@ -8,7 +8,7 @@ import java.util.List;
 public class ObservationMethod {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_method_generator")
-    @SequenceGenerator(name="observation_method_generator", sequenceName = "observation_method_seq", allocationSize=50)
+    @SequenceGenerator(name="observation_method_generator", sequenceName = "observation_method_seq", allocationSize=10)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)

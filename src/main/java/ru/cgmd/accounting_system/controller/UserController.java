@@ -2,6 +2,7 @@ package ru.cgmd.accounting_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,21 +46,17 @@ public class UserController {
         return "redirect:/user";
     }
 
-    /**
+    /**/
      @GetMapping("profile")
-     public String profile(Model model, @AuthenticationPrincipal User user) {
-     model.addAttribute("username", user.getUsername());
-     return "profile";
+     public String profile(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("username", user.getUsername());
+        return "profile";
      }
 
      @PostMapping("profile")
-     public String updateProfile(
-     @AuthenticationPrincipal User user,
-     @RequestParam String password
-     ) {
-     userService.updateProfile(user, password);
-
-     return "redirect:/user/profile";
+     public String updateProfile(@AuthenticationPrincipal User user, @RequestParam String password) {
+         userService.updateProfile(user, password);
+         return "redirect:/user/profile";
      }
      /**/
 }

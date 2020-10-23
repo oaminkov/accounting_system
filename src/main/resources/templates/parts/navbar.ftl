@@ -22,13 +22,13 @@
                     <a class="dropdown-item" href="/languages">Языки</a>
                     <a class="dropdown-item" href="/related_projects">Связанные проекты</a>
                     <a class="dropdown-item" href="/countries">Страны</a>
+                    <a class="dropdown-item" href="/organizations">Организации</a>
                     <a class="dropdown-item" href="/observation_methods">Методы наблюдений</a>
                     <a class="dropdown-item" href="/observation_disciplines">Дисциплины наблюдений</a>
                     <a class="dropdown-item" href="/observation_types">Виды наблюдений</a>
                     <a class="dropdown-item" href="/observation_parameters">Параметры наблюдений</a>
                     <a class="dropdown-item" href="/observation_scopes">Сферы наблюдений</a>
                     <a class="dropdown-item" href="/observation_territories">Территории наблюдений</a>
-                    <a class="dropdown-item" href="/organizations">Организации</a>
                 </div>
             </li>
 
@@ -38,13 +38,13 @@
                 </a>
             </li>
 
-            <!--<#if auth_user??>
+            <#if auth_user??>
                 <li class="nav-item">
                     <a class="nav-link" href="/user/profile">Профиль
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-            </#if>-->
+            </#if>
 
             <#if auth_isAdmin>
                 <li class="nav-item">
