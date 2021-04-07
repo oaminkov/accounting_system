@@ -17,9 +17,9 @@ create sequence information_resource_seq start 1 increment 50;
 
 create table usr (
     id int8 not null,
-    active boolean,
-    password varchar(255) not null,
     username varchar(255) not null,
+    password varchar(255) not null,
+    active boolean not null,
     primary key (id)
 );
 

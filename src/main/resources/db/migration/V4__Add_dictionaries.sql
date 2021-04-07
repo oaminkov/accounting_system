@@ -16,11 +16,11 @@ insert into country (id, name)
            (31, 'Великобритания'), (32, 'Венгрия'), (33, 'Венесуэла'), (34, 'Вьетнам'), (35, 'Габон'),
            (36, 'Гаити'), (37, 'Гайна'), (38, 'Гамбия'), (39, 'Гана'), (40, 'Гватемала'),
            (41, 'Гвиана, Французская'), (42, 'Гвинея'), (43, 'Гвинея, Экваториальная'),
-           (0, '');
+           (133, 'Россия');
 
 insert into organization (id, abbreviation, name_rus, name_eng, id_country)
-    values (1, 'Моск.ГМБ', 'АНО "Московское ГМБ"', '', 44),
-           (2, 'AORI', 'Институт исследования атмосферы и океана Токио', 'Atmosphere and Ocean Research Institute of the University of Tokyo', 44);
+    values (1, 'Моск.ГМБ', 'АНО "Московское ГМБ"', '', 133),
+           (2, 'AORI', 'Институт исследования атмосферы и океана Токио', 'Atmosphere and Ocean Research Institute of the University of Tokyo', 133);
 
 insert into observation_method (id, name)
     values (1, 'Замеры'),

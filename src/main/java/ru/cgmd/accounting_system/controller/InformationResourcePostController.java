@@ -1,11 +1,13 @@
 package ru.cgmd.accounting_system.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.cgmd.accounting_system.domain.*;
 import ru.cgmd.accounting_system.repo.UploadedFileRepository;
@@ -18,15 +20,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
+@RequestMapping("information_resources")
 public class InformationResourcePostController {
     @Value("${upload.path}")
     private String uploadPath;
-    @Autowired
-    private InformationResourceService informationResourceService;
-    @Autowired
-    private UploadedFileRepository uploadedFileRepository;
 
-    @PostMapping("information_resources/add")
+    private final InformationResourceService informationResourceService;
+    private final UploadedFileRepository uploadedFileRepository;
+
+    public InformationResourcePostController(InformationResourceService informationResourceService, UploadedFileRepository uploadedFileRepository) {
+        this.informationResourceService = informationResourceService;
+        this.uploadedFileRepository = uploadedFileRepository;
+    }
+
+    @PostMapping("add")
     public String saveInformationResource(
             @AuthenticationPrincipal User operator,
             @RequestParam String inventoryNumber,
@@ -69,7 +76,7 @@ public class InformationResourcePostController {
     }
 
     @Transactional
-    @PostMapping("/information_resources/edit/{id}")
+    @PostMapping("edit/{id}")
     public String editInformationResource(
             @PathVariable("id") InformationResource informationResource,
             @AuthenticationPrincipal User editor,
@@ -121,7 +128,7 @@ public class InformationResourcePostController {
         }
 
         informationResourceService.save(informationResource);
-        return String.format("redirect:/information_resources/edit/%d", informationResource.getId());
+        return String.format("redirect:/information_resources/%d", informationResource.getId());
     }
 
     //Вспомогательные функции
@@ -185,7 +192,7 @@ public class InformationResourcePostController {
             List<UploadedFile> uploadedFiles = new ArrayList<>();
             for (MultipartFile file : files) {
                 if (file != null) {
-                    String uploadDirPath =  uploadPath + "/" +
+                    String uploadDirPath =  uploadPath + "/" + // добавить год
                             informationResource.getCountry().getId() + "/" +
                             informationResource.getMainOrganization().getId() + "/" +
                             informationResource.getInventoryNumber();

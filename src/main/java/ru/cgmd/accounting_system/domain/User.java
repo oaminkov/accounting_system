@@ -20,7 +20,7 @@ public class User implements UserDetails {
     @Column(nullable = false, name = "password")
     private String password;
 
-    @Column(name = "active")
+    @Column(nullable = false, name = "active")
     private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

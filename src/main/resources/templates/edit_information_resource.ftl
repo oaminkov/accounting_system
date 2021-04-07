@@ -338,7 +338,7 @@
             </div>
             <button type="submit" class="btn btn-indigo btn-block m-0 mt-4">Сохранить</button><br/>
         </form>
-        <a href="/information_resources" class="btn btn-blue-grey m-0 mb-3">Назад</a>
+        <a href="${backAddress}" class="btn btn-blue-grey m-0 mb-3">Назад</a>
     </div>
     <#include "parts/scripts.ftl">
     <script>
