@@ -192,7 +192,7 @@ public class InformationResourcePostController {
             List<UploadedFile> uploadedFiles = new ArrayList<>();
             for (MultipartFile file : files) {
                 if (file != null) {
-                    String uploadDirPath =  uploadPath + "/" +
+                    String uploadDirPath =  uploadPath + "/" + // добавить год
                             informationResource.getCountry().getId() + "/" +
                             informationResource.getMainOrganization().getId() + "/" +
                             informationResource.getInventoryNumber();
