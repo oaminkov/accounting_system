@@ -46,6 +46,10 @@ public class InformationResource {
     @Column(name="date_of_edit")
     private String dateOfEdit;
 
+    @ManyToOne(fetch = FetchType.LAZY) //источник
+    @JoinColumn (name = "id_source", nullable = false)
+    private Source source;
+
     @ManyToOne(fetch = FetchType.LAZY) //связанный проект (проект или программа)
     @JoinColumn (name = "id_related_project", nullable = false)
     private RelatedProject relatedProject;
@@ -137,6 +141,7 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
+            Source source,
             RelatedProject relatedProject,
             Language language,
             Country country,
@@ -154,6 +159,7 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
+        this.source = source;
         this.relatedProject = relatedProject;
         this.language = language;
         this.country = country;
@@ -173,6 +179,7 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
+            Source source,
             RelatedProject relatedProject,
             Language language,
             Country country,
@@ -190,6 +197,7 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
+        this.source = source;
         this.relatedProject = relatedProject;
         this.language = language;
         this.country = country;
@@ -279,6 +287,13 @@ public class InformationResource {
     }
     public void setDuplicate(boolean duplicate) {
         this.duplicate = duplicate;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+    public void setSource(Source source) {
+        this.source = source;
     }
 
     public RelatedProject getRelatedProject() {

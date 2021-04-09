@@ -24,8 +24,9 @@ import java.util.zip.ZipOutputStream;
 @RequestMapping("information_resources")
 public class InformationResourceGetController {
     private final InformationResourceService informationResourceService;
-    private final LanguageService languageService;
+    private final SourceService sourceService;
     private final RelatedProjectService relatedProjectService;
+    private final LanguageService languageService;
     private final CountryService countryService;
     private final ObservationMethodService observationMethodService;
     private final ObservationDisciplineService observationDisciplineService;
@@ -36,8 +37,9 @@ public class InformationResourceGetController {
 
     public InformationResourceGetController(
             InformationResourceService informationResourceService,
-            LanguageService languageService,
+            SourceService sourceService,
             RelatedProjectService relatedProjectService,
+            LanguageService languageService,
             CountryService countryService,
             ObservationMethodService observationMethodService,
             ObservationDisciplineService observationDisciplineService,
@@ -47,8 +49,9 @@ public class InformationResourceGetController {
             UploadedFileRepository uploadedFileRepository
     ) {
         this.informationResourceService = informationResourceService;
-        this.languageService = languageService;
+        this.sourceService = sourceService;
         this.relatedProjectService = relatedProjectService;
+        this.languageService = languageService;
         this.countryService = countryService;
         this.observationMethodService = observationMethodService;
         this.observationDisciplineService = observationDisciplineService;
@@ -59,8 +62,9 @@ public class InformationResourceGetController {
     }
 
     public void selectDataFromDbToModel(Model model) {
-        List<Language> languages = languageService.listAll();
+        List<Source> sources = sourceService.listAll();
         List<RelatedProject> relatedProjects = relatedProjectService.listAll();
+        List<Language> languages = languageService.listAll();
         List<Country> countries = countryService.listAll();
         List<ObservationMethod> observationMethods = observationMethodService.listAll();
 
@@ -69,8 +73,9 @@ public class InformationResourceGetController {
         List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
         List<Organization> organizations = organizationService.listAll();
 
-        model.addAttribute("languages", languages);
+        model.addAttribute("sources", sources);
         model.addAttribute("relatedProjects", relatedProjects);
+        model.addAttribute("languages", languages);
         model.addAttribute("countries", countries);
         model.addAttribute("observationMethods", observationMethods);
 

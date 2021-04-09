@@ -12,15 +12,15 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Русское название организации:</label>
+        <label class="col-sm-3 col-form-label">Оригинальное название организации:</label>
         <div class="col-sm-9">
-            <input type="text" name="nameRus" class="form-control" placeholder="Введите русское название организации">
+            <input type="text" name="name" class="form-control" placeholder="Введите название организации">
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Английское название организации:</label>
+        <label class="col-sm-3 col-form-label">Название организации на русском языке:</label>
         <div class="col-sm-9">
-            <input type="text" name="nameEng" class="form-control" placeholder="Введите английское название организации">
+            <input type="text" name="nameRus" class="form-control" placeholder="Введите название организации на русском языке">
         </div>
     </div>
     <div class="form-group row">

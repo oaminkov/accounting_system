@@ -1,6 +1,7 @@
 create sequence hibernate_sequence start 1 increment 1;
 
 create sequence usr_seq start 1 increment 10;
+create sequence source_seq start 1 increment 10;
 create sequence related_project_seq start 1 increment 10;
 create sequence language_seq start 1 increment 10;
 create sequence country_seq start 1 increment 10;
@@ -28,11 +29,19 @@ create table user_role (
     roles varchar(255)
 );
 
-create table related_project (
+create table source (
     id int8 not null,
     name varchar(255) not null,
-    abbreviation varchar(255) not null,
+    primary key (id)
+);
+
+create table related_project (
+    id int8 not null,
     type varchar(255) not null,
+    abbreviation varchar(255) not null,
+    abbreviation_rus varchar(255) not null,
+    name varchar(255) not null,
+    name_rus varchar(255) not null,
     primary key (id)
 );
 
@@ -50,10 +59,10 @@ create table country (
 
 create table organization (
     id int8 not null,
-    abbreviation varchar(255) not null,
+    name varchar(255),
     name_rus varchar(255),
-    name_eng varchar(255),
-    id_country int8 not null,
+    abbreviation varchar(255) not null,
+    id_country int8,
     primary key (id)
 );
 
@@ -114,6 +123,7 @@ create table information_resource (
     volume varchar(255) not null,
     received_date varchar(255) not null,
     duplicate boolean not null,
+    id_source int8 not null,
     id_related_project int8 not null,
     id_language int8 not null,
     id_country int8 not null,
@@ -164,6 +174,7 @@ create table infres_organization (
 
 alter table usr add constraint usr__username_uk unique (username);
 alter table uploaded_file add constraint uploaded_file__path_uk unique (path);
+alter table source add constraint source__name_uk unique (name);
 alter table language add constraint language__name_uk unique (name);
 alter table country add constraint country__name_uk unique (name);
 alter table organization add constraint organization__abbreviation_uk unique (abbreviation);
@@ -175,11 +186,12 @@ alter table observation_scope add constraint observ_scope__name_uk unique (name)
 alter table observation_territory add constraint observ_territory__name_uk unique (name);
 alter table information_resource add constraint inf_res__inventory_number_uk unique (inventory_number);
 
+alter table information_resource add constraint inf_res__source_fk foreign key (id_source) references source;
+alter table information_resource add constraint inf_res__related_project_fk foreign key (id_related_project) references related_project;
 alter table information_resource add constraint inf_res__language_fk foreign key (id_language) references language;
 alter table information_resource add constraint inf_res__country_fk foreign key (id_country) references country;
 alter table information_resource add constraint inf_res__organization_fk foreign key (id_main_organization) references organization;
 alter table information_resource add constraint inf_res__observ_method_fk foreign key (id_observation_method) references observation_method;
-alter table information_resource add constraint inf_res__related_project_fk foreign key (id_related_project) references related_project;
 alter table information_resource add constraint inf_res__operator_fk foreign key (id_operator) references usr;
 alter table information_resource add constraint inf_res__editor_fk foreign key (id_editor) references usr;
 

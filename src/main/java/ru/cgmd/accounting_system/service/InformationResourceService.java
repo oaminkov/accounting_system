@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 @Transactional
 public class InformationResourceService {
-    @Autowired
-    private InformationResourceRepository informationResourceRepository;
+    private final InformationResourceRepository informationResourceRepository;
+
+    public InformationResourceService(InformationResourceRepository informationResourceRepository) {
+        this.informationResourceRepository = informationResourceRepository;
+    }
 
     public List<InformationResource> listAll() {
         return informationResourceRepository.findAll();

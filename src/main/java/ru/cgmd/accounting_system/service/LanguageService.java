@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 @Transactional
 public class LanguageService {
-    @Autowired
-    private LanguageRepository languageRepository;
+    private final LanguageRepository languageRepository;
+
+    public LanguageService(LanguageRepository languageRepository) {
+        this.languageRepository = languageRepository;
+    }
 
     public boolean isExists(String name) {
         if (languageRepository.findByName(name) == null) {

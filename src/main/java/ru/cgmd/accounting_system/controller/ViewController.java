@@ -10,8 +10,9 @@ import java.util.List;
 
 @Controller
 public class ViewController {
-    private final LanguageService languageService;
+    private final SourceService sourceService;
     private final RelatedProjectService relatedProjectService;
+    private final LanguageService languageService;
     private final CountryService countryService;
     private final ObservationMethodService observationMethodService;
     private final ObservationDisciplineService observationDisciplineService;
@@ -22,8 +23,9 @@ public class ViewController {
     private final OrganizationService organizationService;
 
     public ViewController(
-            LanguageService languageService,
+            SourceService sourceService,
             RelatedProjectService relatedProjectService,
+            LanguageService languageService,
             CountryService countryService,
             ObservationMethodService observationMethodService,
             ObservationDisciplineService observationDisciplineService,
@@ -33,8 +35,9 @@ public class ViewController {
             ObservationTerritoryService observationTerritoryService,
             OrganizationService organizationService
     ) {
-        this.languageService = languageService;
+        this.sourceService = sourceService;
         this.relatedProjectService = relatedProjectService;
+        this.languageService = languageService;
         this.countryService = countryService;
         this.observationMethodService = observationMethodService;
         this.observationDisciplineService = observationDisciplineService;
@@ -45,16 +48,16 @@ public class ViewController {
         this.organizationService = organizationService;
     }
 
-    //LANGUAGE
-    @GetMapping("languages")
-    public String viewAllLanguages(Model model) {
-        List<Language> languages = languageService.listAll();
-        model.addAttribute("languages", languages);
-        return "view_languages";
+    //SOURCE
+    @GetMapping("sources")
+    public String viewAllSources(Model model) {
+        List<Source> sources = sourceService.listAll();
+        model.addAttribute("sources", sources);
+        return "view_sources";
     }
-    @GetMapping("languages/add")
-    public String showNewLanguagePage() {
-        return "add_language";
+    @GetMapping("sources/add")
+    public String showNewSourcePage() {
+        return "add_source";
     }
 
     //RELATED PROJECT
@@ -67,6 +70,18 @@ public class ViewController {
     @GetMapping("related_projects/add")
     public String showNewProjectTypePage() {
         return "add_related_project";
+    }
+
+    //LANGUAGE
+    @GetMapping("languages")
+    public String viewAllLanguages(Model model) {
+        List<Language> languages = languageService.listAll();
+        model.addAttribute("languages", languages);
+        return "view_languages";
+    }
+    @GetMapping("languages/add")
+    public String showNewLanguagePage() {
+        return "add_language";
     }
 
     //COUNTRY

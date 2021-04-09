@@ -44,6 +44,7 @@ public class InformationResourcePostController {
             @RequestParam String briefContent,
             @RequestParam String volume,
             @RequestParam String receivedDate,
+            @RequestParam Source source,
             @RequestParam RelatedProject relatedProject,
             @RequestParam Language language,
             @RequestParam Country country,
@@ -63,7 +64,8 @@ public class InformationResourcePostController {
                 inventoryNumber, fullnameCdrom, abbreviationCdrom,
                 dateObservationStart, dateObservationEnd,
                 briefContent, volume, receivedDate,
-                relatedProject, language, country, mainOrganization, observationMethod,
+                source, relatedProject, language, country,
+                mainOrganization, observationMethod,
                 duplicate, operator, dateOfEntering);
 
         setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
@@ -88,6 +90,7 @@ public class InformationResourcePostController {
             @RequestParam String briefContent,
             @RequestParam String volume,
             @RequestParam String receivedDate,
+            @RequestParam Source source,
             @RequestParam RelatedProject relatedProject,
             @RequestParam Language language,
             @RequestParam Country country,
@@ -117,7 +120,8 @@ public class InformationResourcePostController {
                 inventoryNumber, fullnameCdrom, abbreviationCdrom,
                 dateObservationStart, dateObservationEnd,
                 briefContent, volume, receivedDate,
-                relatedProject, language, country, mainOrganization, observationMethod,
+                source, relatedProject, language, country,
+                mainOrganization, observationMethod,
                 duplicate, editor, dateOfEdit);
 
         setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);

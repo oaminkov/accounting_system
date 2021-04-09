@@ -13,8 +13,16 @@ public class RelatedProject {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(name="name_rus")
+    private String nameRus;
+
     @Column(nullable = false)
     private String abbreviation;
+
+    @Column(name="abbreviation_rus")
+    private String abbreviationRus;
+
     @Column(nullable = false)
     private String type;
 
@@ -23,9 +31,11 @@ public class RelatedProject {
 
     public RelatedProject() { }
 
-    public RelatedProject(String name, String abbreviation, String type) {
+    public RelatedProject(String name, String nameRus, String abbreviation, String abbreviationRus, String type) {
         this.name = name;
+        this.nameRus = nameRus;
         this.abbreviation = abbreviation;
+        this.abbreviationRus = abbreviationRus;
         this.type = type;
     }
 
@@ -43,11 +53,25 @@ public class RelatedProject {
         this.name = name;
     }
 
+    public String getNameRus() {
+        return nameRus;
+    }
+    public void setNameRus(String nameRus) {
+        this.nameRus = nameRus;
+    }
+
     public String getAbbreviation() {
         return abbreviation;
     }
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getAbbreviationRus() {
+        return abbreviationRus;
+    }
+    public void setAbbreviationRus(String abbreviationRus) {
+        this.abbreviationRus = abbreviationRus;
     }
 
     public String getType() {

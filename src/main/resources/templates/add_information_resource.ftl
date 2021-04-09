@@ -54,6 +54,17 @@
             <hr>
 
             <div class="form-group row mt-3">
+                <label class="col-sm-3 col-form-label">Источник:</label>
+                <div class="col-sm-9">
+                    <select name="source" class="browser-default custom-select">
+                        <option value="">-- Выберите источник --</option>
+                        <#list sources as source>
+                            <option value="${source.id}">${source.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
                     <select name="relatedProject" class="browser-default custom-select">
@@ -186,7 +197,7 @@
                         <select name="mainOrganization" class="browser-default custom-select getOrganization">
                             <option value="0">-- Выберите организацию --</option>
                             <#list organizations as organization>
-                                <option value="${organization.id}">${organization.abbreviation}</option>
+                                <option value="${organization.id}">${organization.name}</option>
                             </#list>
                         </select>
                     </div>
@@ -228,7 +239,7 @@
                                 '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
                             '</#list>';
         let organizations = '<#list organizations as organization>' +
-                                '<option value="${organization.id}">${organization.abbreviation}</option>' +
+                                '<option value="${organization.id}">${organization.name}</option>' +
                             '</#list>';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>

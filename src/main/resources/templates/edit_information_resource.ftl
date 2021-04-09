@@ -54,6 +54,20 @@
             <hr>
 
             <div class="form-group row mt-3">
+                <label class="col-sm-3 col-form-label">Источник:</label>
+                <div class="col-sm-9">
+                    <select name="source" class="browser-default custom-select">
+                        <#list sources as source>
+                            <#if source == informationResource.source>
+                                <option selected value="${source.id}">${source.name}</option>
+                            <#else>
+                                <option value="${source.id}">${source.name}</option>
+                            </#if>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
                     <select name="relatedProject" class="browser-default custom-select">

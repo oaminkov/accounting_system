@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 @Transactional
 public class ObservationMethodService {
-    @Autowired
-    private ObservationMethodRepository observationMethodRepository;
+    private final ObservationMethodRepository observationMethodRepository;
+
+    public ObservationMethodService(ObservationMethodRepository observationMethodRepository) {
+        this.observationMethodRepository = observationMethodRepository;
+    }
 
     public boolean isExists(String name) {
         if (observationMethodRepository.findByName(name) == null) {

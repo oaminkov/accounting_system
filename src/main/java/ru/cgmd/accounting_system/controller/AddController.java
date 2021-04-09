@@ -10,8 +10,9 @@ import ru.cgmd.accounting_system.service.*;
 
 @Controller
 public class AddController {
-    private final LanguageService languageService;
+    private final SourceService sourceService;
     private final RelatedProjectService relatedProjectService;
+    private final LanguageService languageService;
     private final CountryService countryService;
     private final ObservationMethodService observationMethodService;
     private final ObservationDisciplineService observationDisciplineService;
@@ -22,8 +23,9 @@ public class AddController {
     private final OrganizationService organizationService;
 
     public AddController(
-            LanguageService languageService,
+            SourceService sourceService,
             RelatedProjectService relatedProjectService,
+            LanguageService languageService,
             CountryService countryService,
             ObservationMethodService observationMethodService,
             ObservationDisciplineService observationDisciplineService,
@@ -33,8 +35,9 @@ public class AddController {
             ObservationTerritoryService observationTerritoryService,
             OrganizationService organizationService
     ) {
-        this.languageService = languageService;
+        this.sourceService = sourceService;
         this.relatedProjectService = relatedProjectService;
+        this.languageService = languageService;
         this.countryService = countryService;
         this.observationMethodService = observationMethodService;
         this.observationDisciplineService = observationDisciplineService;
@@ -51,11 +54,36 @@ public class AddController {
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
+    //SOURCE
+    @PostMapping("sources/add")
+    public String saveSource(@RequestParam String name, Model model) {
+        name = name.trim();
+
+        if(!name.isEmpty()) {
+            name = firstUpperCase(name);
+
+            if(!sourceService.isExists(name)) {
+                Source source = new Source(name);
+                sourceService.save(source);
+                return "redirect:/sources";
+            }
+            else {
+                model.addAttribute("messageError", "Такой источник уже есть в базе");
+            }
+        }
+        else {
+            model.addAttribute("messageError", "Вы ввели пустую строку");
+        }
+        return "add_source";
+    }
+
     //RELATED PROJECT
     @PostMapping("related_projects/add")
     public String saveRelatedProject(
             @RequestParam String name,
+            @RequestParam String nameRus,
             @RequestParam String abbreviation,
+            @RequestParam String abbreviationRus,
             @RequestParam String type,
             Model model
     ) {
@@ -65,7 +93,7 @@ public class AddController {
             name = firstUpperCase(name);
 
             if(!relatedProjectService.isExists(name, type)) {
-                RelatedProject relatedProject = new RelatedProject(name, abbreviation, type);
+                RelatedProject relatedProject = new RelatedProject(name, nameRus, abbreviation, abbreviationRus, type);
                 relatedProjectService.save(relatedProject);
                 return "redirect:/related_projects";
             }
@@ -78,6 +106,7 @@ public class AddController {
         }
         return "add_related_project";
     }
+
     //LANGUAGE
     @PostMapping("languages/add")
     public String saveLanguage(@RequestParam String name, Model model) {
@@ -100,6 +129,7 @@ public class AddController {
         }
         return "add_language";
     }
+
     //COUNTRY
     @PostMapping("countries/add")
     public String saveCountry(@RequestParam String name, Model model) {
@@ -127,12 +157,14 @@ public class AddController {
         }
         return "add_country";
     }
+
     //ORGANIZATION
     @PostMapping("organizations/add")
     public String saveOrganization(@ModelAttribute Organization organization) {
         organizationService.save(organization);
         return "redirect:/organizations";
     }
+
     //OBSERVATION METHOD
     @PostMapping("observation_methods/add")
     public String saveObservationMethod(@RequestParam String name, Model model) {
@@ -155,6 +187,7 @@ public class AddController {
         }
         return "add_observation_method";
     }
+
     //OBSERVATION DISCIPLINE
     @PostMapping("observation_disciplines/add")
     public String saveObservationDiscipline(@RequestParam String name, Model model) {
@@ -177,6 +210,7 @@ public class AddController {
         }
         return "add_observation_discipline";
     }
+
     //OBSERVATION TYPE
     @PostMapping("observation_types/add")
     public String saveObservationType(@RequestParam String name,
@@ -185,6 +219,7 @@ public class AddController {
         observationTypeService.save(observationType);
         return "redirect:/observation_types";
     }
+
     //OBSERVATION PARAMETER
     @PostMapping("observation_parameters/add")
     public String saveObservationParameter(
@@ -217,6 +252,7 @@ public class AddController {
         }
         return "add_observation_scope";
     }
+
     //OBSERVATION TERRITORY
     @PostMapping("observation_territories/add")
     public String saveObservationTerritory(@RequestParam String name, Model model) {

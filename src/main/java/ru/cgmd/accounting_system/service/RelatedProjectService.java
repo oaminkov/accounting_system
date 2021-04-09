@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 @Transactional
 public class RelatedProjectService {
-    @Autowired
-    private RelatedProjectRepository relatedProjectRepository;
+    private final RelatedProjectRepository relatedProjectRepository;
+
+    public RelatedProjectService(RelatedProjectRepository relatedProjectRepository) {
+        this.relatedProjectRepository = relatedProjectRepository;
+    }
 
     public boolean isExists(String name, String type) {
         if (relatedProjectRepository.findByNameAndType(name, type) == null) {
