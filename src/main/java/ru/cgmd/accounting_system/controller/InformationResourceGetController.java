@@ -24,7 +24,7 @@ import java.util.zip.ZipOutputStream;
 @RequestMapping("information_resources")
 public class InformationResourceGetController {
     private final InformationResourceService informationResourceService;
-    private final SourceService sourceService;
+    private final ResourceTypeService resourceTypeService;
     private final RelatedProjectService relatedProjectService;
     private final LanguageService languageService;
     private final CountryService countryService;
@@ -37,52 +37,50 @@ public class InformationResourceGetController {
 
     public InformationResourceGetController(
             InformationResourceService informationResourceService,
-            SourceService sourceService,
-            RelatedProjectService relatedProjectService,
+            ResourceTypeService resourceTypeService,
             LanguageService languageService,
-            CountryService countryService,
+            RelatedProjectService relatedProjectService,
             ObservationMethodService observationMethodService,
+            CountryService countryService,
+            OrganizationService organizationService,
             ObservationDisciplineService observationDisciplineService,
             ObservationScopeService observationScopeService,
             ObservationTerritoryService observationTerritoryService,
-            OrganizationService organizationService,
             UploadedFileRepository uploadedFileRepository
     ) {
         this.informationResourceService = informationResourceService;
-        this.sourceService = sourceService;
-        this.relatedProjectService = relatedProjectService;
+        this.resourceTypeService = resourceTypeService;
         this.languageService = languageService;
-        this.countryService = countryService;
+        this.relatedProjectService = relatedProjectService;
         this.observationMethodService = observationMethodService;
+        this.countryService = countryService;
+        this.organizationService = organizationService;
         this.observationDisciplineService = observationDisciplineService;
         this.observationScopeService = observationScopeService;
         this.observationTerritoryService = observationTerritoryService;
-        this.organizationService = organizationService;
         this.uploadedFileRepository = uploadedFileRepository;
     }
 
     public void selectDataFromDbToModel(Model model) {
-        List<Source> sources = sourceService.listAll();
-        List<RelatedProject> relatedProjects = relatedProjectService.listAll();
+        List<ResourceType> resourceTypes = resourceTypeService.listAll();
         List<Language> languages = languageService.listAll();
-        List<Country> countries = countryService.listAll();
+        List<RelatedProject> relatedProjects = relatedProjectService.listAll();
         List<ObservationMethod> observationMethods = observationMethodService.listAll();
-
+        List<Country> countries = countryService.listAll();
+        List<Organization> organizations = organizationService.listAll();
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
         List<ObservationScope> observationScopes = observationScopeService.listAll();
         List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
-        List<Organization> organizations = organizationService.listAll();
 
-        model.addAttribute("sources", sources);
-        model.addAttribute("relatedProjects", relatedProjects);
+        model.addAttribute("resourceTypes", resourceTypes);
         model.addAttribute("languages", languages);
-        model.addAttribute("countries", countries);
+        model.addAttribute("relatedProjects", relatedProjects);
         model.addAttribute("observationMethods", observationMethods);
-
+        model.addAttribute("countries", countries);
+        model.addAttribute("organizations", organizations);
         model.addAttribute("observationDisciplines", observationDisciplines);
         model.addAttribute("observationScopes", observationScopes);
         model.addAttribute("observationTerritories", observationTerritories);
-        model.addAttribute("organizations", organizations);
     }
 
     @GetMapping

@@ -1,8 +1,8 @@
 package ru.cgmd.accounting_system.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.cgmd.accounting_system.domain.ProjectType;
 import ru.cgmd.accounting_system.domain.RelatedProject;
 import ru.cgmd.accounting_system.repo.RelatedProjectRepository;
 
@@ -17,8 +17,8 @@ public class RelatedProjectService {
         this.relatedProjectRepository = relatedProjectRepository;
     }
 
-    public boolean isExists(String name, String type) {
-        if (relatedProjectRepository.findByNameAndType(name, type) == null) {
+    public boolean isExists(String name, ProjectType projectType) {
+        if (relatedProjectRepository.findByNameAndProjectType(name, projectType) == null) {
             return false;
         }
         return true;

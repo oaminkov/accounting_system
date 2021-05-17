@@ -46,17 +46,21 @@ public class InformationResource {
     @Column(name="date_of_edit")
     private String dateOfEdit;
 
-    @ManyToOne(fetch = FetchType.LAZY) //источник
-    @JoinColumn (name = "id_source", nullable = false)
-    private Source source;
+    @ManyToOne(fetch = FetchType.LAZY) //тип ресурса
+    @JoinColumn (name = "id_resource_type", nullable = false)
+    private ResourceType resourceType;
+
+    @ManyToOne(fetch = FetchType.LAZY) //язык
+    @JoinColumn (name = "id_language", nullable = false)
+    private Language language;
 
     @ManyToOne(fetch = FetchType.LAZY) //связанный проект (проект или программа)
     @JoinColumn (name = "id_related_project", nullable = false)
     private RelatedProject relatedProject;
 
-    @ManyToOne(fetch = FetchType.LAZY) //язык
-    @JoinColumn (name = "id_language", nullable = false)
-    private Language language;
+    @ManyToOne(fetch = FetchType.LAZY) //метод наблюдений
+    @JoinColumn (name = "id_observation_method", nullable = false)
+    private ObservationMethod observationMethod;
 
     @ManyToOne(fetch = FetchType.LAZY) //страна
     @JoinColumn (name = "id_country", nullable = false)
@@ -65,10 +69,6 @@ public class InformationResource {
     @ManyToOne(fetch = FetchType.LAZY) //главная организация
     @JoinColumn (name = "id_main_organization", nullable = false)
     private Organization mainOrganization;
-
-    @ManyToOne(fetch = FetchType.LAZY) //метод наблюдений
-    @JoinColumn (name = "id_observation_method", nullable = false)
-    private ObservationMethod observationMethod;
 
     @ManyToOne(fetch = FetchType.LAZY) //оператор
     @JoinColumn (name = "id_operator", nullable = false)
@@ -141,12 +141,12 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
-            Source source,
-            RelatedProject relatedProject,
+            ResourceType resourceType,
             Language language,
+            RelatedProject relatedProject,
+            ObservationMethod observationMethod,
             Country country,
             Organization mainOrganization,
-            ObservationMethod observationMethod,
             boolean duplicate,
             User operator,
             String dateOfEntering
@@ -159,12 +159,12 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
-        this.source = source;
-        this.relatedProject = relatedProject;
+        this.resourceType = resourceType;
         this.language = language;
+        this.relatedProject = relatedProject;
+        this.observationMethod = observationMethod;
         this.country = country;
         this.mainOrganization = mainOrganization;
-        this.observationMethod = observationMethod;
         this.duplicate = duplicate;
         this.operator = operator;
         this.dateOfEntering = dateOfEntering;
@@ -179,12 +179,12 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
-            Source source,
-            RelatedProject relatedProject,
+            ResourceType resourceType,
             Language language,
+            RelatedProject relatedProject,
+            ObservationMethod observationMethod,
             Country country,
             Organization mainOrganization,
-            ObservationMethod observationMethod,
             boolean duplicate,
             User editor,
             String dateOfEdit
@@ -197,12 +197,12 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
-        this.source = source;
-        this.relatedProject = relatedProject;
+        this.resourceType = resourceType;
         this.language = language;
+        this.relatedProject = relatedProject;
+        this.observationMethod = observationMethod;
         this.country = country;
         this.mainOrganization = mainOrganization;
-        this.observationMethod = observationMethod;
         this.duplicate = duplicate;
         this.editor = editor;
         this.dateOfEdit = dateOfEdit;
@@ -289,11 +289,18 @@ public class InformationResource {
         this.duplicate = duplicate;
     }
 
-    public Source getSource() {
-        return source;
+    public ResourceType getResourceType() {
+        return resourceType;
     }
-    public void setSource(Source source) {
-        this.source = source;
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public RelatedProject getRelatedProject() {
@@ -303,11 +310,11 @@ public class InformationResource {
         this.relatedProject = relatedProject;
     }
 
-    public Language getLanguage() {
-        return language;
+    public ObservationMethod getObservationMethod() {
+        return observationMethod;
     }
-    public void setLanguage(Language language) {
-        this.language = language;
+    public void setObservationMethod(ObservationMethod observationMethod) {
+        this.observationMethod = observationMethod;
     }
 
     public Country getCountry() {
@@ -322,13 +329,6 @@ public class InformationResource {
     }
     public void setMainOrganization(Organization mainOrganization) {
         this.mainOrganization = mainOrganization;
-    }
-
-    public ObservationMethod getObservationMethod() {
-        return observationMethod;
-    }
-    public void setObservationMethod(ObservationMethod observationMethod) {
-        this.observationMethod = observationMethod;
     }
 
     public User getOperator() {

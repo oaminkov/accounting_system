@@ -54,14 +54,14 @@
             <hr>
 
             <div class="form-group row mt-3">
-                <label class="col-sm-3 col-form-label">Источник:</label>
+                <label class="col-sm-3 col-form-label">Тип ресурса:</label>
                 <div class="col-sm-9">
-                    <select name="source" class="browser-default custom-select">
-                        <#list sources as source>
-                            <#if source == informationResource.source>
-                                <option selected value="${source.id}">${source.name}</option>
+                    <select name="resourceType" class="browser-default custom-select">
+                        <#list resourceTypes as resourceType>
+                            <#if resourceType == informationResource.resourceType>
+                                <option selected value="${resourceType.id}">${resourceType.name}</option>
                             <#else>
-                                <option value="${source.id}">${source.name}</option>
+                                <option value="${resourceType.id}">${resourceType.name}</option>
                             </#if>
                         </#list>
                     </select>

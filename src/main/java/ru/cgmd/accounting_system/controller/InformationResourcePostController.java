@@ -44,12 +44,12 @@ public class InformationResourcePostController {
             @RequestParam String briefContent,
             @RequestParam String volume,
             @RequestParam String receivedDate,
-            @RequestParam Source source,
-            @RequestParam RelatedProject relatedProject,
+            @RequestParam ResourceType resourceType,
             @RequestParam Language language,
+            @RequestParam RelatedProject relatedProject,
+            @RequestParam ObservationMethod observationMethod,
             @RequestParam Country country,
             @RequestParam Organization mainOrganization,
-            @RequestParam ObservationMethod observationMethod,
             @RequestParam(defaultValue = "0") boolean duplicate,
             @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
             @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
@@ -64,8 +64,8 @@ public class InformationResourcePostController {
                 inventoryNumber, fullnameCdrom, abbreviationCdrom,
                 dateObservationStart, dateObservationEnd,
                 briefContent, volume, receivedDate,
-                source, relatedProject, language, country,
-                mainOrganization, observationMethod,
+                resourceType, language, relatedProject,
+                observationMethod, country, mainOrganization,
                 duplicate, operator, dateOfEntering);
 
         setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
@@ -90,12 +90,12 @@ public class InformationResourcePostController {
             @RequestParam String briefContent,
             @RequestParam String volume,
             @RequestParam String receivedDate,
-            @RequestParam Source source,
-            @RequestParam RelatedProject relatedProject,
+            @RequestParam ResourceType resourceType,
             @RequestParam Language language,
+            @RequestParam RelatedProject relatedProject,
+            @RequestParam ObservationMethod observationMethod,
             @RequestParam Country country,
             @RequestParam Organization mainOrganization,
-            @RequestParam ObservationMethod observationMethod,
             @RequestParam(defaultValue = "0") boolean duplicate,
             @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
             @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
@@ -120,8 +120,8 @@ public class InformationResourcePostController {
                 inventoryNumber, fullnameCdrom, abbreviationCdrom,
                 dateObservationStart, dateObservationEnd,
                 briefContent, volume, receivedDate,
-                source, relatedProject, language, country,
-                mainOrganization, observationMethod,
+                resourceType, language, relatedProject,
+                observationMethod, country, mainOrganization,
                 duplicate, editor, dateOfEdit);
 
         setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);

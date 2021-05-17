@@ -1,15 +1,15 @@
 <#import "parts/view_table.ftl" as v>
-<@v.view "/sources/add" "Источники" "Добавить источник">
+<@v.view "/project_types/add" "Типы проектов" "Добавить тип проекта">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
         <tr>
-            <th>Название источника</th>
+            <th>Название типа</th>
         </tr>
         </thead>
         <tbody>
-        <#list sources as source>
+        <#list projectTypes as projectType>
             <tr>
-                <td>${source.name}</td>
+                <td>${projectType.name}</td>
             </tr>
         </#list>
         </tbody>

@@ -23,20 +23,21 @@ public class RelatedProject {
     @Column(name="abbreviation_rus")
     private String abbreviationRus;
 
-    @Column(nullable = false)
-    private String type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (nullable = false, name = "id_project_type")
+    private ProjectType projectType;
 
     @OneToMany(mappedBy = "relatedProject", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationResource> informationResources;
 
     public RelatedProject() { }
 
-    public RelatedProject(String name, String nameRus, String abbreviation, String abbreviationRus, String type) {
+    public RelatedProject(String name, String nameRus, String abbreviation, String abbreviationRus, ProjectType projectType) {
         this.name = name;
         this.nameRus = nameRus;
         this.abbreviation = abbreviation;
         this.abbreviationRus = abbreviationRus;
-        this.type = type;
+        this.projectType = projectType;
     }
 
     public Long getId() {
@@ -74,11 +75,11 @@ public class RelatedProject {
         this.abbreviationRus = abbreviationRus;
     }
 
-    public String getType() {
-        return type;
+    public ProjectType getProjectType() {
+        return projectType;
     }
-    public void setType(String type) {
-        this.type = type;
+    public void setProjectType(String type) {
+        this.projectType = projectType;
     }
 
     public List<InformationResource> getInformationResources() {

@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "source")
-public class Source {
+@Table(name = "resource_type")
+public class ResourceType {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "source_generator")
-    @SequenceGenerator(name="source_generator", sequenceName = "source_seq", allocationSize=10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "resource_type_generator")
+    @SequenceGenerator(name="resource_type_generator", sequenceName = "resource_type_seq", allocationSize=10)
     private Long id;
 
     @Column(nullable = false, name="name", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "source", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "resourceType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationResource> informationResources;
 
-    public Source() {
+    public ResourceType() {
     }
 
-    public Source(String name) {
+    public ResourceType(String name) {
         this.name = name;
     }
 
