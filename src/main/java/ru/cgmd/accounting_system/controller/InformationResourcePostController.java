@@ -66,7 +66,7 @@ public class InformationResourcePostController {
                 briefContent, volume, receivedDate,
                 resourceType, language, relatedProject,
                 observationMethod, country, mainOrganization,
-                duplicate, operator, dateOfEntering);
+                duplicate, dateOfEntering, operator);
 
         setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
 
@@ -122,7 +122,7 @@ public class InformationResourcePostController {
                 briefContent, volume, receivedDate,
                 resourceType, language, relatedProject,
                 observationMethod, country, mainOrganization,
-                duplicate, editor, dateOfEdit);
+                duplicate, dateOfEdit, editor);
 
         setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
 

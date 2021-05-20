@@ -53,10 +53,24 @@
             </div>
             <hr>
 
+
+            <div class="form-group row mt-3">
+                <label class="col-sm-3 col-form-label">Test:</label>
+                <div class="col-sm-9">
+                    <select name="resourceType" class="selectpicker w-100" data-live-search="true">
+                        <option value="">-- Выберите тип ресурса --</option>
+                        <#list resourceTypes as resourceType>
+                            <option value="${resourceType.id}">${resourceType.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+
+
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Тип ресурса:</label>
                 <div class="col-sm-9">
-                    <select name="resourceType" class="browser-default custom-select">
+                    <select name="resourceType" class="browser-default custom-select" data-live-search="true">
                         <option value="">-- Выберите тип ресурса --</option>
                         <#list resourceTypes as resourceType>
                             <option value="${resourceType.id}">${resourceType.name}</option>
@@ -67,7 +81,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
-                    <select name="relatedProject" class="browser-default custom-select">
+                    <select name="relatedProject" class="browser-default custom-select" data-live-search="true">
                         <option value="">-- Выберите связанный проект --</option>
                         <#list relatedProjects as relatedProject>
                             <option value="${relatedProject.id}">${relatedProject.name}</option>
@@ -78,7 +92,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Язык:</label>
                 <div class="col-sm-9">
-                    <select name="language" class="browser-default custom-select">
+                    <select name="language" class="browser-default custom-select" data-live-search="true">
                         <option value="">-- Выберите язык --</option>
                         <#list languages as language>
                             <option value="${language.id}">${language.name}</option>
@@ -89,7 +103,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Страна:</label>
                 <div class="col-sm-9">
-                    <select name="country" class="browser-default custom-select">
+                    <select name="country" class="browser-default custom-select" data-live-search="true">
                         <option value="">-- Выберите страну --</option>
                         <#list countries as country>
                             <option value="${country.id}">${country.name}</option>
@@ -100,7 +114,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Метод наблюдений:</label>
                 <div class="col-sm-9">
-                    <select name="observationMethod" class="browser-default custom-select">
+                    <select name="observationMethod" class="browser-default custom-select" data-live-search="true">
                         <option value="">-- Выберите метод наблюдений --</option>
                         <#list observationMethods as observationMethod>
                             <option value="${observationMethod.id}">${observationMethod.name}</option>
@@ -114,7 +128,7 @@
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
                     <div class="col-sm-9 input-group">
-                        <select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline">
+                        <select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline" data-live-search="true">
                             <option value="0">-- Выберите дисциплину --</option>
                             <#list observationDisciplines as observationDiscipline>
                                 <option value="${observationDiscipline.id}">${observationDiscipline.name}</option>
@@ -126,7 +140,7 @@
                     <div class="form-group row mt-3">
                         <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
                         <div class="col-sm-9 input-group">
-                            <select name="observationType" class="browser-default custom-select getObservationType" disabled>
+                            <select name="observationType" class="browser-default custom-select getObservationType" data-live-search="true" disabled>
                                 <option value="0">-- Выберите вид наблюдений --</option>
                             </select>
                         </div>
@@ -135,22 +149,22 @@
                         <div class="form-group row mt-3">
                             <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
                             <div class="col-sm-9 input-group">
-                                <select name="observationParameter" class="browser-default custom-select getObservationParameter" disabled>
+                                <select name="observationParameter" class="browser-default custom-select getObservationParameter" data-live-search="true" disabled>
                                     <option value="0">-- Выберите параметр наблюдений --</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row mt-3">
-                        <a class="col-sm btn btn-primary addParam">Добавить параметр</a>
+                        <button type="button" class="col-sm btn btn-primary addParam">Добавить параметр</button>
                     </div>
                 </div>
                 <div class="form-group row mt-3">
-                    <a class="col-sm btn btn-primary addType">Добавить вид</a>
+                    <button type="button" class="col-sm btn btn-primary addType">Добавить вид</button>
                 </div>
             </div>
             <div class="form-group row mt-3">
-                <a class="col-sm btn btn-primary addDisc">Добавить дисциплину</a>
+                <button type="button" class="col-sm btn btn-primary addDisc">Добавить дисциплину</button>
             </div>
             <hr>
 
@@ -158,7 +172,7 @@
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
                     <div class="col-sm-9 input-group">
-                        <select name="observationScope" class="browser-default custom-select getObservationScope">
+                        <select name="observationScope" class="browser-default custom-select getObservationScope" data-live-search="true">
                             <option value="0">-- Выберите сферу наблюдений --</option>
                             <#list observationScopes as observationScope>
                                 <option value="${observationScope.id}">${observationScope.name}</option>
@@ -168,7 +182,7 @@
                 </div>
             </div>
             <div class="form-group row mt-3">
-                <a class="col-sm btn btn-primary addScope">Добавить сферу</a>
+                <button type="button" class="col-sm btn btn-primary addScope">Добавить сферу</button>
             </div>
             <hr>
 
@@ -176,7 +190,7 @@
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
                     <div class="col-sm-9 input-group">
-                        <select name="observationTerritory" class="browser-default custom-select getObservationTerritory">
+                        <select name="observationTerritory" class="browser-default custom-select getObservationTerritory" data-live-search="true">
                             <option value="0">-- Выберите территорию наблюдений --</option>
                             <#list observationTerritories as observationTerritory>
                                 <option value="${observationTerritory.id}">${observationTerritory.name}</option>
@@ -186,7 +200,7 @@
                 </div>
             </div>
             <div class="form-group row mt-3">
-                <a class="col-sm btn btn-primary addTerritory">Добавить территорию</a>
+                <button type="button" class="col-sm btn btn-primary addTerritory">Добавить территорию</button>
             </div>
             <hr>
 
@@ -194,7 +208,7 @@
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Главная организация:</label>
                     <div class="col-sm-9 input-group">
-                        <select name="mainOrganization" class="browser-default custom-select getOrganization">
+                        <select name="mainOrganization" class="browser-default custom-select getOrganization" data-live-search="true">
                             <option value="0">-- Выберите организацию --</option>
                             <#list organizations as organization>
                                 <option value="${organization.id}">${organization.name}</option>
@@ -204,7 +218,7 @@
                 </div>
             </div>
             <div class="form-group row mt-3">
-                <a class="col-sm btn btn-primary addOrganization">Добавить организацию</a>
+                <button type="button" class="col-sm btn btn-primary addOrganization">Добавить организацию</button>
             </div>
             <hr>
 

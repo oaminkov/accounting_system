@@ -32,6 +32,10 @@ public class CountryService {
         return countryRepository.findByInformationResourcesNotEmpty();
     }
 
+    public List<Country> findByOrganizationsExists() {
+        return countryRepository.findByOrganizationsNotEmpty();
+    }
+
     public void save(Country country) {
         countryRepository.save(country);
     }

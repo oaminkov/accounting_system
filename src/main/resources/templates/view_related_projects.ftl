@@ -3,7 +3,7 @@
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>
             <tr>
-                <th>Проект/программа</th>
+                <th>Тип проекта</th>
                 <th>Полное название проекта/программы</th>
                 <th>Аббревиатура проекта/программы</th>
             </tr>
@@ -11,7 +11,7 @@
         <tbody>
         <#list relatedProjects as relatedProject>
             <tr>
-                <td>${relatedProject.type}</td>
+                <td>${relatedProject.projectType.name}</td>
                 <td>${relatedProject.name}</td>
                 <td>${relatedProject.abbreviation}</td>
             </tr>

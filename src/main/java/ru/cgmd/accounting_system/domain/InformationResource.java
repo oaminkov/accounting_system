@@ -148,8 +148,8 @@ public class InformationResource {
             Country country,
             Organization mainOrganization,
             boolean duplicate,
-            User operator,
-            String dateOfEntering
+            String dateOfEntering,
+            User operator
     ) {
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
@@ -166,8 +166,8 @@ public class InformationResource {
         this.country = country;
         this.mainOrganization = mainOrganization;
         this.duplicate = duplicate;
-        this.operator = operator;
         this.dateOfEntering = dateOfEntering;
+        this.operator = operator;
     }
 
     public void setEditedFields(
@@ -186,8 +186,8 @@ public class InformationResource {
             Country country,
             Organization mainOrganization,
             boolean duplicate,
-            User editor,
-            String dateOfEdit
+            String dateOfEdit,
+            User editor
     ) {
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
@@ -204,8 +204,8 @@ public class InformationResource {
         this.country = country;
         this.mainOrganization = mainOrganization;
         this.duplicate = duplicate;
-        this.editor = editor;
         this.dateOfEdit = dateOfEdit;
+        this.editor = editor;
     }
 
     public void addUploadedFiles(List<UploadedFile> uploadedFiles) {
@@ -331,13 +331,6 @@ public class InformationResource {
         this.mainOrganization = mainOrganization;
     }
 
-    public User getOperator() {
-        return operator;
-    }
-    public void setOperator(User user) {
-        this.operator = user;
-    }
-
     public String getDateOfEntering() {
         return dateOfEntering;
     }
@@ -345,11 +338,11 @@ public class InformationResource {
         this.dateOfEntering = dateOfEntering;
     }
 
-    public User getEditor() {
-        return editor;
+    public User getOperator() {
+        return operator;
     }
-    public void setEditor(User editor) {
-        this.editor = editor;
+    public void setOperator(User user) {
+        this.operator = user;
     }
 
     public String getDateOfEdit() {
@@ -357,6 +350,13 @@ public class InformationResource {
     }
     public void setDateOfEdit(String dateOfEdit) {
         this.dateOfEdit = dateOfEdit;
+    }
+
+    public User getEditor() {
+        return editor;
+    }
+    public void setEditor(User editor) {
+        this.editor = editor;
     }
 
     public Set<ObservationDiscipline> getObservationDisciplines() {

@@ -7,9 +7,9 @@
                 <div class="col-sm-9">
                     <select name="choiceObservationDiscipline" class="browser-default custom-select searchInput" id="getObservationDiscipline">
                         <option value="0">-- Выберите дисциплину наблюдений --</option>
-                        <#list observationDisciplines as item>
+                        <#--<#list observationDisciplines as item>
                             <option value="${item.id}">${item.name}</option>
-                        </#list>
+                        </#list>-->
                     </select>
                 </div>
             </div>

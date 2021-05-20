@@ -95,7 +95,9 @@ public class ViewController {
         return "view_related_projects";
     }
     @GetMapping("related_projects/add")
-    public String showNewRelatedProjectPage() {
+    public String showNewRelatedProjectPage(Model model) {
+        List<ProjectType> projectTypes = projectTypeService.listAll();
+        model.addAttribute("projectTypes", projectTypes);
         return "add_related_project";
     }
 

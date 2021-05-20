@@ -56,7 +56,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Тип ресурса:</label>
                 <div class="col-sm-9">
-                    <select name="resourceType" class="browser-default custom-select">
+                    <select name="resourceType" class="browser-default custom-select" data-live-search="true">
                         <#list resourceTypes as resourceType>
                             <#if resourceType == informationResource.resourceType>
                                 <option selected value="${resourceType.id}">${resourceType.name}</option>
@@ -70,7 +70,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Связанный проект:</label>
                 <div class="col-sm-9">
-                    <select name="relatedProject" class="browser-default custom-select">
+                    <select name="relatedProject" class="browser-default custom-select" data-live-search="true">
                         <#list relatedProjects as relatedProject>
                             <#if relatedProject == informationResource.relatedProject>
                                 <option selected value="${relatedProject.id}">${relatedProject.name}</option>
@@ -84,7 +84,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Язык:</label>
                 <div class="col-sm-9">
-                    <select name="language" class="browser-default custom-select">
+                    <select name="language" class="browser-default custom-select" data-live-search="true">
                         <#list languages as language>
                             <#if language == informationResource.language>
                                 <option selected value="${language.id}">${language.name}</option>
@@ -98,7 +98,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Страна:</label>
                 <div class="col-sm-9">
-                    <select name="country" class="browser-default custom-select">
+                    <select name="country" class="browser-default custom-select" data-live-search="true">
                         <#list countries as country>
                             <#if country == informationResource.country>
                                 <option selected value="${country.id}">${country.name}</option>
@@ -112,7 +112,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-3 col-form-label">Метод наблюдений:</label>
                 <div class="col-sm-9">
-                    <select name="observationMethod" class="browser-default custom-select">
+                    <select name="observationMethod" class="browser-default custom-select" data-live-search="true">
                         <#list observationMethods as observationMethod>
                             <#if observationMethod == informationResource.observationMethod>
                                 <option selected value="${observationMethod.id}">${observationMethod.name}</option>
@@ -130,7 +130,7 @@
                     <div class="form-group row mt-3">
                         <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
                         <div class="col-sm-9 input-group">
-                            <select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline">
+                            <select name="observationDiscipline" class="browser-default custom-select getObservationDiscipline" data-live-search="true">
                                 <#list observationDisciplines as observationDiscipline>
                                     <#if observationDiscipline == infresObservationDiscipline>
                                         <option selected value="${observationDiscipline.id}">${observationDiscipline.name}</option>
@@ -153,7 +153,7 @@
                                 <div class="form-group row mt-3">
                                     <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
                                     <div class="col-sm-9 input-group">
-                                        <select name="observationType" class="browser-default custom-select getObservationType">
+                                        <select name="observationType" class="browser-default custom-select getObservationType" data-live-search="true">
                                             <#list infresObservationDiscipline.observationTypes as observationType>
                                                 <#if observationType == infresObservationType>
                                                     <option selected value="${observationType.id}">${observationType.name}</option>
@@ -177,7 +177,7 @@
                                             <div class="form-group row mt-3">
                                                 <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
                                                 <div class="col-sm-9 input-group">
-                                                    <select name="observationParameter" class="browser-default custom-select getObservationParameter">
+                                                    <select name="observationParameter" class="browser-default custom-select getObservationParameter" data-live-search="true">
                                                         <#list infresObservationType.observationParameters as observationParameter>
                                                             <#if observationParameter == infresObservationParameter>
                                                                 <option selected value="${observationParameter.id}">${observationParameter.name}</option>
@@ -218,7 +218,7 @@
                     <div class="form-group row mt-3">
                         <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
                         <div class="col-sm-9 input-group">
-                            <select name="observationScope" class="browser-default custom-select getObservationScope">
+                            <select name="observationScope" class="browser-default custom-select getObservationScope" data-live-search="true">
                                 <#list observationScopes as observationScope>
                                     <#if observationScope == infresObservationScope>
                                         <option selected value="${observationScope.id}">${observationScope.name}</option>
@@ -247,7 +247,7 @@
                     <div class="form-group row mt-3">
                         <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
                         <div class="col-sm-9 input-group">
-                            <select name="observationTerritory" class="browser-default custom-select getObservationTerritory">
+                            <select name="observationTerritory" class="browser-default custom-select getObservationTerritory" data-live-search="true">
                                 <#list observationTerritories as observationTerritory>
                                     <#if observationTerritory == infresObservationTerritory>
                                         <option selected value="${observationTerritory.id}">${observationTerritory.name}</option>
@@ -275,7 +275,7 @@
                 <div class="form-group row mt-3">
                     <label class="col-sm-3 col-form-label">Главная организация:</label>
                     <div class="col-sm-9 input-group">
-                        <select name="mainOrganization" class="browser-default custom-select getOrganization">
+                        <select name="mainOrganization" class="browser-default custom-select getOrganization" data-live-search="true">
                             <#list organizations as organization>
                                 <#if organization == informationResource.mainOrganization>
                                     <option selected value="${organization.id}">${organization.abbreviation}</option>
@@ -292,7 +292,7 @@
                     <div class="form-group row mt-3">
                         <label class="col-sm-3 col-form-label">Организация:</label>
                         <div class="col-sm-9 input-group">
-                            <select name="organization" class="browser-default custom-select getOrganization">
+                            <select name="organization" class="browser-default custom-select getOrganization" data-live-search="true">
                                 <#list organizations as organization>
                                     <#if organization == infresOrganization>
                                         <option selected value="${organization.id}">${organization.abbreviation}</option>

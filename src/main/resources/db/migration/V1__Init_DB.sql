@@ -1,5 +1,4 @@
 create sequence hibernate_sequence start 1 increment 1;
-
 create sequence usr_seq start 1 increment 10;
 create sequence resource_type_seq start 1 increment 10;
 create sequence language_seq start 1 increment 10;
@@ -13,7 +12,6 @@ create sequence observation_type_seq start 1 increment 10;
 create sequence observation_parameter_seq start 1 increment 10;
 create sequence observation_scope_seq start 1 increment 10;
 create sequence observation_territory_seq start 1 increment 10;
-
 create sequence information_resource_seq start 1 increment 50;
 create sequence uploaded_file_seq start 1 increment 50;
 
@@ -72,7 +70,7 @@ create table country (
 
 create table organization (
     id int8 not null,
-    name varchar(255),
+    name varchar(255) not null,
     name_rus varchar(255),
     abbreviation varchar(255) not null,
     id_country int8,
@@ -95,7 +93,7 @@ create table observation_type (
 create table observation_parameter (
     id int8 not null,
     name varchar(255) not null,
-    id_observation_type int8,
+    id_observation_type int8 not null,
     primary key (id)
 );
 
@@ -139,7 +137,7 @@ create table uploaded_file (
     id int8 not null,
     name varchar(255) not null,
     path varchar(255) not null,
-    id_information_resource int8,
+    id_information_resource int8 not null,
     primary key (id)
 );
 
