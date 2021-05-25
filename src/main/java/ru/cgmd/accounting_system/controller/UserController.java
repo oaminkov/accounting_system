@@ -12,7 +12,7 @@ import ru.cgmd.accounting_system.service.UserService;
 import java.util.Map;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("users")
 public class UserController {
     private final UserService userService;
 
@@ -37,7 +37,7 @@ public class UserController {
     ) {
         userService.saveUser(user, username, password, form);
 
-        return "redirect:/user";
+        return "redirect:/users";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -57,7 +57,7 @@ public class UserController {
         else user.setActive(true);
 
         userService.saveUser(user);
-        return "redirect:/user";
+        return "redirect:/users";
     }
 
     /**/
@@ -70,7 +70,7 @@ public class UserController {
      @PostMapping("profile")
      public String updateProfile(@AuthenticationPrincipal User user, @RequestParam String password) {
          userService.updateProfile(user, password);
-         return "redirect:/user/profile";
+         return "redirect:/users/profile";
      }
      /**/
 }

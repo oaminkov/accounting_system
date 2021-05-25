@@ -51,11 +51,11 @@ public class InformationResourcePostController {
             @RequestParam Country country,
             @RequestParam Organization mainOrganization,
             @RequestParam(defaultValue = "0") boolean duplicate,
-            @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
-            @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
-            @RequestParam(name = "observationTerritory") ObservationTerritory[] observationTerritories,
             @RequestParam(name = "organization", required = false) Organization[] organizations,
-            @RequestParam(name = "uploadFiles") MultipartFile[] files
+            @RequestParam(name = "observationParameter", required = false) ObservationParameter[] observationParameters,
+            @RequestParam(name = "observationScope", required = false) ObservationScope[] observationScopes,
+            @RequestParam(name = "observationTerritory", required = false) ObservationTerritory[] observationTerritories,
+            @RequestParam(name = "uploadFiles", required = false) MultipartFile[] files
     ) throws IOException {
         LocalDateTime myDateObj = LocalDateTime.now();
         String dateOfEntering = myDateObj.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
@@ -97,14 +97,15 @@ public class InformationResourcePostController {
             @RequestParam Country country,
             @RequestParam Organization mainOrganization,
             @RequestParam(defaultValue = "0") boolean duplicate,
-            @RequestParam(name = "observationParameter") ObservationParameter[] observationParameters,
-            @RequestParam(name = "observationScope") ObservationScope[] observationScopes,
-            @RequestParam(name = "observationTerritory") ObservationTerritory[] observationTerritories,
             @RequestParam(name = "organization", required = false) Organization[] organizations,
-            @RequestParam(name = "uploadFiles") MultipartFile[] files,
+            @RequestParam(name = "observationParameter", required = false) ObservationParameter[] observationParameters,
+            @RequestParam(name = "observationScope", required = false) ObservationScope[] observationScopes,
+            @RequestParam(name = "observationTerritory", required = false) ObservationTerritory[] observationTerritories,
+            @RequestParam(name = "uploadFiles", required = false) MultipartFile[] files,
             @RequestParam(required = false) boolean delAttachedFiles
     ) throws IOException {
 
+        // Если удалили прикреплённые файлы на странице редактирования, то удаляем файлы и ссылки на них
         if (delAttachedFiles) {
             deleteAttachedFiles(informationResource);
         }
@@ -159,36 +160,41 @@ public class InformationResourcePostController {
             informationResource.setObservationTypes(observationTypeSet);
             informationResource.setObservationParameters(observationParameterSet);
         }
+        else {
+            informationResource.setObservationDisciplines(null);
+            informationResource.setObservationTypes(null);
+            informationResource.setObservationParameters(null);
+        }
 
+        Set<ObservationScope> observationScopeSet = new HashSet<>();
         if (observationScopes != null) {
-            Set<ObservationScope> observationScopeSet = new HashSet<>();
             for (ObservationScope observationScope : observationScopes) {
                 if (observationScope != null) {
                     observationScopeSet.add(observationScope);
                 }
             }
-            informationResource.setObservationScopes(observationScopeSet);
         }
+        informationResource.setObservationScopes(observationScopeSet);
 
+        Set<ObservationTerritory> observationTerritorySet = new HashSet<>();
         if (observationTerritories != null) {
-            Set<ObservationTerritory> observationTerritorySet = new HashSet<>();
             for (ObservationTerritory observationTerritory : observationTerritories) {
                 if (observationTerritory != null) {
                     observationTerritorySet.add(observationTerritory);
                 }
             }
-            informationResource.setObservationTerritories(observationTerritorySet);
         }
+        informationResource.setObservationTerritories(observationTerritorySet);
 
+        Set<Organization> organizationSet = new HashSet<>();
         if (organizations != null) {
-            Set<Organization> organizationSet = new HashSet<>();
             for (Organization organization : organizations) {
                 if (organization != null) {
                     organizationSet.add(organization);
                 }
             }
-            informationResource.setOrganizations(organizationSet);
         }
+        informationResource.setOrganizations(organizationSet);
     }
 
     public List<UploadedFile> saveFiles(InformationResource informationResource, MultipartFile[] files) throws IOException {
