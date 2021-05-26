@@ -11,9 +11,16 @@
                     <th>Инвентарный номер</th>
                     <th>Страна</th>
                     <th>Период наблюдений</th>
-                    <th>Загруженные файлы</th>
-                    <th></th>
-                    <th></th>
+
+                    <#if auth_user??>
+                        <th>Прикреплённые файлы</th>
+                    </#if>
+
+                    <th>Просмотр</th>
+
+                    <#if auth_user??>
+                        <th>Редактирование</th>
+                    </#if>
                 </tr>
             </thead>
             <tbody>
@@ -21,15 +28,20 @@
                 <tr>
                     <td>${informationResource.inventoryNumber}</td>
                     <td>${informationResource.country.name}</td>
-                    <td>${informationResource.dateObservationStart}<br>${informationResource.dateObservationEnd}</td>
                     <td>
-                        <#if auth_user??>
+                        ${informationResource.dateObservationStart}
+                        <br>
+                        ${informationResource.dateObservationEnd}
+                    </td>
+
+                    <#if auth_user??>
+                        <td>
                             <#if informationResource.uploadedFiles?has_content>
                                 <div class="btn-group">
                                     <form action="/information_resources/download/${informationResource.id}">
-                                        <button type="submit" class="btn btn-sm btn-secondary">Скачать</button>
+                                        <button type="submit" class="btn btn-sm btn-success">Скачать</button>
                                     </form>
-                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle px-2" data-toggle="dropdown" aria-haspopup="true"
+                                    <button type="button" class="btn btn-sm btn-success dropdown-toggle px-2" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false" data-reference="parent">
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
@@ -43,16 +55,22 @@
                             <#else>
                                 <p align="center">Файлы отсутствуют</p>
                             </#if>
-                        </#if>
-                    </td>
+                        </td>
+                    </#if>
+
                     <td>
-                        <form action="/information_resources/${informationResource.id}"><button type="submit" class="btn btn-sm btn-info m-0">Просмотреть</button></form>
+                        <form action="/information_resources/${informationResource.id}">
+                            <button type="submit" class="btn btn-sm btn-info m-0">Просмотреть</button>
+                        </form>
                     </td>
-                    <td>
-                        <#if auth_user??>
-                            <form action="/information_resources/edit/${informationResource.id}"><button type="submit" class="btn btn-warning btn-sm m-0">Редактировать</button></form>
-                        </#if>
-                    </td>
+
+                    <#if auth_user??>
+                        <td>
+                            <form action="/information_resources/edit/${informationResource.id}">
+                                <button type="submit" class="btn btn-sm btn-warning m-0">Редактировать</button>
+                            </form>
+                        </td>
+                    </#if>
                 </tr>
             </#list>
             </tbody>

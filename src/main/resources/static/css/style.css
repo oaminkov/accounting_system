@@ -3,14 +3,29 @@ body {
     font-weight: 400;
 }
 
+.discDiv, .typeDiv, .paramDiv {
+    padding: 10px 10px 0;
+    border-radius: 5px;
+}
+
+.discDiv {
+    background-color: #edeab2;
+}
+
+.typeDiv {
+    background-color: #ced6d3;
+}
+
+.paramDiv {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    background-color: #9fa6a3;
+}
+
 .custom-file-input ~ .custom-file-label::after {
     content: "Выбрать";
 }
 
-/*.btn {
-    padding: 7px 12px;
-}
-*/
 .delBtn {
     height: 38px;
 }

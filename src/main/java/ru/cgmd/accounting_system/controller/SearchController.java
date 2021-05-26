@@ -86,7 +86,7 @@ public class SearchController {
         List<UploadedFile> uploadedFiles = uploadedFileRepository.findAll();
         model.addAttribute("uploadedFiles", uploadedFiles);
 
-        return "view_information_product";
+        return "view_information_resourses";
     }*/
     //SEARCH END
 

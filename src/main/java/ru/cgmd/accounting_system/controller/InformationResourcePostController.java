@@ -51,8 +51,10 @@ public class InformationResourcePostController {
             @RequestParam Country country,
             @RequestParam Organization mainOrganization,
             @RequestParam(defaultValue = "0") boolean duplicate,
-            @RequestParam(name = "organization", required = false) Organization[] organizations,
+            @RequestParam(name = "observationDiscipline", required = false) ObservationDiscipline[] observationDisciplines,
+            @RequestParam(name = "observationType", required = false) ObservationType[] observationTypes,
             @RequestParam(name = "observationParameter", required = false) ObservationParameter[] observationParameters,
+            @RequestParam(name = "organization", required = false) Organization[] organizations,
             @RequestParam(name = "observationScope", required = false) ObservationScope[] observationScopes,
             @RequestParam(name = "observationTerritory", required = false) ObservationTerritory[] observationTerritories,
             @RequestParam(name = "uploadFiles", required = false) MultipartFile[] files
@@ -66,9 +68,14 @@ public class InformationResourcePostController {
                 briefContent, volume, receivedDate,
                 resourceType, language, relatedProject,
                 observationMethod, country, mainOrganization,
-                duplicate, dateOfEntering, operator);
+                duplicate, dateOfEntering, operator
+        );
 
-        setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
+        setInformationResourceManyToManyFields(
+                informationResource,
+                observationDisciplines, observationTypes, observationParameters,
+                organizations, observationScopes, observationTerritories
+        );
 
         List<UploadedFile> uploadedFiles = saveFiles(informationResource, files);
         informationResource.setUploadedFiles(uploadedFiles);
@@ -97,15 +104,17 @@ public class InformationResourcePostController {
             @RequestParam Country country,
             @RequestParam Organization mainOrganization,
             @RequestParam(defaultValue = "0") boolean duplicate,
-            @RequestParam(name = "organization", required = false) Organization[] organizations,
+            @RequestParam(name = "observationDiscipline", required = false) ObservationDiscipline[] observationDisciplines,
+            @RequestParam(name = "observationType", required = false) ObservationType[] observationTypes,
             @RequestParam(name = "observationParameter", required = false) ObservationParameter[] observationParameters,
+            @RequestParam(name = "organization", required = false) Organization[] organizations,
             @RequestParam(name = "observationScope", required = false) ObservationScope[] observationScopes,
             @RequestParam(name = "observationTerritory", required = false) ObservationTerritory[] observationTerritories,
             @RequestParam(name = "uploadFiles", required = false) MultipartFile[] files,
             @RequestParam(required = false) boolean delAttachedFiles
     ) throws IOException {
 
-        // Если удалили прикреплённые файлы на странице редактирования, то удаляем файлы и ссылки на них
+        // Если удалили прикреплённые файлы на странице редактирования, то удаляем файлы и ссылки на них на сервере
         if (delAttachedFiles) {
             deleteAttachedFiles(informationResource);
         }
@@ -123,9 +132,14 @@ public class InformationResourcePostController {
                 briefContent, volume, receivedDate,
                 resourceType, language, relatedProject,
                 observationMethod, country, mainOrganization,
-                duplicate, dateOfEdit, editor);
+                duplicate, dateOfEdit, editor
+        );
 
-        setInformationResourceManyToManyFields(informationResource, observationParameters, observationScopes, observationTerritories, organizations);
+        setInformationResourceManyToManyFields(
+                informationResource,
+                observationDisciplines, observationTypes, observationParameters,
+                organizations, observationScopes, observationTerritories
+        );
 
         List<UploadedFile> uploadedFiles = saveFiles(informationResource, files);
         if (uploadedFiles != null) {
@@ -139,32 +153,52 @@ public class InformationResourcePostController {
     //Вспомогательные функции
     public void setInformationResourceManyToManyFields(
             InformationResource informationResource,
+            ObservationDiscipline[] observationDisciplines,
+            ObservationType[] observationTypes,
             ObservationParameter[] observationParameters,
+            Organization[] organizations,
             ObservationScope[] observationScopes,
-            ObservationTerritory[] observationTerritories,
-            Organization[] organizations
+            ObservationTerritory[] observationTerritories
     ) {
-        if (observationParameters != null) {
-            Set<ObservationDiscipline> observationDisciplineSet = new HashSet<>();
-            Set<ObservationType> observationTypeSet = new HashSet<>();
-            Set<ObservationParameter> observationParameterSet = new HashSet<>();
+        Set<ObservationDiscipline> observationDisciplineSet = new HashSet<>();
+        if (observationDisciplines != null) {
+            for (ObservationDiscipline observationDiscipline : observationDisciplines) {
+                if (observationDiscipline != null) {
+                    observationDisciplineSet.add(observationDiscipline);
+                }
+            }
+        }
+        informationResource.setObservationDisciplines(observationDisciplineSet);
 
+        Set<ObservationType> observationTypeSet = new HashSet<>();
+        if (observationTypes != null) {
+            for (ObservationType observationType : observationTypes) {
+                if (observationType != null) {
+                    observationTypeSet.add(observationType);
+                }
+            }
+        }
+        informationResource.setObservationTypes(observationTypeSet);
+
+        Set<ObservationParameter> observationParameterSet = new HashSet<>();
+        if (observationParameters != null) {
             for (ObservationParameter observationParameter : observationParameters) {
                 if (observationParameter != null) {
-                    observationDisciplineSet.add(observationParameter.getObservationType().getObservationDiscipline());
-                    observationTypeSet.add(observationParameter.getObservationType());
                     observationParameterSet.add(observationParameter);
                 }
             }
-            informationResource.setObservationDisciplines(observationDisciplineSet);
-            informationResource.setObservationTypes(observationTypeSet);
-            informationResource.setObservationParameters(observationParameterSet);
         }
-        else {
-            informationResource.setObservationDisciplines(null);
-            informationResource.setObservationTypes(null);
-            informationResource.setObservationParameters(null);
+        informationResource.setObservationParameters(observationParameterSet);
+
+        Set<Organization> organizationSet = new HashSet<>();
+        if (organizations != null) {
+            for (Organization organization : organizations) {
+                if (organization != null) {
+                    organizationSet.add(organization);
+                }
+            }
         }
+        informationResource.setOrganizations(organizationSet);
 
         Set<ObservationScope> observationScopeSet = new HashSet<>();
         if (observationScopes != null) {
@@ -185,16 +219,6 @@ public class InformationResourcePostController {
             }
         }
         informationResource.setObservationTerritories(observationTerritorySet);
-
-        Set<Organization> organizationSet = new HashSet<>();
-        if (organizations != null) {
-            for (Organization organization : organizations) {
-                if (organization != null) {
-                    organizationSet.add(organization);
-                }
-            }
-        }
-        informationResource.setOrganizations(organizationSet);
     }
 
     public List<UploadedFile> saveFiles(InformationResource informationResource, MultipartFile[] files) throws IOException {

@@ -12,6 +12,8 @@
                 <tr>
                     <th>Имя пользователя</th>
                     <th>Роли пользователя</th>
+                    <th>Редактирование</th>
+                    <th>Блокировка</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +28,9 @@
                         <#else>
                             <td><a class="btn btn-success btn-sm m-0" href="/users/activate/${user.id}">Разблокировать</a></td>
                         </#if>
+                    <#else>
+                        <td></td>
+                        <td></td>
                     </#if>
                 </tr>
             </#list>

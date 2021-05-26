@@ -1,4 +1,8 @@
 jQuery(document).ready(function () {
+    function bindSelect2() {
+        $('.select2').select2();
+    }
+
     function getOptions(result) {
         if (result.type === 'error') {
             alert('error');
@@ -13,10 +17,6 @@ jQuery(document).ready(function () {
 
             return options;
         }
-    }
-
-    function bindSelect2() {
-        $('.select2').select2();
     }
 
     function ajaxRequest(requestAddress, id, parentDiv, changedObj, changedObjHtml) {
@@ -83,25 +83,8 @@ jQuery(document).ready(function () {
     $('.getObservationDiscipline').on("change", changeTypes);
     $('.getObservationType').on("change", changeParameters);
 
-    function delOrganization() {
-        $(this).parents('.organizationDiv').first().remove();
-    }
-
-    function delDisc() {
-        $(this).parents('.discDiv').first().remove();
-    }
-    function delType() {
-        $(this).parents('.typeDiv').first().remove();
-    }
-    function delParam() {
-        $(this).parents('.paramDiv').first().remove();
-    }
-
-    function delScope() {
-        $(this).parents('.scopeDiv').first().remove();
-    }
-    function delTerritory() {
-        $(this).parents('.territoryDiv').first().remove();
+    function delAdditionalBlock() {
+        $(this).parents('.additionalBlock').first().remove();
     }
 
     function delAllAttachedFiles() {
@@ -109,109 +92,57 @@ jQuery(document).ready(function () {
         $(this).parents('.divAttachedFiles').first().remove();
     }
 
-    let getOrganizationId = 0;
+    let getDiscDivId = 0;
+    let getTypeDivId = 0;
+    let getParamDivId = 0;
 
-    let getDiscId = 0;
-    let getTypeId = 0;
-    let getParamId = 0;
-
-    let getScopeId = 0;
-    let getTerritoryId = 0;
-
-
-    function addOrganization() {
-        let tpl =   '<div class="organizationDiv">' +
-                        '<div class="form-group row">' +
-                            '<label class="col-sm-3 col-form-label">Организация:</label>' +
-                            '<div class="col-sm-9 input-group">' +
-                                '<select name="organization" class="select2 form-control getOrganization" id="getOrganization'+ getOrganizationId +'">' +
-                                    '<option value="0">-- Выберите организацию --</option>' +
-                                    organizations +
-                                '</select>' +
-                                '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn delOrganization" id="delOrganization'+ getOrganizationId +'">x</button>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>';
-        $(this).parents('div').first().before(tpl);
-
-        bindSelect2();
-
-        $('#delOrganization'+ getOrganizationId).on("click", delOrganization);
-
-        getOrganizationId++;
-    }
+    let getOrgDivId = 0;
+    let getScopeDivId = 0;
+    let getTerrDivId = 0;
 
     function addDisc() {
-        let tpl =
-            '<div class="discDiv">' +
+        let changedObj = 'getObservationDiscipline' + getDiscDivId;
+
+        let block =
+            '<div class="discDiv additionalBlock">' +
                 '<div class="form-group row">' +
                     '<label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>' +
                     '<div class="col-sm-9 input-group">' +
-                        '<select name="observationDiscipline" class="select2 form-control getObservationDiscipline" id="getObservationDiscipline'+ getDiscId +'">' +
+                        '<select name="observationDiscipline" class="select2 form-control getObservationDiscipline" id="getObservationDiscipline'+ getDiscDivId +'">' +
                             '<option value="0">-- Выберите дисциплину --</option>' +
                             disciplines +
                         '</select>' +
                         '<div class="input-group-append">' +
-                            '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn delDisc" id="delDisc'+ getDiscId +'">x</button>' +
+                            '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delDisc'+ getDiscDivId +'">x</button>' +
                         '</div>' +
                     '</div>' +
-                '</div>' +
-                '<div class="typeDiv">' +
-                    '<div class="form-group row">' +
-                        '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
-                        '<div class="col-sm-9">' +
-                            '<select name="observationType" class="select2 form-control getObservationType" id="getObservationType'+ getTypeId +'" disabled>' +
-                                '<option value="0">-- Выберите вид наблюдений --</option>' +
-                            '</select>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="paramDiv">' +
-                        '<div class="form-group row">' +
-                            '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
-                            '<div class="col-sm-9">' +
-                                '<select name="observationParameter" class="select2 form-control getObservationParameter" id="getObservationParameter'+ getParamId +'" disabled>' +
-                                    '<option value="0">-- Выберите параметр наблюдений --</option>' +
-                                '</select>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="form-group row m-0">' +
-                        '<button type="button" class="btn btn-primary btn-block addParam" id="addParam'+ getParamId +'">Добавить параметр</button>' +
-                    '</div>' +
-                    '<hr>' +
                 '</div>' +
                 '<div class="form-group row m-0">' +
-                    '<button type="button" class="btn btn-primary btn-block addType" id="addType'+ getTypeId +'">Добавить вид</button>' +
+                    '<button type="button" class="btn btn-primary btn-block addType" id="addType'+ getDiscDivId +'">Добавить вид</button>' +
                 '</div>' +
                 '<hr>' +
             '</div>';
-        $(this).parents('div').first().before(tpl);
+        $(this).parents('div').first().before(block);
 
         bindSelect2();
 
-        $('#getObservationDiscipline' + getDiscId).on("change", changeTypes);
-        $('#getObservationType' + getTypeId).on("change", changeParameters);
+        $('#' + changedObj).on("change", changeTypes);
 
-        $('#addType' + getTypeId).on("click", addType);
-        $('#addParam'+ getParamId).on("click", addParam);
+        $('#delDisc'+ getDiscDivId).on("click", delAdditionalBlock);
 
-        $('#delDisc'+ getDiscId).on("click", delDisc);
+        $('#addType' + getDiscDivId).on("click", addType);
 
-        getDiscId++;
-        getTypeId++;
-        getParamId++;
+        getDiscDivId++;
     }
 
     function addType() {
         let requestAddress = "/getObservationTypeList",
             idDisc = $(this).parents('.discDiv').first().find(".getObservationDiscipline").val(),
             parentDiv = $(this).parents('.discDiv').first(),
-            changedObj = 'getObservationType' + getTypeId,
+            changedObj = 'getObservationType' + getTypeDivId,
             changedObjHtml = '<option value="0">-- Выберите вид наблюдений --</option>';
 
-        let tpl =   '<div class="typeDiv">' +
+        let block = '<div class="typeDiv additionalBlock">' +
                         '<div class="form-group row">' +
                             '<label class="col-sm-3 col-form-label">Вид наблюдений:</label>' +
                             '<div class="col-sm-9 input-group">' +
@@ -219,37 +150,26 @@ jQuery(document).ready(function () {
                                     changedObjHtml +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn delType" id="delType'+ getTypeId +'">x</button>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="paramDiv">' +
-                            '<div class="form-group row">' +
-                                '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
-                                '<div class="col-sm-9">' +
-                                    '<select name="observationParameter" class="select2 form-control getObservationParameter" id="getObservationParameter'+ getParamId +'" disabled>' +
-                                        '<option value="0">-- Выберите параметр наблюдений --</option>' +
-                                    '</select>' +
+                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delType'+ getTypeDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                         '<div class="form-group row m-0">' +
-                            '<button type="button" class="btn btn-primary btn-block addParam" id="addParam'+ getParamId +'">Добавить параметр</button>' +
+                            '<button type="button" class="btn btn-primary btn-block addParam" id="addParam'+ getTypeDivId +'">Добавить параметр</button>' +
                         '</div>' +
                         '<hr>' +
                     '</div>';
-        $(this).parents('div').first().before(tpl);
+        $(this).parents('div').first().before(block);
 
         bindSelect2();
 
         $('#' + changedObj).on("change", changeParameters);
 
-        $('#addParam'+ getParamId).on("click", addParam);
+        $('#delType'+ getTypeDivId).on("click", delAdditionalBlock);
 
-        $('#delType'+ getTypeId).on("click", delType);
+        $('#addParam'+ getTypeDivId).on("click", addParam);
 
-        getTypeId++;
-        getParamId++;
+        getTypeDivId++;
 
         if (idDisc != 0) {
             ajaxRequest(requestAddress, idDisc, parentDiv, '#' + changedObj, changedObjHtml);
@@ -260,98 +180,117 @@ jQuery(document).ready(function () {
         let requestAddress = "/getObservationParameterList",
             idType = $(this).parents('.typeDiv').first().find(".getObservationType").val(),
             parentDiv = $(this).parents('.typeDiv').first(),
-            changedObj = 'getObservationParameter' + getParamId,
+            changedObj = 'getObservationParameter' + getParamDivId,
             changedObjHtml = '<option value="0">-- Выберите параметр наблюдений --</option>';
 
-        let tpl =   '<div class="paramDiv">' +
-                        '<div class="form-group row">' +
+        let block =   '<div class="paramDiv additionalBlock">' +
+                        '<div class="form-group row mb-0">' +
                             '<label class="col-sm-3 col-form-label">Параметр наблюдений:</label>' +
                             '<div class="col-sm-9 input-group">' +
                                 '<select name="observationParameter" class="select2 form-control getObservationParameter" id="'+ changedObj +'" disabled>' +
                                     changedObjHtml +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn delParam" id="delParam'+ getParamId +'">x</button>' +
+                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delParam'+ getParamDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
-        $(this).parents('div').first().before(tpl);
+        $(this).parents('div').first().before(block);
 
         bindSelect2();
 
-        $('#delParam'+ getParamId).on("click", delParam);
+        $('#delParam'+ getParamDivId).on("click", delAdditionalBlock);
 
-        getParamId++;
+        getParamDivId++;
 
         if (idType != 0) {
             ajaxRequest(requestAddress, idType, parentDiv, '#' + changedObj, changedObjHtml);
         }
     }
 
+    function addOrganization() {
+        let block = '<div class="additionalBlock">' +
+                        '<div class="form-group row">' +
+                            '<label class="col-sm-3 col-form-label">Организация:</label>' +
+                            '<div class="col-sm-9 input-group">' +
+                                '<select name="organization" class="select2 form-control getOrganization" id="getOrganization'+ getOrgDivId +'">' +
+                                    '<option value="0">-- Выберите организацию --</option>' +
+                                    organizations +
+                                '</select>' +
+                                '<div class="input-group-append">' +
+                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delOrganization'+ getOrgDivId +'">x</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+        $(this).parents('div').first().before(block);
+
+        bindSelect2();
+
+        $('#delOrganization'+ getOrgDivId).on("click", delAdditionalBlock);
+
+        getOrgDivId++;
+    }
+
     function addScope() {
-        let tpl =   '<div class="scopeDiv">' +
+        let block = '<div class="additionalBlock">' +
                         '<div class="form-group row">' +
                             '<label class="col-sm-3 col-form-label">Сфера наблюдений:</label>' +
                             '<div class="col-sm-9 input-group">' +
-                                '<select name="observationScope" class="select2 form-control getObservationScope" id="getObservationScope'+ getScopeId +'">' +
+                                '<select name="observationScope" class="select2 form-control getObservationScope" id="getObservationScope'+ getScopeDivId +'">' +
                                     '<option value="0">-- Выберите сферу наблюдений --</option>' +
                                     scopes +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn delScope" id="delScope'+ getScopeId +'">x</button>' +
+                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delScope'+ getScopeDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
 
-        $(this).parents('div').first().before(tpl);
+        $(this).parents('div').first().before(block);
 
         bindSelect2();
 
-        $('#delScope'+ getScopeId).on("click", delScope);
+        $('#delScope'+ getScopeDivId).on("click", delAdditionalBlock);
 
-        getScopeId++;
+        getScopeDivId++;
     }
 
     function addTerritory() {
-        let tpl =   '<div class="territoryDiv">' +
+        let block = '<div class="additionalBlock">' +
                         '<div class="form-group row">' +
                             '<label class="col-sm-3 col-form-label">Территория наблюдений:</label>' +
                             '<div class="col-sm-9 input-group">' +
-                                '<select name="observationTerritory" class="select2 form-control getObservationTerritory" id="getObservationTerritory' + getTerritoryId +'">' +
+                                '<select name="observationTerritory" class="select2 form-control getObservationTerritory" id="getObservationTerritory' + getTerrDivId +'">' +
                                     '<option value="0">-- Выберите территорию наблюдений --</option>' +
                                     territories +
                                 '</select>' +
                                 '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn delTerritory" id="delTerritory'+ getTerritoryId +'">x</button>' +
+                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delTerritory'+ getTerrDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
-
-        $(this).parents('div').first().before(tpl);
+        $(this).parents('div').first().before(block);
 
         bindSelect2();
 
-        $('#delTerritory'+ getTerritoryId).on("click", delTerritory);
+        $('#delTerritory'+ getTerrDivId).on("click", delAdditionalBlock);
 
-        getTerritoryId++;
+        getTerrDivId++;
     }
 
-    $('.addOrganization').on("click", addOrganization);
     $('.addDisc').on("click", addDisc);
     $('.addType').on("click", addType);
     $('.addParam').on("click", addParam);
+
+    $('.addOrganization').on("click", addOrganization);
     $('.addScope').on("click", addScope);
     $('.addTerritory').on("click", addTerritory);
 
-    $('.delOrganization').on("click", delOrganization);
-    $('.delDisc').on("click", delDisc);
-    $('.delType').on("click", delType);
-    $('.delParam').on("click", delParam);
-    $('.delScope').on("click", delScope);
-    $('.delTerritory').on("click", delTerritory);
+    $('.delBtn').on("click", delAdditionalBlock);
 
     $('.delAllAttachedFiles').on("click", delAllAttachedFiles);
 });

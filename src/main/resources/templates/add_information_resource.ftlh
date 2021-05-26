@@ -53,17 +53,15 @@
                     </select>
                 </div>
             </div>
-            <div class="organizationDiv">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Главная организация:</label>
-                    <div class="col-sm-9 input-group">
-                        <select name="mainOrganization" class="select2 form-control getOrganization">
-                            <option value="0">-- Выберите организацию --</option>
-                            <#list organizations as organization>
-                                <option value="${organization.id}">${organization.name}</option>
-                            </#list>
-                        </select>
-                    </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Главная организация:</label>
+                <div class="col-sm-9 input-group">
+                    <select name="mainOrganization" class="select2 form-control getOrganization">
+                        <option value="0">-- Выберите организацию --</option>
+                        <#list organizations as organization>
+                            <option value="${organization.id}">${organization.name}</option>
+                        </#list>
+                    </select>
                 </div>
             </div>
             <div class="form-group row m-0">
@@ -121,85 +119,18 @@
             </div>
             <hr>
 
-            <div class="discDiv">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
-                    <div class="col-sm-9 input-group">
-                        <select name="observationDiscipline" class="select2 form-control getObservationDiscipline">
-                            <option value="0">-- Выберите дисциплину --</option>
-                            <#list observationDisciplines as observationDiscipline>
-                                <option value="${observationDiscipline.id}">${observationDiscipline.name}</option>
-                            </#list>
-                        </select>
-                    </div>
-                </div>
-                <div class="typeDiv">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
-                        <div class="col-sm-9 input-group">
-                            <select name="observationType" class="select2 form-control getObservationType" disabled>
-                                <option value="0">-- Выберите вид наблюдений --</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="paramDiv">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
-                            <div class="col-sm-9 input-group">
-                                <select name="observationParameter" class="select2 form-control getObservationParameter" disabled>
-                                    <option value="0">-- Выберите параметр наблюдений --</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row m-0">
-                        <button type="button" class="btn btn-primary btn-block addParam">Добавить параметр</button>
-                    </div>
-                    <hr>
-                </div>
-                <div class="form-group row m-0">
-                    <button type="button" class="btn btn-primary btn-block addType">Добавить вид</button>
-                </div>
-                <hr>
-            </div>
             <div class="form-group row m-0">
                 <button type="button" class="btn btn-primary btn-block addDisc">Добавить дисциплину</button>
             </div>
             <hr>
 
-            <div class="scopeDiv">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
-                    <div class="col-sm-9 input-group">
-                        <select name="observationScope" class="select2 form-control getObservationScope">
-                            <option value="0">-- Выберите сферу наблюдений --</option>
-                            <#list observationScopes as observationScope>
-                                <option value="${observationScope.id}">${observationScope.name}</option>
-                            </#list>
-                        </select>
-                    </div>
-                </div>
-            </div>
             <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу</button>
+                <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу наблюдений</button>
             </div>
             <hr>
 
-            <div class="territoryDiv">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
-                    <div class="col-sm-9 input-group">
-                        <select name="observationTerritory" class="select2 form-control getObservationTerritory">
-                            <option value="0">-- Выберите территорию наблюдений --</option>
-                            <#list observationTerritories as observationTerritory>
-                                <option value="${observationTerritory.id}">${observationTerritory.name}</option>
-                            </#list>
-                        </select>
-                    </div>
-                </div>
-            </div>
             <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addTerritory">Добавить территорию</button>
+                <button type="button" class="btn btn-primary btn-block addTerritory">Добавить территорию наблюдений</button>
             </div>
             <hr>
 
@@ -219,7 +150,7 @@
                 <label class="col-sm-3 col-form-label">Дубликат:</label>
                 <div class="col-sm-9">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" name="duplicate" value="1">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" name="duplicate">
                         <label class="custom-control-label" for="customCheck1"></label>
                     </div>
                 </div>

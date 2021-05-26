@@ -3,7 +3,7 @@
     <div class="container">
         <h2 class="mb-3" align="center">Изменение мета-описания информационного ресурса</h2>
 
-        <form action="/information_resources/edit/${informationResource.id}" enctype="multipart/form-data" method="post">
+        <form action="/information_resources/edit/${informationResource.id}" method="post" enctype="multipart/form-data">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Тип ресурса:</label>
                 <div class="col-sm-9">
@@ -62,24 +62,22 @@
                     </select>
                 </div>
             </div>
-            <div class="organizationDiv">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Главная организация:</label>
-                    <div class="col-sm-9 input-group">
-                        <select name="mainOrganization" class="select2 form-control getOrganization">
-                            <#list organizations as organization>
-                                <#if organization == informationResource.mainOrganization>
-                                    <option selected value="${organization.id}">${organization.name}</option>
-                                <#else>
-                                    <option value="${organization.id}">${organization.name}</option>
-                                </#if>
-                            </#list>
-                        </select>
-                    </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Главная организация:</label>
+                <div class="col-sm-9 input-group">
+                    <select name="mainOrganization" class="select2 form-control getOrganization">
+                        <#list organizations as organization>
+                            <#if organization == informationResource.mainOrganization>
+                                <option selected value="${organization.id}">${organization.name}</option>
+                            <#else>
+                                <option value="${organization.id}">${organization.name}</option>
+                            </#if>
+                        </#list>
+                    </select>
                 </div>
             </div>
             <#list informationResource.organizations as infresOrganization>
-                <div class="organizationDiv">
+                <div class="additionalBlock">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Организация:</label>
                         <div class="col-sm-9 input-group">
@@ -93,7 +91,7 @@
                                 </#list>
                             </select>
                             <div class="input-group-append">
-                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delOrganization" type="button">x</button>
+                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
                             </div>
                         </div>
                     </div>
@@ -161,7 +159,7 @@
             <hr>
 
             <#list informationResource.observationDisciplines as infresObservationDiscipline>
-                <div class="discDiv">
+                <div class="discDiv additionalBlock">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
                         <div class="col-sm-9 input-group">
@@ -174,17 +172,14 @@
                                     </#if>
                                 </#list>
                             </select>
-
-                            <#if !(infresObservationDiscipline == informationResource.observationDisciplines[0])>
-                                <div class="input-group-append">
-                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delDisc" type="button">x</button>
-                                </div>
-                            </#if>
+                            <div class="input-group-append">
+                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                            </div>
                         </div>
                     </div>
                     <#list infresObservationDiscipline.observationTypes as infresObservationType>
                         <#if informationResource.observationTypes?seq_contains(infresObservationType)>
-                            <div class="typeDiv">
+                            <div class="typeDiv additionalBlock">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
                                     <div class="col-sm-9 input-group">
@@ -197,19 +192,16 @@
                                                 </#if>
                                             </#list>
                                         </select>
-
-                                        <#if !(infresObservationType == infresObservationDiscipline.observationTypes[0])>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delType" type="button">x</button>
-                                            </div>
-                                        </#if>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <#list infresObservationType.observationParameters as infresObservationParameter>
                                     <#if informationResource.observationParameters?seq_contains(infresObservationParameter)>
-                                        <div class="paramDiv">
-                                            <div class="form-group row">
+                                        <div class="paramDiv additionalBlock">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
                                                 <div class="col-sm-9 input-group">
                                                     <select name="observationParameter" class="select2 form-control getObservationParameter">
@@ -221,12 +213,9 @@
                                                             </#if>
                                                         </#list>
                                                     </select>
-
-                                                    <#if !(infresObservationParameter == infresObservationType.observationParameters[0])>
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delParam" type="button">x</button>
-                                                        </div>
-                                                    </#if>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -235,12 +224,14 @@
                                 <div class="form-group row m-0">
                                     <button type="button" class="btn btn-primary btn-block addParam">Добавить параметр</button>
                                 </div>
+                                <hr>
                             </div>
                         </#if>
                     </#list>
                     <div class="form-group row m-0">
                         <button type="button" class="btn btn-primary btn-block addType">Добавить вид</button>
                     </div>
+                    <hr>
                 </div>
             </#list>
             <div class="form-group row m-0">
@@ -249,7 +240,7 @@
             <hr>
 
             <#list informationResource.observationScopes as infresObservationScope>
-                <div class="scopeDiv">
+                <div class="additionalBlock">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
                         <div class="col-sm-9 input-group">
@@ -262,23 +253,20 @@
                                     </#if>
                                 </#list>
                             </select>
-
-                            <#if !(infresObservationScope == informationResource.observationScopes[0])>
-                                <div class="input-group-append">
-                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delScope" type="button">x</button>
-                                </div>
-                            </#if>
+                            <div class="input-group-append">
+                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </#list>
             <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу</button>
+                <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу наблюдений</button>
             </div>
             <hr>
 
             <#list informationResource.observationTerritories as infresObservationTerritory>
-                <div class="territoryDiv">
+                <div class="additionalBlock">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
                         <div class="col-sm-9 input-group">
@@ -291,25 +279,22 @@
                                     </#if>
                                 </#list>
                             </select>
-
-                            <#if !(infresObservationTerritory == informationResource.observationTerritories[0])>
-                                <div class="input-group-append">
-                                    <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delTerritory" type="button">x</button>
-                                </div>
-                            </#if>
+                            <div class="input-group-append">
+                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </#list>
             <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addTerritory">Добавить территорию</button>
+                <button type="button" class="btn btn-primary btn-block addTerritory">Добавить территорию наблюдений</button>
             </div>
             <hr>
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Краткое описание содержания:</label>
                 <div class="col-sm-9">
-                    <textarea name="briefContent" class="form-control" rows="2" placeholder="Краткое описание информационного продукта">${informationResource.briefContent}</textarea>
+                    <textarea name="briefContent" class="form-control" rows="2" placeholder="Краткое описание информационного ресурса">${informationResource.briefContent}</textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -322,7 +307,7 @@
                 <label class="col-sm-3 col-form-label">Дубликат:</label>
                 <div class="col-sm-9">
                     <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" name="duplicate" value="1" ${informationResource.duplicate?string('checked', '')}>
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" name="duplicate" ${informationResource.duplicate?string('checked', '')}>
                         <label class="custom-control-label" for="customCheck1"></label>
                     </div>
                 </div>
