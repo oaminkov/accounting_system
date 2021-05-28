@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+$(document).ready(function () {
     function bindSelect2() {
         $('.select2').select2();
     }

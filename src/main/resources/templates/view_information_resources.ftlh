@@ -1,9 +1,13 @@
-<#include "parts/head.ftlh">
-    <#include "parts/navbar.ftlh">
-    <div align="center" style="width:99%; margin:0 auto;">
-        <h2>Информационные ресурсы</h2>
+<#import "parts/view_table.ftlh" as vt>
+<@vt.view_table>
+    <#include "parts/security.ftlh">
 
-        <a href="/information_resources/add" class="btn btn-primary mb-3">Создать новый информационный ресурс</a>
+    <main class="mb-2" style="width:99%; margin:0 auto;">
+        <h2 align="center">Информационные ресурсы</h2>
+
+        <div class="d-flex justify-content-center mb-3">
+            <a href="/information_resources/add" class="btn btn-primary">Создать новый информационный ресурс</a>
+        </div>
 
         <table id="table_id" class="table table-striped table-bordered mt-0">
             <thead>
@@ -75,19 +79,5 @@
             </#list>
             </tbody>
         </table>
-    </div>
-
-    <#include "parts/scripts.ftlh">
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            jQuery('#table_id').DataTable( {
-                paging: true,
-                info: true,
-                searching: true,
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Russian.json"
-                }
-            });
-        });
-    </script>
-<#include "parts/foot.ftlh">
+    </main>
+</@vt.view_table>

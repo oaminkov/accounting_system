@@ -1,4 +1,4 @@
-<#import "parts/view_table.ftlh" as v>
+<#import "parts/view_objects.ftlh" as v>
 <@v.view "/observation_types/add" "Виды наблюдений" "Добавить вид наблюдений">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>

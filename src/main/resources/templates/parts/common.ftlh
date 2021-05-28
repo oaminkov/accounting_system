@@ -1,11 +1,12 @@
 <#macro page>
-    <#include "head.ftlh">
-        <#include "navbar.ftlh">
+    <#include "*/head.ftlh">
+        <#include "*/navbar.ftlh">
         <!--КОНТЕНТ-->
-        <div class="container">
+        <main class="container">
             <#nested>
-        </div>
+        </main>
         <!--/КОНТЕНТ-->
-        <#include "scripts.ftlh">
-    <#include "foot.ftlh">
+        <#include "*/footer.ftlh">
+        <#include "*/scripts.ftlh">
+    <#include "*/foot.ftlh">
 </#macro>

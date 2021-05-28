@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+$(document).ready(function () {
     function changeTypes() {
         let id = $(this).val();
 

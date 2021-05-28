@@ -1,4 +1,4 @@
-<#import "parts/add_obj.ftlh" as a>
+<#import "parts/add_object.ftlh" as a>
 <@a.add "/organizations/add" "/organizations" "Добавление организации">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Аббревиатура организации:</label>

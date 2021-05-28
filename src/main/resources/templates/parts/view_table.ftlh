@@ -1,26 +1,28 @@
-<#macro view path name namebtn>
-    <#include "head.ftlh">
-        <#include "navbar.ftlh">
-        <div class="container mb-3">
-            <h2 class="mb-3" align="center">${name}</h2>
-            <form action="${path}" class="mb-3" align="center">
-                <button type="submit" class="btn btn-primary m-0">${namebtn}</button>
-            </form>
-            <#nested>
-        </div>
+<#macro view_table>
+    <#include "*/head.ftlh">
+        <#include "*/navbar.ftlh">
 
-        <#include "scripts.ftlh">
-        <script type="text/javascript">
-            jQuery(document).ready(function() {
-                jQuery('#table_id').DataTable( {
-                    paging: true,
-                    info: true,
-                    searching: true,
-                    language: {
-                        url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Russian.json"
-                    }
-                });
+        <#nested>
+
+    <#include "*/footer.ftlh">
+
+    <#include "*/scripts.ftlh">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#table_id').DataTable( {
+                paging: true,
+                info: true,
+                searching: true,
+                fixedHeader: {
+                    header: true,
+                    headerOffset: $('.navbar').height() + 15
+                },
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Russian.json"
+                }
             });
-        </script>
-    <#include "foot.ftlh">
+        });
+    </script>
+
+    <#include "*/foot.ftlh">
 </#macro>

@@ -37,7 +37,6 @@
             </tbody>
         </table>
     </div>
-
     <#include "parts/scripts.ftlh">
     <script type="text/javascript">
         jQuery(document).ready(function() {

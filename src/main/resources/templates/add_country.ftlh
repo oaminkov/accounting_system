@@ -1,4 +1,4 @@
-<#import "parts/add_obj.ftlh" as a>
+<#import "parts/add_object.ftlh" as a>
 <@a.add "/countries/add" "/countries" "Добавление страны">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Страна:</label>

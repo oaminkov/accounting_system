@@ -1,4 +1,4 @@
-<#import "parts/view_table.ftlh" as v>
+<#import "parts/view_objects.ftlh" as v>
 <@v.view "/countries/add" "Страны" "Добавить страну">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>

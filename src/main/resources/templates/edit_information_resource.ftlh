@@ -234,7 +234,7 @@
                     <hr>
                 </div>
             </#list>
-            <div class="form-group row m-0">
+            <div class="form-group row m-0 mb-3">
                 <button type="button" class="btn btn-primary btn-block addDisc">Добавить дисциплину</button>
             </div>
             <hr>
@@ -260,7 +260,7 @@
                     </div>
                 </div>
             </#list>
-            <div class="form-group row m-0">
+            <div class="form-group row m-0 mb-3">
                 <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу наблюдений</button>
             </div>
             <hr>
@@ -346,6 +346,8 @@
         </form>
         <a href="${backAddress}" class="btn btn-outline-secondary m-0 mb-3 waves-effect">Назад</a>
     </div>
+    <#include "parts/footer.ftlh">
+
     <#include "parts/scripts.ftlh">
     <script>
         let organizations = '<#list organizations as organization>' +
@@ -360,8 +362,8 @@
         let territories =   '<#list observationTerritories as observationTerritory>' +
                                 '<option value="${observationTerritory.id}">${observationTerritory.name}</option>' +
                             '</#list>';
-
         let infresId = '${informationResource.id}';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>
+
 <#include "parts/foot.ftlh">

@@ -93,58 +93,69 @@
         </div>
         <hr>
 
-        <#list informationResource.observationDisciplines as observationDiscipline>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
-                <div class="col-sm-9">
-                    <input readonly type="text" class="form-control" value="${observationDiscipline.name}">
-                </div>
-            </div>
-
-            <#list observationDiscipline.observationTypes as observationType>
-                <#if informationResource.observationTypes?seq_contains(observationType)>
-                    <br>
+        <#if informationResource.observationDisciplines?has_content>
+            <#list informationResource.observationDisciplines as observationDiscipline>
+                <div class="discDiv">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
+                        <label class="col-sm-3 col-form-label">Дисциплина наблюдений:</label>
                         <div class="col-sm-9">
-                            <input readonly type="text" class="form-control" value="${observationType.name}">
+                            <input readonly type="text" class="form-control" value="${observationDiscipline.name}">
                         </div>
                     </div>
-
-                    <#list observationType.observationParameters as observationParameter>
-                        <#if informationResource.observationParameters?seq_contains(observationParameter)>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
-                                <div class="col-sm-9">
-                                    <input readonly type="text" class="form-control" value="${observationParameter.name}">
+                    <#list observationDiscipline.observationTypes as observationType>
+                        <#if informationResource.observationTypes?seq_contains(observationType)>
+                            <div class="typeDiv">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Вид наблюдений:</label>
+                                    <div class="col-sm-9">
+                                        <input readonly type="text" class="form-control" value="${observationType.name}">
+                                    </div>
                                 </div>
+                                <#list observationType.observationParameters as observationParameter>
+                                    <#if informationResource.observationParameters?seq_contains(observationParameter)>
+                                        <div class="paramDiv">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-3 col-form-label">Параметр наблюдений:</label>
+                                                <div class="col-sm-9">
+                                                    <input readonly type="text" class="form-control" value="${observationParameter.name}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#if>
+                                </#list>
+                                <hr>
                             </div>
                         </#if>
                     </#list>
-                </#if>
+                    <hr>
+                </div>
             </#list>
             <hr>
-        </#list>
+        </#if>
 
-        <#list informationResource.observationScopes as observationScope>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
-                <div class="col-sm-9">
-                    <input readonly type="text" class="form-control" value="${observationScope.name}">
+        <#if informationResource.observationScopes?has_content>
+            <#list informationResource.observationScopes as observationScope>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>
+                    <div class="col-sm-9">
+                        <input readonly type="text" class="form-control" value="${observationScope.name}">
+                    </div>
                 </div>
-            </div>
-        </#list>
-        <hr>
+            </#list>
+            <hr>
+        </#if>
 
-        <#list informationResource.observationTerritories as observationTerritory>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
-                <div class="col-sm-9">
-                    <input readonly type="text" class="form-control" value="${observationTerritory.name}">
+        <#if informationResource.observationTerritories?has_content>
+            <#list informationResource.observationTerritories as observationTerritory>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Территория наблюдений:</label>
+                    <div class="col-sm-9">
+                        <input readonly type="text" class="form-control" value="${observationTerritory.name}">
+                    </div>
                 </div>
-            </div>
-        </#list>
-        <hr>
+            </#list>
+            <hr>
+        </#if>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Краткое описание:</label>

@@ -119,12 +119,12 @@
             </div>
             <hr>
 
-            <div class="form-group row m-0">
+            <div class="form-group row m-0 mb-3">
                 <button type="button" class="btn btn-primary btn-block addDisc">Добавить дисциплину</button>
             </div>
             <hr>
 
-            <div class="form-group row m-0">
+            <div class="form-group row m-0 mb-3">
                 <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу наблюдений</button>
             </div>
             <hr>
@@ -169,6 +169,8 @@
         </form>
         <a href="/information_resources" class="btn btn-outline-secondary m-0 mb-4 waves-effect">Назад</a>
     </div>
+    <#include "parts/footer.ftlh">
+
     <#include "parts/scripts.ftlh">
     <script>
         let organizations = '<#list organizations as organization>' +
@@ -185,4 +187,5 @@
                             '</#list>';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>
+
 <#include "parts/foot.ftlh">
