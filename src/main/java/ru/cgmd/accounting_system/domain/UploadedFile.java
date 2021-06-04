@@ -53,4 +53,9 @@ public class UploadedFile {
         return informationResource;
     }
     public void setInformationResource(InformationResource informationResource) { this.informationResource = informationResource; }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

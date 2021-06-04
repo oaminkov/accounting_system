@@ -25,14 +25,14 @@ import java.util.zip.ZipOutputStream;
 public class InformationResourceGetController {
     private final InformationResourceService informationResourceService;
     private final ResourceTypeService resourceTypeService;
-    private final RelatedProjectService relatedProjectService;
     private final LanguageService languageService;
-    private final CountryService countryService;
+    private final RelatedProjectService relatedProjectService;
     private final ObservationMethodService observationMethodService;
+    private final CountryService countryService;
+    private final OrganizationService organizationService;
     private final ObservationDisciplineService observationDisciplineService;
     private final ObservationScopeService observationScopeService;
     private final ObservationTerritoryService observationTerritoryService;
-    private final OrganizationService organizationService;
     private final UploadedFileRepository uploadedFileRepository;
 
     public InformationResourceGetController(
@@ -91,7 +91,7 @@ public class InformationResourceGetController {
     }
 
     @GetMapping("add")
-    public String showNewInformationProductPage(Model model) {
+    public String showNewInformationResourcePage(Model model) {
         selectDataFromDbToModel(model);
         return "add_information_resource";
     }
@@ -106,7 +106,7 @@ public class InformationResourceGetController {
     }
 
     @GetMapping("edit/{id}")
-    public String showEditInformationProductPage(
+    public String showEditInformationResourcePage(
             @PathVariable("id") InformationResource informationResource,
             Model model,
             HttpServletRequest request

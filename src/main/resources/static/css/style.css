@@ -1,27 +1,29 @@
 body {
-    font-family: Roboto,sans-serif;
+    font-family: Roboto, sans-serif;
     font-weight: 400;
 }
 
 .discDiv, .typeDiv, .paramDiv {
     padding: 10px 10px 0;
-    border-radius: 5px;
+    border-radius: 2px;
 }
-
 .discDiv {
     background-color: #edeab2;
     margin-top: 25px;
 }
-
 .typeDiv {
     background-color: #ced6d3;
 }
-
 .paramDiv {
     margin-bottom: 10px;
     padding-bottom: 10px;
     background-color: #9fa6a3;
 }
+
+/*.addType, .addType:hover, .addType:focus,
+.addParam, .addParam:hover, .addParam:focus{
+    background-color:white !important;
+}*/
 
 .custom-file-input ~ .custom-file-label::after {
     content: "Выбрать";
@@ -29,6 +31,9 @@ body {
 
 .delBtn {
     height: 38px;
+    padding: 0 1rem !important;
+    border-radius: 4px !important;
+    margin: 0 !important;
 }
 
 input[type=date], .custom-file-input {
@@ -105,4 +110,7 @@ nav {
 }
 .select2-selection:hover {
     background-color: aliceblue;
+}
+.select2-dropdown {
+    box-shadow: 0 0 50px rgba(0,0,0,0.7);
 }

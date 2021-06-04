@@ -1,6 +1,8 @@
-<#include "parts/head.ftlh">
-    <#include "parts/navbar.ftlh">
-    <div class="container">
+<#import "*/macros/common.ftlh" as c>
+<@c.page>
+    <#include "*/parts/security.ftlh">
+
+    <main class="container">
         <h2 class="mb-3" align="center">Просмотр мета-описания информационного ресурса</h2>
 
         <div class="form-group row">
@@ -242,6 +244,8 @@
             </div>
         </div>
         <a href="/information_resources" class="btn btn-outline-secondary m-0 my-4 waves-effect">Назад</a>
-    </div>
-    <#include "parts/scripts.ftlh">
-<#include "parts/foot.ftlh">
+    </main>
+
+    <#include "*/parts/footer.ftlh">
+    <#include "*/parts/scripts.ftlh">
+</@c.page>

@@ -1,5 +1,5 @@
 <#macro view path name namebtn>
-    <#import "*/view_table.ftlh" as vt>
+    <#import "*/macros/view_table.ftlh" as vt>
     <@vt.view_table>
         <main class="container mb-2">
             <h2 align="center">${name}</h2>

@@ -112,17 +112,19 @@ $(document).ready(function () {
                             '<option value="0">-- Выберите дисциплину --</option>' +
                             disciplines +
                         '</select>' +
-                        '<div class="input-group-append">' +
-                            '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delDisc'+ getDiscDivId +'">x</button>' +
+                        '<div class="input-group-append ml-1">' +
+                            '<button type="button" class="btn btn-md btn-danger btn-block delBtn" id="delDisc'+ getDiscDivId +'">x</button>' +
                         '</div>' +
                     '</div>' +
                 '</div>' +
-                '<div class="form-group row m-0">' +
-                    '<button type="button" class="btn btn-primary btn-block addType" id="addType'+ getDiscDivId +'">Добавить вид</button>' +
+                '<div class="form-group row">' +
+                    '<div class="col-9 ml-auto">' +
+                        '<button type="button" class="btn btn-outline-primary btn-block waves-effect addType" id="addType'+ getDiscDivId +'">Добавить вид</button>' +
+                    '</div>' +
                 '</div>' +
                 '<hr>' +
             '</div>';
-        $(this).parents('div').first().before(block);
+        $(this).parent('div').parent('div').before(block);
 
         bindSelect2();
 
@@ -149,17 +151,19 @@ $(document).ready(function () {
                                 '<select name="observationType" class="select2 form-control getObservationType" id="'+ changedObj +'" disabled>' +
                                     changedObjHtml +
                                 '</select>' +
-                                '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delType'+ getTypeDivId +'">x</button>' +
+                                '<div class="input-group-append ml-1">' +
+                                    '<button type="button" class="btn btn-md btn-danger btn-block delBtn" id="delType'+ getTypeDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
-                        '<div class="form-group row m-0">' +
-                            '<button type="button" class="btn btn-primary btn-block addParam" id="addParam'+ getTypeDivId +'">Добавить параметр</button>' +
+                        '<div class="form-group row">' +
+                            '<div class="col-9 ml-auto">' +
+                                '<button type="button" class="btn btn-outline-primary btn-block waves-effect addParam" id="addParam'+ getTypeDivId +'">Добавить параметр</button>' +
+                            '</div>' +
                         '</div>' +
                         '<hr>' +
                     '</div>';
-        $(this).parents('div').first().before(block);
+        $(this).parent('div').parent('div').before(block);
 
         bindSelect2();
 
@@ -190,13 +194,13 @@ $(document).ready(function () {
                                 '<select name="observationParameter" class="select2 form-control getObservationParameter" id="'+ changedObj +'" disabled>' +
                                     changedObjHtml +
                                 '</select>' +
-                                '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delParam'+ getParamDivId +'">x</button>' +
+                                '<div class="input-group-append ml-1">' +
+                                    '<button type="button" class="btn btn-md btn-danger btn-block delBtn" id="delParam'+ getParamDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
-        $(this).parents('div').first().before(block);
+        $(this).parent('div').parent('div').before(block);
 
         bindSelect2();
 
@@ -218,13 +222,13 @@ $(document).ready(function () {
                                     '<option value="0">-- Выберите организацию --</option>' +
                                     organizations +
                                 '</select>' +
-                                '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delOrganization'+ getOrgDivId +'">x</button>' +
+                                '<div class="input-group-append ml-1">' +
+                                    '<button type="button" class="btn btn-md btn-danger btn-block delBtn" id="delOrganization'+ getOrgDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
-        $(this).parents('div').first().before(block);
+        $(this).parent('div').parent('div').before(block);
 
         bindSelect2();
 
@@ -242,14 +246,14 @@ $(document).ready(function () {
                                     '<option value="0">-- Выберите сферу наблюдений --</option>' +
                                     scopes +
                                 '</select>' +
-                                '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delScope'+ getScopeDivId +'">x</button>' +
+                                '<div class="input-group-append ml-1">' +
+                                    '<button type="button" class="btn btn-md btn-danger btn-block delBtn" id="delScope'+ getScopeDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
 
-        $(this).parents('div').first().before(block);
+        $(this).parent('div').parent('div').before(block);
 
         bindSelect2();
 
@@ -267,13 +271,13 @@ $(document).ready(function () {
                                     '<option value="0">-- Выберите территорию наблюдений --</option>' +
                                     territories +
                                 '</select>' +
-                                '<div class="input-group-append">' +
-                                    '<button type="button" class="btn btn-md btn-danger m-0 ml-1 px-3 py-1 delBtn" id="delTerritory'+ getTerrDivId +'">x</button>' +
+                                '<div class="input-group-append ml-1">' +
+                                    '<button type="button" class="btn btn-md btn-danger btn-block delBtn" id="delTerritory'+ getTerrDivId +'">x</button>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
-        $(this).parents('div').first().before(block);
+        $(this).parent('div').parent('div').before(block);
 
         bindSelect2();
 

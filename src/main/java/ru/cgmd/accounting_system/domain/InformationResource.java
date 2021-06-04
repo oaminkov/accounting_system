@@ -400,4 +400,37 @@ public class InformationResource {
     public void setOrganizations(Set<Organization> organizations) {
         this.organizations = organizations;
     }
+
+    @Override
+    public String toString() {
+        return "InformationResource{" +
+                "id=" + id +
+                ", inventoryNumber='" + inventoryNumber + '\'' +
+                ", fullnameCdrom='" + fullnameCdrom + '\'' +
+                ", abbreviationCdrom='" + abbreviationCdrom + '\'' +
+                ", dateObservationStart='" + dateObservationStart + '\'' +
+                ", dateObservationEnd='" + dateObservationEnd + '\'' +
+                ", briefContent='" + briefContent + '\'' +
+                ", volume='" + volume + '\'' +
+                ", receivedDate='" + receivedDate + '\'' +
+                ", duplicate=" + duplicate +
+                ", dateOfEntering='" + dateOfEntering + '\'' +
+                ", dateOfEdit='" + dateOfEdit + '\'' +
+                ", resourceType=" + resourceType +
+                ", language=" + language +
+                ", relatedProject=" + relatedProject +
+                ", observationMethod=" + observationMethod +
+                ", country=" + country +
+                ", mainOrganization=" + mainOrganization +
+                ", operator=" + operator +
+                ", editor=" + editor +
+                ", uploadedFiles=" + uploadedFiles +
+                ", observationDisciplines=" + observationDisciplines +
+                ", observationTypes=" + observationTypes +
+                ", observationParameters=" + observationParameters +
+                ", observationScopes=" + observationScopes +
+                ", observationTerritories=" + observationTerritories +
+                ", organizations=" + organizations +
+                "}\n";
+    }
 }

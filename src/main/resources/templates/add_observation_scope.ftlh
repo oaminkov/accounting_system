@@ -1,4 +1,4 @@
-<#import "parts/add_object.ftlh" as a>
+<#import "macros/add_object.ftlh" as a>
 <@a.add "/observation_scopes/add" "/observation_scopes" "Добавление сферы наблюдений">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Сфера наблюдений:</label>

@@ -1,6 +1,6 @@
-<#include "parts/head.ftlh">
-    <#include "parts/navbar.ftlh">
-    <div class="container">
+<#import "*/macros/common.ftlh" as c>
+<@c.page>
+    <main class="container">
         <h2 class="mb-3" align="center">Изменение мета-описания информационного ресурса</h2>
 
         <form action="/information_resources/edit/${informationResource.id}" method="post" enctype="multipart/form-data">
@@ -90,15 +90,17 @@
                                     </#if>
                                 </#list>
                             </select>
-                            <div class="input-group-append">
-                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                            <div class="input-group-append ml-1">
+                                <button class="btn btn-md btn-danger btn-block delBtn" type="button">x</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </#list>
-            <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addOrganization">Добавить организацию</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addOrganization">Добавить организацию</button>
+                </div>
             </div>
             <hr>
 
@@ -172,8 +174,8 @@
                                     </#if>
                                 </#list>
                             </select>
-                            <div class="input-group-append">
-                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                            <div class="input-group-append ml-1">
+                                <button class="btn btn-md btn-danger btn-block m-0 delBtn" type="button">x</button>
                             </div>
                         </div>
                     </div>
@@ -192,8 +194,8 @@
                                                 </#if>
                                             </#list>
                                         </select>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                                        <div class="input-group-append ml-1">
+                                            <button class="btn btn-md btn-danger btn-block delBtn" type="button">x</button>
                                         </div>
                                     </div>
                                 </div>
@@ -213,29 +215,35 @@
                                                             </#if>
                                                         </#list>
                                                     </select>
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                                                    <div class="input-group-append ml-1">
+                                                        <button class="btn btn-md btn-danger btn-block delBtn" type="button">x</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </#if>
                                 </#list>
-                                <div class="form-group row m-0">
-                                    <button type="button" class="btn btn-primary btn-block addParam">Добавить параметр</button>
+                                <div class="form-group row">
+                                    <div class="col-9 ml-auto">
+                                        <button type="button" class="btn btn-outline-primary btn-block waves-effect addParam">Добавить параметр</button>
+                                    </div>
                                 </div>
                                 <hr>
                             </div>
                         </#if>
                     </#list>
-                    <div class="form-group row m-0">
-                        <button type="button" class="btn btn-primary btn-block addType">Добавить вид</button>
+                    <div class="form-group row">
+                        <div class="col-9 ml-auto">
+                            <button type="button" class="btn btn-outline-primary btn-block waves-effect addType">Добавить вид</button>
+                        </div>
                     </div>
                     <hr>
                 </div>
             </#list>
-            <div class="form-group row m-0 mb-3">
-                <button type="button" class="btn btn-primary btn-block addDisc">Добавить дисциплину</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addDisc">Добавить дисциплину</button>
+                </div>
             </div>
             <hr>
 
@@ -253,15 +261,17 @@
                                     </#if>
                                 </#list>
                             </select>
-                            <div class="input-group-append">
-                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                            <div class="input-group-append ml-1">
+                                <button class="btn btn-md btn-danger btn-block delBtn" type="button">x</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </#list>
-            <div class="form-group row m-0 mb-3">
-                <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу наблюдений</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addScope">Добавить сферу наблюдений</button>
+                </div>
             </div>
             <hr>
 
@@ -279,15 +289,17 @@
                                     </#if>
                                 </#list>
                             </select>
-                            <div class="input-group-append">
-                                <button class="btn btn-md btn-danger m-0 ml-1 px-3 py-2 delBtn" type="button">x</button>
+                            <div class="input-group-append ml-1">
+                                <button class="btn btn-md btn-danger btn-block delBtn" type="button">x</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </#list>
-            <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addTerritory">Добавить территорию наблюдений</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addTerritory">Добавить территорию наблюдений</button>
+                </div>
             </div>
             <hr>
 
@@ -345,10 +357,10 @@
             <button type="submit" class="btn btn-success btn-block m-0">Сохранить</button><br/>
         </form>
         <a href="${backAddress}" class="btn btn-outline-secondary m-0 mb-3 waves-effect">Назад</a>
-    </div>
-    <#include "parts/footer.ftlh">
+    </main>
 
-    <#include "parts/scripts.ftlh">
+    <#include "*/parts/footer.ftlh">
+    <#include "*/parts/scripts.ftlh">
     <script>
         let organizations = '<#list organizations as organization>' +
                                 '<option value="${organization.id}">${organization.name}</option>' +
@@ -365,5 +377,4 @@
         let infresId = '${informationResource.id}';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>
-
-<#include "parts/foot.ftlh">
+</@c.page>

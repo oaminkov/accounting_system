@@ -43,4 +43,9 @@ public class Language {
     public void setInformationResources(List<InformationResource> informationResources) {
         this.informationResources = informationResources;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

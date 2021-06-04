@@ -1,4 +1,4 @@
-<#import "parts/view_objects.ftlh" as v>
+<#import "macros/view_objects.ftlh" as v>
 <@v.view "/related_projects/add" "Связанные проекты" "Добавить связанный проект">
     <table id="table_id" class="table table-striped table-bordered mt-0" style="width:100%">
         <thead>

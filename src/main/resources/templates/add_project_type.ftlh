@@ -1,4 +1,4 @@
-<#import "parts/add_object.ftlh" as a>
+<#import "macros/add_object.ftlh" as a>
 <@a.add "/project_types/add" "/project_types" "Добавление типа проекта">
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Тип проекта:</label>

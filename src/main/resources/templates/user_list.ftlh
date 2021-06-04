@@ -1,11 +1,13 @@
-<#include "parts/head.ftlh">
-    <#include "parts/navbar.ftlh">
-    <#include "parts/security.ftlh">
+<#import "*/macros/common.ftlh" as c>
+<@c.page>
+    <#include "*/parts/security.ftlh">
 
-    <div class="container" align="center">
-        <h2>Список пользователей</h2>
+    <main class="container">
+        <h2 align="center">Список пользователей</h2>
 
-        <a href="/registration" class="btn btn-primary mb-3">Добавить пользователя</a>
+        <div class="d-flex justify-content-center mb-3">
+            <a href="/registration" class="btn btn-primary">Добавить пользователя</a>
+        </div>
 
         <table id="table_id" class="table table-striped table-bordered">
             <thead>
@@ -36,8 +38,10 @@
             </#list>
             </tbody>
         </table>
-    </div>
-    <#include "parts/scripts.ftlh">
+    </main>
+
+    <#include "*/parts/footer.ftlh">
+    <#include "*/parts/scripts.ftlh">
     <script type="text/javascript">
         jQuery(document).ready(function() {
             jQuery('#table_id').DataTable( {
@@ -50,4 +54,4 @@
             });
         });
     </script>
-<#include "parts/foot.ftlh">
+</@c.page>

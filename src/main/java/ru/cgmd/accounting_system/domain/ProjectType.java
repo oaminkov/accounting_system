@@ -44,4 +44,9 @@ public class ProjectType {
     public void setRelatedProjects(List<RelatedProject> relatedProjects) {
         this.relatedProjects = relatedProjects;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

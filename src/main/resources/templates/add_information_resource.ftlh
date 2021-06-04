@@ -1,6 +1,6 @@
-<#include "parts/head.ftlh">
-    <#include "parts/navbar.ftlh">
-    <div class="container">
+<#import "*/macros/common.ftlh" as c>
+<@c.page>
+    <main class="container">
         <h2 class="mb-3" align="center">Создание нового мета-описания информационного ресурса</h2>
 
         <form action="/information_resources/add" enctype="multipart/form-data" method="post">
@@ -8,7 +8,7 @@
                 <label class="col-sm-3 col-form-label">Тип ресурса:</label>
                 <div class="col-sm-9">
                     <select name="resourceType" class="select2 form-control">
-                        <option value="">-- Выберите тип ресурса --</option>
+                        <option value="0">-- Выберите тип ресурса --</option>
                         <#list resourceTypes as resourceType>
                             <option value="${resourceType.id}">${resourceType.name}</option>
                         </#list>
@@ -35,7 +35,7 @@
                 <label class="col-sm-3 col-form-label">Язык представления:</label>
                 <div class="col-sm-9">
                     <select name="language" class="select2 form-control">
-                        <option value="">-- Выберите язык --</option>
+                        <option value="0">-- Выберите язык --</option>
                         <#list languages as language>
                             <option value="${language.id}">${language.name}</option>
                         </#list>
@@ -46,7 +46,7 @@
                 <label class="col-sm-3 col-form-label">Страна:</label>
                 <div class="col-sm-9">
                     <select name="country" class="select2 form-control">
-                        <option value="">-- Выберите страну --</option>
+                        <option value="0">-- Выберите страну --</option>
                         <#list countries as country>
                             <option value="${country.id}">${country.name}</option>
                         </#list>
@@ -64,8 +64,10 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addOrganization">Добавить организацию</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addOrganization">Добавить организацию</button>
+                </div>
             </div>
             <hr>
 
@@ -119,18 +121,24 @@
             </div>
             <hr>
 
-            <div class="form-group row m-0 mb-3">
-                <button type="button" class="btn btn-primary btn-block addDisc">Добавить дисциплину</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addDisc">Добавить дисциплину</button>
+                </div>
             </div>
             <hr>
 
-            <div class="form-group row m-0 mb-3">
-                <button type="button" class="btn btn-primary btn-block addScope">Добавить сферу наблюдений</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addScope">Добавить сферу наблюдений</button>
+                </div>
             </div>
             <hr>
 
-            <div class="form-group row m-0">
-                <button type="button" class="btn btn-primary btn-block addTerritory">Добавить территорию наблюдений</button>
+            <div class="form-group row">
+                <div class="col-9 ml-auto">
+                    <button type="button" class="btn btn-outline-primary btn-block waves-effect addTerritory">Добавить территорию наблюдений</button>
+                </div>
             </div>
             <hr>
 
@@ -168,10 +176,10 @@
             <button type="submit" class="btn btn-success btn-block m-0">Сохранить</button><br/>
         </form>
         <a href="/information_resources" class="btn btn-outline-secondary m-0 mb-4 waves-effect">Назад</a>
-    </div>
-    <#include "parts/footer.ftlh">
+    </main>
 
-    <#include "parts/scripts.ftlh">
+    <#include "*/parts/footer.ftlh">
+    <#include "*/parts/scripts.ftlh">
     <script>
         let organizations = '<#list organizations as organization>' +
                                 '<option value="${organization.id}">${organization.name}</option>' +
@@ -187,5 +195,4 @@
                             '</#list>';
     </script>
     <script type="text/javascript" src="/js/add_infres.js"></script>
-
-<#include "parts/foot.ftlh">
+</@c.page>

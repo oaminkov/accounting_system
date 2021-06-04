@@ -1,6 +1,6 @@
-<#import "parts/view_table.ftlh" as vt>
+<#import "*/macros/view_table.ftlh" as vt>
 <@vt.view_table>
-    <#include "parts/security.ftlh">
+    <#include "*/parts/security.ftlh">
 
     <main class="mb-2" style="width:99%; margin:0 auto;">
         <h2 align="center">Информационные ресурсы</h2>
@@ -13,6 +13,7 @@
             <thead>
                 <tr>
                     <th>Инвентарный номер</th>
+                    <th>Язык представления</th>
                     <th>Страна</th>
                     <th>Период наблюдений</th>
 
@@ -31,6 +32,7 @@
             <#list informationResources as informationResource>
                 <tr>
                     <td>${informationResource.inventoryNumber}</td>
+                    <td>${informationResource.language.name}</td>
                     <td>${informationResource.country.name}</td>
                     <td>
                         ${informationResource.dateObservationStart}
