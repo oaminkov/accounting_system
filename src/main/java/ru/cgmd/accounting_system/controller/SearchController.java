@@ -2,11 +2,11 @@ package ru.cgmd.accounting_system.controller;
 
 import com.google.gson.Gson;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.cgmd.accounting_system.classes.Container;
 import ru.cgmd.accounting_system.domain.*;
 import ru.cgmd.accounting_system.repo.InformationResourceRepository;
@@ -109,50 +109,60 @@ public class SearchController {
             @RequestParam(required = false) Language language,
             @RequestParam(required = false) Country country,
             @RequestParam(required = false) Organization mainOrganization,
+            @RequestParam(required = false) ObservationDiscipline observationDiscipline,
+            @RequestParam(required = false) ObservationType observationType,
             Model model
     ) {
-        /*if (resourceType == null) {
-            System.out.println(resourceType);
-        }
-        else System.out.println(resourceType.getName());
+        if (inventoryNumber.isEmpty()) inventoryNumber = null;
+        if (dateObservationStart.isEmpty()) dateObservationStart = null;
+        if (dateObservationEnd.isEmpty()) dateObservationEnd = null;
 
-        if (language == null) {
-            System.out.println(language);
-        }
-        else System.out.println(language.getName());
+        InformationResource informationResource = new InformationResource();
+        informationResource.setInventoryNumber(inventoryNumber);
+        informationResource.setDateObservationStart(dateObservationStart);
+        informationResource.setDateObservationEnd(dateObservationEnd);
+        informationResource.setResourceType(resourceType);
+        informationResource.setLanguage(language);
+        informationResource.setCountry(country);
+        informationResource.setMainOrganization(mainOrganization);
 
-        if (country == null) {
-            System.out.println(country);
-        }
-        else System.out.println(country.getName());
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
+        Example<InformationResource> example = Example.of(informationResource, matcher);
 
-        if (mainOrganization == null) {
-            System.out.println(mainOrganization);
-        }
-        else System.out.println(mainOrganization.getName());*/
+        /*Set<ObservationDiscipline> observationDisciplines = new HashSet<>(Arrays.asList(observationDiscipline));
+        Set<ObservationType> observationTypes = new HashSet<>(Arrays.asList(observationType));
+        informationResource.setObservationDisciplines(observationDisciplines);*/
 
-        /*System.out.println(inventoryNumber);
-        System.out.println("<"+ dateObservationStart + "> <" + dateObservationEnd + ">");*/
+        List<InformationResource> informationResources = informationResourceRepository.findAll(example);
 
-        InformationResource resource = new InformationResource();
-        resource.setCountry(country);
-        resource.setLanguage(language);
+        System.out.println("<INPUT>\n" + informationResource + "</INPUT>\n");
+        System.out.println("<OUTPUT1>\n" + informationResources + "</OUTPUT1>\n");
 
+        if (observationDiscipline != null) {
+            List<InformationResource> informationResourcesTemp = new ArrayList<>();
 
-        System.out.println("++\n" + resource + "++\n");
+            if (observationType != null) {
+                for (InformationResource resource : informationResources) {
+                    if (resource.getObservationDisciplines().contains(observationDiscipline) && resource.getObservationTypes().contains(observationType)) {
+                        informationResourcesTemp.add(resource);
+                    }
+                }
+            }
+            else {
+                for (InformationResource resource : informationResources) {
+                    if (resource.getObservationDisciplines().contains(observationDiscipline)) {
+                        informationResourcesTemp.add(resource);
+                    }
+                }
+            }
+            informationResources = informationResourcesTemp;
 
-        List<InformationResource> informationResources = informationResourceRepository.findAll(Example.of(resource));
-
-        for (InformationResource informationResource : informationResources) {
-            System.out.println(informationResource.toString());
+            System.out.println("<OUTPUT2>\n" + informationResources + "</OUTPUT2>\n");
         }
 
         model.addAttribute("informationResources", informationResources);
         return "view_information_resources";
-
-        //return "redirect:/search";
     }
-    //SEARCH END
 
     //FOR SEARCH
     @GetMapping("/getObservationTypeList1")

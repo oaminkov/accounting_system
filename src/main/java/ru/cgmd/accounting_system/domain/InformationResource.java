@@ -38,7 +38,7 @@ public class InformationResource {
     private String receivedDate;
 
     @Column(nullable = false, name="duplicate")
-    private boolean duplicate;
+    private Boolean duplicate;
 
     @Column(nullable = false, name="date_of_entering")
     private String dateOfEntering;
@@ -147,7 +147,7 @@ public class InformationResource {
             ObservationMethod observationMethod,
             Country country,
             Organization mainOrganization,
-            boolean duplicate,
+            Boolean duplicate,
             String dateOfEntering,
             User operator
     ) {
@@ -185,7 +185,7 @@ public class InformationResource {
             ObservationMethod observationMethod,
             Country country,
             Organization mainOrganization,
-            boolean duplicate,
+            Boolean duplicate,
             String dateOfEdit,
             User editor
     ) {
@@ -282,10 +282,10 @@ public class InformationResource {
         this.briefContent = briefContent;
     }
 
-    public boolean isDuplicate() {
+    public Boolean getDuplicate() {
         return duplicate;
     }
-    public void setDuplicate(boolean duplicate) {
+    public void setDuplicate(Boolean duplicate) {
         this.duplicate = duplicate;
     }
 

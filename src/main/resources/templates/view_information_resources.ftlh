@@ -12,9 +12,12 @@
         <table id="table_id" class="table table-striped table-bordered mt-0">
             <thead>
                 <tr>
-                    <th>Инвентарный номер</th>
-                    <th>Язык представления</th>
+                    <th>Тип ресурса</th>
+                    <th>Инвент. номер</th>
+                    <th>Название CD-ROM</th>
+                    <th>Язык</th>
                     <th>Страна</th>
+                    <th>Главная организация</th>
                     <th>Период наблюдений</th>
 
                     <#if auth_user??>
@@ -31,9 +34,12 @@
             <tbody>
             <#list informationResources as informationResource>
                 <tr>
+                    <td>${informationResource.resourceType.name}</td>
                     <td>${informationResource.inventoryNumber}</td>
+                    <td>${informationResource.fullnameCdrom}</td>
                     <td>${informationResource.language.name}</td>
                     <td>${informationResource.country.name}</td>
+                    <td>${informationResource.mainOrganization.name}</td>
                     <td>
                         ${informationResource.dateObservationStart}
                         <br>
@@ -59,7 +65,7 @@
                                     </div>
                                 </div>
                             <#else>
-                                <p align="center">Файлы отсутствуют</p>
+                                <p align="center">Нет файлов</p>
                             </#if>
                         </td>
                     </#if>
