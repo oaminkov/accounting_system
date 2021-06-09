@@ -26,7 +26,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Страна:</label>
         <div class="col-sm-9">
-            <select name="country" class="browser-default custom-select">
+            <select name="country" class="select2 form-control">
                 <#list countries as country>
                     <option value="${country.id}">${country.name}</option>
                 </#list>

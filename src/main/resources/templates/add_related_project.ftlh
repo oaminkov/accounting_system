@@ -3,7 +3,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Тип проекта:</label>
         <div class="col-sm-9">
-            <select name="projectType" class="browser-default custom-select">
+            <select name="projectType" class="select2 form-control">
                 <#list projectTypes as projectType>
                     <option value="${projectType.id}">${projectType.name}</option>
                 </#list>
