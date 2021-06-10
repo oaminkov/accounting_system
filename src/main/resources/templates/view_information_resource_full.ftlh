@@ -3,7 +3,7 @@
     <#include "*/parts/security.ftlh">
 
     <main class="container">
-        <h2 class="mb-3" align="center">Просмотр мета-описания информационного ресурса</h2>
+        <h2 class="mb-3" align="center">Просмотр описания информационного ресурса</h2>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Тип ресурса:</label>

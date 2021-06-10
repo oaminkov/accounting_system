@@ -1,7 +1,7 @@
 <#import "*/macros/common.ftlh" as c>
 <@c.page>
     <main class="container">
-        <h2 class="mb-3" align="center">Создание нового мета-описания информационного ресурса</h2>
+        <h2 class="mb-3" align="center">Создание нового описания информационного ресурса</h2>
 
         <form action="/information_resources/add" enctype="multipart/form-data" method="post">
             <div class="form-group row">
