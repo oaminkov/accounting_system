@@ -1,3 +1,116 @@
 body {
-    background-color: darkgray;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+}
+
+.discDiv, .typeDiv, .paramDiv {
+    padding: 10px 10px 0;
+    border-radius: 2px;
+}
+.discDiv {
+    background-color: #edeab2;
+    margin-top: 25px;
+}
+.typeDiv {
+    background-color: #ced6d3;
+}
+.paramDiv {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    background-color: #9fa6a3;
+}
+
+/*.addType, .addType:hover, .addType:focus,
+.addParam, .addParam:hover, .addParam:focus{
+    background-color:white !important;
+}*/
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Выбрать";
+}
+
+.delBtn {
+    height: 38px;
+    padding: 0 1rem !important;
+    border-radius: 4px !important;
+    margin: 0 !important;
+}
+
+input[type=date], .custom-file-input {
+    cursor: pointer;
+}
+
+/* Navbar */
+nav {
+    margin-bottom: 15px;
+    text-align: center;
+}
+.dropdown-menu {
+    box-shadow: 0 0 3px 3px rgba(0,0,0,0.1);
+}
+/*.dropdown-item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.dropdown-menu-arrow {
+    top: -25px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    position: relative;
+}
+.dropdown-menu-arrow:before,
+.dropdown-menu-arrow:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-width: 7px 8px;
+    border-style: solid;
+    border-color: transparent;
+    z-index: 1001;
+}
+.dropdown-menu-arrow:after {
+    bottom: -18px;
+    right: -8px;
+    border-bottom-color: #fff;
+}
+.dropdown-menu-arrow:before {
+    bottom: -17px;
+    right: -8px;
+    border-bottom-color: rgba(0,0,0,.15);
+}*/
+
+/* Checkbox */
+.custom-control-label {
+    cursor: pointer;
+}
+.custom-control-label::before, .custom-control-label::after {
+    width: 25px;
+    height: 25px;
+}
+
+/* Select2 */
+.select2-container .select2-selection,
+.select2-selection__rendered,
+.select2-selection__arrow {
+    height: 38px !important;
+    line-height: 38px !important;
+}
+.select2-selection__rendered {
+    padding: 0 11px !important;
+}
+.select2-results__options {
+    padding: 0 5px 5px 5px !important;
+}
+.select2-selection:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.3);
+}
+.select2-selection:hover {
+    background-color: aliceblue;
+}
+.select2-dropdown {
+    box-shadow: 0 0 50px rgba(0,0,0,0.7);
 }

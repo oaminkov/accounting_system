@@ -1,6 +1,6 @@
 jQuery(document).ready(function () {
     Array.prototype.remove = function(value) {
-        var idx = this.indexOf(value);
+        let idx = this.indexOf(value);
         if (idx != -1) {
             // Второй параметр - число элементов, которые необходимо удалить
             return this.splice(idx, 1);
@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
     }
 
     $('#getObservationDiscipline').change(function () {
-        var idObservationDiscipline = $(this).val();
+        let idObservationDiscipline = $(this).val();
 
         if (idObservationDiscipline === '0') {
             $('#getObservationType').html('<option value="0">-- Выберите вид наблюдений --</option>');
@@ -37,7 +37,7 @@ jQuery(document).ready(function () {
                 }
                 else
                 {
-                    var options = '';
+                    let options = '';
 
                     $(result).each(function(key, val)
                     {
@@ -59,7 +59,7 @@ jQuery(document).ready(function () {
     });
 
     $('#getObservationType').change(function () {
-        var idObservationType = $(this).val();
+        let idObservationType = $(this).val();
 
         if (idObservationType === '0') {
             $('#getCountry').html('<option value="0">-- Выберите страну --</option>');
@@ -84,7 +84,7 @@ jQuery(document).ready(function () {
                 }
                 else
                 {
-                    var options = '';
+                    let options = '';
 
                     $(result).each(function(key, val)
                     {
@@ -103,8 +103,8 @@ jQuery(document).ready(function () {
     });
 
     $('#getCountry').change(function () {
-        var idCountry = $(this).val();
-        var idObservationType = $('#getObservationType').val();
+        let idCountry = $(this).val(),
+            idObservationType = $('#getObservationType').val();
 
         if (idCountry === '0') {
             $('#getOrganization').html('<option value="0">-- Выберите организацию --</option>');
@@ -129,7 +129,7 @@ jQuery(document).ready(function () {
                 }
                 else
                 {
-                    var options = '';
+                    let options = '';
 
                     $(result).each(function(key, val)
                     {

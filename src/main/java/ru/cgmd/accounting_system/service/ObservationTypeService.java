@@ -13,10 +13,13 @@ import java.util.List;
 @Service
 @Transactional
 public class ObservationTypeService {
-    @Autowired
-    private ObservationTypeRepository observationTypeRepository;
-    @Autowired
-    private ObservationDisciplineRepository observationDisciplineRepository;
+    private final ObservationTypeRepository observationTypeRepository;
+    private final ObservationDisciplineRepository observationDisciplineRepository;
+
+    public ObservationTypeService(ObservationTypeRepository observationTypeRepository, ObservationDisciplineRepository observationDisciplineRepository) {
+        this.observationTypeRepository = observationTypeRepository;
+        this.observationDisciplineRepository = observationDisciplineRepository;
+    }
 
     public List<ObservationType> listAll() {
         return observationTypeRepository.findAll();

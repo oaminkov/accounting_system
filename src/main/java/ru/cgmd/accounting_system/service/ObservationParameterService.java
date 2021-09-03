@@ -12,8 +12,11 @@ import java.util.List;
 @Service
 @Transactional
 public class ObservationParameterService {
-    @Autowired
-    private ObservationParameterRepository observationParameterRepository;
+    private final ObservationParameterRepository observationParameterRepository;
+
+    public ObservationParameterService(ObservationParameterRepository observationParameterRepository) {
+        this.observationParameterRepository = observationParameterRepository;
+    }
 
     public List<ObservationParameter> listAll() {
         return observationParameterRepository.findAll();

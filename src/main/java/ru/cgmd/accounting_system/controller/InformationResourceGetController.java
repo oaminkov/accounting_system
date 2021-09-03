@@ -24,60 +24,63 @@ import java.util.zip.ZipOutputStream;
 @RequestMapping("information_resources")
 public class InformationResourceGetController {
     private final InformationResourceService informationResourceService;
+    private final ResourceTypeService resourceTypeService;
     private final LanguageService languageService;
     private final RelatedProjectService relatedProjectService;
-    private final CountryService countryService;
     private final ObservationMethodService observationMethodService;
+    private final CountryService countryService;
+    private final OrganizationService organizationService;
     private final ObservationDisciplineService observationDisciplineService;
     private final ObservationScopeService observationScopeService;
     private final ObservationTerritoryService observationTerritoryService;
-    private final OrganizationService organizationService;
     private final UploadedFileRepository uploadedFileRepository;
 
     public InformationResourceGetController(
             InformationResourceService informationResourceService,
+            ResourceTypeService resourceTypeService,
             LanguageService languageService,
             RelatedProjectService relatedProjectService,
-            CountryService countryService,
             ObservationMethodService observationMethodService,
+            CountryService countryService,
+            OrganizationService organizationService,
             ObservationDisciplineService observationDisciplineService,
             ObservationScopeService observationScopeService,
             ObservationTerritoryService observationTerritoryService,
-            OrganizationService organizationService,
             UploadedFileRepository uploadedFileRepository
     ) {
         this.informationResourceService = informationResourceService;
+        this.resourceTypeService = resourceTypeService;
         this.languageService = languageService;
         this.relatedProjectService = relatedProjectService;
-        this.countryService = countryService;
         this.observationMethodService = observationMethodService;
+        this.countryService = countryService;
+        this.organizationService = organizationService;
         this.observationDisciplineService = observationDisciplineService;
         this.observationScopeService = observationScopeService;
         this.observationTerritoryService = observationTerritoryService;
-        this.organizationService = organizationService;
         this.uploadedFileRepository = uploadedFileRepository;
     }
 
     public void selectDataFromDbToModel(Model model) {
+        List<ResourceType> resourceTypes = resourceTypeService.listAll();
         List<Language> languages = languageService.listAll();
         List<RelatedProject> relatedProjects = relatedProjectService.listAll();
-        List<Country> countries = countryService.listAll();
         List<ObservationMethod> observationMethods = observationMethodService.listAll();
-
+        List<Country> countries = countryService.listAll();
+        List<Organization> organizations = organizationService.listAll();
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
         List<ObservationScope> observationScopes = observationScopeService.listAll();
         List<ObservationTerritory> observationTerritories = observationTerritoryService.listAll();
-        List<Organization> organizations = organizationService.listAll();
 
+        model.addAttribute("resourceTypes", resourceTypes);
         model.addAttribute("languages", languages);
         model.addAttribute("relatedProjects", relatedProjects);
-        model.addAttribute("countries", countries);
         model.addAttribute("observationMethods", observationMethods);
-
+        model.addAttribute("countries", countries);
+        model.addAttribute("organizations", organizations);
         model.addAttribute("observationDisciplines", observationDisciplines);
         model.addAttribute("observationScopes", observationScopes);
         model.addAttribute("observationTerritories", observationTerritories);
-        model.addAttribute("organizations", organizations);
     }
 
     @GetMapping
@@ -88,7 +91,7 @@ public class InformationResourceGetController {
     }
 
     @GetMapping("add")
-    public String showNewInformationProductPage(Model model) {
+    public String showNewInformationResourcePage(Model model) {
         selectDataFromDbToModel(model);
         return "add_information_resource";
     }
@@ -103,7 +106,7 @@ public class InformationResourceGetController {
     }
 
     @GetMapping("edit/{id}")
-    public String showEditInformationProductPage(
+    public String showEditInformationResourcePage(
             @PathVariable("id") InformationResource informationResource,
             Model model,
             HttpServletRequest request

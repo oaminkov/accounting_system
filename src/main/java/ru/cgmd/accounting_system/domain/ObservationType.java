@@ -72,4 +72,9 @@ public class ObservationType { //вид наблюдения
     public void setObservationParameters(List<ObservationParameter> observationParameters) {
         this.observationParameters = observationParameters;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

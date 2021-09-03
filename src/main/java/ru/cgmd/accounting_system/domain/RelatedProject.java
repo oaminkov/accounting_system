@@ -13,20 +13,31 @@ public class RelatedProject {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(name="name_rus")
+    private String nameRus;
+
     @Column(nullable = false)
     private String abbreviation;
-    @Column(nullable = false)
-    private String type;
+
+    @Column(name="abbreviation_rus")
+    private String abbreviationRus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (nullable = false, name = "id_project_type")
+    private ProjectType projectType;
 
     @OneToMany(mappedBy = "relatedProject", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InformationResource> informationResources;
 
     public RelatedProject() { }
 
-    public RelatedProject(String name, String abbreviation, String type) {
+    public RelatedProject(String name, String nameRus, String abbreviation, String abbreviationRus, ProjectType projectType) {
         this.name = name;
+        this.nameRus = nameRus;
         this.abbreviation = abbreviation;
-        this.type = type;
+        this.abbreviationRus = abbreviationRus;
+        this.projectType = projectType;
     }
 
     public Long getId() {
@@ -43,6 +54,13 @@ public class RelatedProject {
         this.name = name;
     }
 
+    public String getNameRus() {
+        return nameRus;
+    }
+    public void setNameRus(String nameRus) {
+        this.nameRus = nameRus;
+    }
+
     public String getAbbreviation() {
         return abbreviation;
     }
@@ -50,11 +68,18 @@ public class RelatedProject {
         this.abbreviation = abbreviation;
     }
 
-    public String getType() {
-        return type;
+    public String getAbbreviationRus() {
+        return abbreviationRus;
     }
-    public void setType(String type) {
-        this.type = type;
+    public void setAbbreviationRus(String abbreviationRus) {
+        this.abbreviationRus = abbreviationRus;
+    }
+
+    public ProjectType getProjectType() {
+        return projectType;
+    }
+    public void setProjectType(String type) {
+        this.projectType = projectType;
     }
 
     public List<InformationResource> getInformationResources() {
@@ -62,5 +87,10 @@ public class RelatedProject {
     }
     public void setInformationResources(List<InformationResource> informationResources) {
         this.informationResources = informationResources;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

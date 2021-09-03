@@ -2,7 +2,6 @@ package ru.cgmd.accounting_system.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,13 +13,13 @@ public class Organization {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String abbreviation;
+    private String name;
 
     @Column(name="name_rus")
     private String nameRus;
 
-    @Column(name="name_eng")
-    private String nameEng;
+    @Column(nullable = false, unique = true)
+    private String abbreviation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (nullable = false, name = "id_country")
@@ -36,10 +35,10 @@ public class Organization {
 
     public Organization() { }
 
-    public Organization(String abbreviation, String nameRus, String nameEng, Country country) {
-        this.abbreviation = abbreviation;
+    public Organization(String name, String nameRus, String abbreviation, Country country) {
+        this.name = name;
         this.nameRus = nameRus;
-        this.nameEng = nameEng;
+        this.abbreviation = abbreviation;
         this.country = country;
     }
 
@@ -50,11 +49,11 @@ public class Organization {
         this.id = id;
     }
 
-    public String getAbbreviation() {
-        return abbreviation;
+    public String getName() {
+        return name;
     }
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNameRus() {
@@ -64,11 +63,11 @@ public class Organization {
         this.nameRus = nameRus;
     }
 
-    public String getNameEng() {
-        return nameEng;
+    public String getAbbreviation() {
+        return abbreviation;
     }
-    public void setNameEng(String nameEng) {
-        this.nameEng = nameEng;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public Country getCountry() {
@@ -83,5 +82,10 @@ public class Organization {
     }
     public void setInformationResources(Set<InformationResource> informationResources) {
         this.informationResources = informationResources;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

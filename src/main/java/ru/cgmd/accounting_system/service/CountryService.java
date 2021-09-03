@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 @Transactional
 public class CountryService {
-    @Autowired
-    private CountryRepository countryRepository;
+    private final CountryRepository countryRepository;
+
+    public CountryService(CountryRepository countryRepository) {
+        this.countryRepository = countryRepository;
+    }
 
     public boolean isExists(String name) {
         if (countryRepository.findByName(name) == null) {
@@ -27,6 +30,10 @@ public class CountryService {
 
     public List<Country> findByInformationResourcesExists() {
         return countryRepository.findByInformationResourcesNotEmpty();
+    }
+
+    public List<Country> findByOrganizationsExists() {
+        return countryRepository.findByOrganizationsNotEmpty();
     }
 
     public void save(Country country) {

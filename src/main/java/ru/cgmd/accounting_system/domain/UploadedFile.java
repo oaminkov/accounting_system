@@ -17,7 +17,7 @@ public class UploadedFile {
     private String path;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "information_resource")
+    @JoinColumn(name = "id_information_resource")
     private InformationResource informationResource;
 
     public UploadedFile() { }
@@ -53,4 +53,9 @@ public class UploadedFile {
         return informationResource;
     }
     public void setInformationResource(InformationResource informationResource) { this.informationResource = informationResource; }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

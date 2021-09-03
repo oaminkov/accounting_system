@@ -10,39 +10,57 @@ import java.util.List;
 
 @Controller
 public class ViewController {
+    private final ResourceTypeService resourceTypeService;
     private final LanguageService languageService;
+    private final ProjectTypeService projectTypeService;
     private final RelatedProjectService relatedProjectService;
-    private final CountryService countryService;
     private final ObservationMethodService observationMethodService;
+    private final CountryService countryService;
+    private final OrganizationService organizationService;
     private final ObservationDisciplineService observationDisciplineService;
     private final ObservationTypeService observationTypeService;
     private final ObservationParameterService observationParameterService;
     private final ObservationScopeService observationScopeService;
     private final ObservationTerritoryService observationTerritoryService;
-    private final OrganizationService organizationService;
 
     public ViewController(
+            ResourceTypeService resourceTypeService,
             LanguageService languageService,
+            ProjectTypeService projectTypeService,
             RelatedProjectService relatedProjectService,
-            CountryService countryService,
             ObservationMethodService observationMethodService,
+            CountryService countryService,
+            OrganizationService organizationService,
             ObservationDisciplineService observationDisciplineService,
             ObservationTypeService observationTypeService,
             ObservationParameterService observationParameterService,
             ObservationScopeService observationScopeService,
-            ObservationTerritoryService observationTerritoryService,
-            OrganizationService organizationService
+            ObservationTerritoryService observationTerritoryService
     ) {
+        this.resourceTypeService = resourceTypeService;
         this.languageService = languageService;
+        this.projectTypeService = projectTypeService;
         this.relatedProjectService = relatedProjectService;
-        this.countryService = countryService;
         this.observationMethodService = observationMethodService;
+        this.countryService = countryService;
+        this.organizationService = organizationService;
         this.observationDisciplineService = observationDisciplineService;
         this.observationTypeService = observationTypeService;
         this.observationParameterService = observationParameterService;
         this.observationScopeService = observationScopeService;
         this.observationTerritoryService = observationTerritoryService;
-        this.organizationService = organizationService;
+    }
+
+    //RESOURCE TYPES
+    @GetMapping("resource_types")
+    public String viewAllResourceTypes(Model model) {
+        List<ResourceType> resourceTypes = resourceTypeService.listAll();
+        model.addAttribute("resourceTypes", resourceTypes);
+        return "view_resource_types";
+    }
+    @GetMapping("resource_types/add")
+    public String showNewResourceTypePage() {
+        return "add_resource_type";
     }
 
     //LANGUAGE
@@ -57,16 +75,42 @@ public class ViewController {
         return "add_language";
     }
 
+    //PROJECT TYPES
+    @GetMapping("project_types")
+    public String viewAllProjectTypes(Model model) {
+        List<ProjectType> projectTypes = projectTypeService.listAll();
+        model.addAttribute("projectTypes", projectTypes);
+        return "view_project_types";
+    }
+    @GetMapping("project_types/add")
+    public String showNewProjectTypePage() {
+        return "add_project_type";
+    }
+
     //RELATED PROJECT
     @GetMapping("related_projects")
-    public String viewAllProjectTypes(Model model) {
+    public String viewAllRelatedProjects(Model model) {
         List<RelatedProject> relatedProjects = relatedProjectService.listAll();
         model.addAttribute("relatedProjects", relatedProjects);
         return "view_related_projects";
     }
     @GetMapping("related_projects/add")
-    public String showNewProjectTypePage() {
+    public String showNewRelatedProjectPage(Model model) {
+        List<ProjectType> projectTypes = projectTypeService.listAll();
+        model.addAttribute("projectTypes", projectTypes);
         return "add_related_project";
+    }
+
+    //OBSERVATION METHOD
+    @GetMapping("observation_methods")
+    public String viewAllObservationMethods(Model model) {
+        List<ObservationMethod> observationMethods = observationMethodService.listAll();
+        model.addAttribute("observationMethods", observationMethods);
+        return "view_observation_methods";
+    }
+    @GetMapping("observation_methods/add")
+    public String showNewObservationMethodPage() {
+        return "add_observation_method";
     }
 
     //COUNTRY
@@ -93,18 +137,6 @@ public class ViewController {
         List<Country> countries = countryService.listAll();
         model.addAttribute("countries", countries);
         return "add_organization";
-    }
-
-    //OBSERVATION METHOD
-    @GetMapping("observation_methods")
-    public String viewAllObservationMethods(Model model) {
-        List<ObservationMethod> observationMethods = observationMethodService.listAll();
-        model.addAttribute("observationMethods", observationMethods);
-        return "view_observation_methods";
-    }
-    @GetMapping("observation_methods/add")
-    public String showNewObservationMethodPage() {
-        return "add_observation_method";
     }
 
     //OBSERVATION DISCIPLINE

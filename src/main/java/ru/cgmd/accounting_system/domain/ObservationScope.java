@@ -49,4 +49,9 @@ public class ObservationScope {
     public void setInformationResources(Set<InformationResource> informationResources) {
         this.informationResources = informationResources;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

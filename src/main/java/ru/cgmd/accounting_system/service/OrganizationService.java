@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 @Transactional
 public class OrganizationService {
-    @Autowired
-    private OrganizationRepository organizationRepository;
+    private final OrganizationRepository organizationRepository;
+
+    public OrganizationService(OrganizationRepository organizationRepository) {
+        this.organizationRepository = organizationRepository;
+    }
 
     public List<Organization> listAll() {
         return organizationRepository.findAll();

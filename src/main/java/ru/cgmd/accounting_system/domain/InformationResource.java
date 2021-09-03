@@ -38,7 +38,7 @@ public class InformationResource {
     private String receivedDate;
 
     @Column(nullable = false, name="duplicate")
-    private boolean duplicate;
+    private Boolean duplicate;
 
     @Column(nullable = false, name="date_of_entering")
     private String dateOfEntering;
@@ -46,13 +46,21 @@ public class InformationResource {
     @Column(name="date_of_edit")
     private String dateOfEdit;
 
-    @ManyToOne(fetch = FetchType.LAZY) //связанный проект (проект или программа)
-    @JoinColumn (name = "id_related_project", nullable = false)
-    private RelatedProject relatedProject;
+    @ManyToOne(fetch = FetchType.LAZY) //тип ресурса
+    @JoinColumn (name = "id_resource_type", nullable = false)
+    private ResourceType resourceType;
 
     @ManyToOne(fetch = FetchType.LAZY) //язык
     @JoinColumn (name = "id_language", nullable = false)
     private Language language;
+
+    @ManyToOne(fetch = FetchType.LAZY) //связанный проект (проект или программа)
+    @JoinColumn (name = "id_related_project", nullable = false)
+    private RelatedProject relatedProject;
+
+    @ManyToOne(fetch = FetchType.LAZY) //метод наблюдений
+    @JoinColumn (name = "id_observation_method", nullable = false)
+    private ObservationMethod observationMethod;
 
     @ManyToOne(fetch = FetchType.LAZY) //страна
     @JoinColumn (name = "id_country", nullable = false)
@@ -61,10 +69,6 @@ public class InformationResource {
     @ManyToOne(fetch = FetchType.LAZY) //главная организация
     @JoinColumn (name = "id_main_organization", nullable = false)
     private Organization mainOrganization;
-
-    @ManyToOne(fetch = FetchType.LAZY) //метод наблюдений
-    @JoinColumn (name = "id_observation_method", nullable = false)
-    private ObservationMethod observationMethod;
 
     @ManyToOne(fetch = FetchType.LAZY) //оператор
     @JoinColumn (name = "id_operator", nullable = false)
@@ -137,14 +141,15 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
-            RelatedProject relatedProject,
+            ResourceType resourceType,
             Language language,
+            RelatedProject relatedProject,
+            ObservationMethod observationMethod,
             Country country,
             Organization mainOrganization,
-            ObservationMethod observationMethod,
-            boolean duplicate,
-            User operator,
-            String dateOfEntering
+            Boolean duplicate,
+            String dateOfEntering,
+            User operator
     ) {
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
@@ -154,14 +159,15 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
-        this.relatedProject = relatedProject;
+        this.resourceType = resourceType;
         this.language = language;
+        this.relatedProject = relatedProject;
+        this.observationMethod = observationMethod;
         this.country = country;
         this.mainOrganization = mainOrganization;
-        this.observationMethod = observationMethod;
         this.duplicate = duplicate;
-        this.operator = operator;
         this.dateOfEntering = dateOfEntering;
+        this.operator = operator;
     }
 
     public void setEditedFields(
@@ -173,14 +179,15 @@ public class InformationResource {
             String briefContent,
             String volume,
             String receivedDate,
-            RelatedProject relatedProject,
+            ResourceType resourceType,
             Language language,
+            RelatedProject relatedProject,
+            ObservationMethod observationMethod,
             Country country,
             Organization mainOrganization,
-            ObservationMethod observationMethod,
-            boolean duplicate,
-            User editor,
-            String dateOfEdit
+            Boolean duplicate,
+            String dateOfEdit,
+            User editor
     ) {
         this.inventoryNumber = inventoryNumber;
         this.fullnameCdrom = fullnameCdrom;
@@ -190,14 +197,15 @@ public class InformationResource {
         this.briefContent = briefContent;
         this.volume = volume;
         this.receivedDate = receivedDate;
-        this.relatedProject = relatedProject;
+        this.resourceType = resourceType;
         this.language = language;
+        this.relatedProject = relatedProject;
+        this.observationMethod = observationMethod;
         this.country = country;
         this.mainOrganization = mainOrganization;
-        this.observationMethod = observationMethod;
         this.duplicate = duplicate;
-        this.editor = editor;
         this.dateOfEdit = dateOfEdit;
+        this.editor = editor;
     }
 
     public void addUploadedFiles(List<UploadedFile> uploadedFiles) {
@@ -274,11 +282,25 @@ public class InformationResource {
         this.briefContent = briefContent;
     }
 
-    public boolean isDuplicate() {
+    public Boolean getDuplicate() {
         return duplicate;
     }
-    public void setDuplicate(boolean duplicate) {
+    public void setDuplicate(Boolean duplicate) {
         this.duplicate = duplicate;
+    }
+
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public RelatedProject getRelatedProject() {
@@ -288,11 +310,11 @@ public class InformationResource {
         this.relatedProject = relatedProject;
     }
 
-    public Language getLanguage() {
-        return language;
+    public ObservationMethod getObservationMethod() {
+        return observationMethod;
     }
-    public void setLanguage(Language language) {
-        this.language = language;
+    public void setObservationMethod(ObservationMethod observationMethod) {
+        this.observationMethod = observationMethod;
     }
 
     public Country getCountry() {
@@ -309,11 +331,11 @@ public class InformationResource {
         this.mainOrganization = mainOrganization;
     }
 
-    public ObservationMethod getObservationMethod() {
-        return observationMethod;
+    public String getDateOfEntering() {
+        return dateOfEntering;
     }
-    public void setObservationMethod(ObservationMethod observationMethod) {
-        this.observationMethod = observationMethod;
+    public void setDateOfEntering(String dateOfEntering) {
+        this.dateOfEntering = dateOfEntering;
     }
 
     public User getOperator() {
@@ -323,11 +345,11 @@ public class InformationResource {
         this.operator = user;
     }
 
-    public String getDateOfEntering() {
-        return dateOfEntering;
+    public String getDateOfEdit() {
+        return dateOfEdit;
     }
-    public void setDateOfEntering(String dateOfEntering) {
-        this.dateOfEntering = dateOfEntering;
+    public void setDateOfEdit(String dateOfEdit) {
+        this.dateOfEdit = dateOfEdit;
     }
 
     public User getEditor() {
@@ -335,13 +357,6 @@ public class InformationResource {
     }
     public void setEditor(User editor) {
         this.editor = editor;
-    }
-
-    public String getDateOfEdit() {
-        return dateOfEdit;
-    }
-    public void setDateOfEdit(String dateOfEdit) {
-        this.dateOfEdit = dateOfEdit;
     }
 
     public Set<ObservationDiscipline> getObservationDisciplines() {
@@ -384,5 +399,38 @@ public class InformationResource {
     }
     public void setOrganizations(Set<Organization> organizations) {
         this.organizations = organizations;
+    }
+
+    @Override
+    public String toString() {
+        return "InformationResource{" +
+                "id=" + id +
+                ", inventoryNumber='" + inventoryNumber + '\'' +
+                ", fullnameCdrom='" + fullnameCdrom + '\'' +
+                ", abbreviationCdrom='" + abbreviationCdrom + '\'' +
+                ", dateObservationStart='" + dateObservationStart + '\'' +
+                ", dateObservationEnd='" + dateObservationEnd + '\'' +
+                ", briefContent='" + briefContent + '\'' +
+                ", volume='" + volume + '\'' +
+                ", receivedDate='" + receivedDate + '\'' +
+                ", duplicate=" + duplicate +
+                ", dateOfEntering='" + dateOfEntering + '\'' +
+                ", dateOfEdit='" + dateOfEdit + '\'' +
+                ", resourceType=" + resourceType +
+                ", language=" + language +
+                ", relatedProject=" + relatedProject +
+                ", observationMethod=" + observationMethod +
+                ", country=" + country +
+                ", mainOrganization=" + mainOrganization +
+                ", operator=" + operator +
+                ", editor=" + editor +
+                ", uploadedFiles=" + uploadedFiles +
+                ", observationDisciplines=" + observationDisciplines +
+                ", observationTypes=" + observationTypes +
+                ", observationParameters=" + observationParameters +
+                ", observationScopes=" + observationScopes +
+                ", observationTerritories=" + observationTerritories +
+                ", organizations=" + organizations +
+                "}\n";
     }
 }

@@ -35,6 +35,6 @@ public class RegistrationController {
             model.put("message", "Пользователь с таким именем уже существует!");
             return "registration";
         }
-        return "redirect:/user";
+        return "redirect:/users";
     }
 }
