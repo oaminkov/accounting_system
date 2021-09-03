@@ -94,7 +94,7 @@ public class SearchController {
     }
 
     @GetMapping
-    public String viewSearchPage(@AuthenticationPrincipal User user, Model model){
+    public String viewSearchPage(@AuthenticationPrincipal User user, Model model) {
         selectDataFromDbToModel(model);
 
         return "search";
@@ -147,8 +147,7 @@ public class SearchController {
                         informationResourcesTemp.add(resource);
                     }
                 }
-            }
-            else {
+            } else {
                 for (InformationResource resource : informationResources) {
                     if (resource.getObservationDisciplines().contains(observationDiscipline)) {
                         informationResourcesTemp.add(resource);

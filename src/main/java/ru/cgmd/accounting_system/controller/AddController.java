@@ -52,8 +52,8 @@ public class AddController {
     }
 
     //Делает первую букву слова заглавной, остальные - строчными
-    public String firstUpperCase(String word){
-        if(word == null || word.isEmpty()) return "";
+    public String firstUpperCase(String word) {
+        if (word == null || word.isEmpty()) return "";
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
@@ -62,19 +62,17 @@ public class AddController {
     public String saveResourceType(@RequestParam String name, Model model) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!resourceTypeService.isExists(name)) {
+            if (!resourceTypeService.isExists(name)) {
                 ResourceType resourceType = new ResourceType(name);
                 resourceTypeService.save(resourceType);
                 return "redirect:/resource_types";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такой тип ресурса уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_resource_type";
@@ -85,19 +83,17 @@ public class AddController {
     public String saveLanguage(@RequestParam String name, Model model) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!languageService.isExists(name)) {
+            if (!languageService.isExists(name)) {
                 Language language = new Language(name);
                 languageService.save(language);
                 return "redirect:/languages";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такой язык уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_language";
@@ -108,19 +104,17 @@ public class AddController {
     public String saveProjectType(@RequestParam String name, Model model) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!projectTypeService.isExists(name)) {
+            if (!projectTypeService.isExists(name)) {
                 ProjectType projectType = new ProjectType(name);
                 projectTypeService.save(projectType);
                 return "redirect:/project_types";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такой тип проекта уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_project_type";
@@ -138,19 +132,17 @@ public class AddController {
     ) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!relatedProjectService.isExists(name, projectType)) {
+            if (!relatedProjectService.isExists(name, projectType)) {
                 RelatedProject relatedProject = new RelatedProject(name, nameRus, abbreviation, abbreviationRus, projectType);
                 relatedProjectService.save(relatedProject);
                 return "redirect:/related_projects";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такой связанный проект уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустое название");
         }
         return "add_related_project";
@@ -161,19 +153,17 @@ public class AddController {
     public String saveObservationMethod(@RequestParam String name, Model model) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!observationMethodService.isExists(name)) {
+            if (!observationMethodService.isExists(name)) {
                 ObservationMethod observationMethod = new ObservationMethod(name);
                 observationMethodService.save(observationMethod);
                 return "redirect:/observation_methods";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такой метод наблюдений уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_observation_method";
@@ -196,12 +186,10 @@ public class AddController {
                 Country country = new Country(name);
                 countryService.save(country);
                 return "redirect:/countries";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такая страна уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_country";
@@ -219,19 +207,17 @@ public class AddController {
     public String saveObservationDiscipline(@RequestParam String name, Model model) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!observationDisciplineService.isExists(name)) {
+            if (!observationDisciplineService.isExists(name)) {
                 ObservationDiscipline observationDiscipline = new ObservationDiscipline(name);
                 observationDisciplineService.save(observationDiscipline);
                 return "redirect:/observation_disciplines";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такая дисциплина наблюдений уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_observation_discipline";
@@ -261,19 +247,17 @@ public class AddController {
     public String saveObservationScope(@RequestParam String name, Model model) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!observationScopeService.isExists(name)) {
+            if (!observationScopeService.isExists(name)) {
                 ObservationScope observationScope = new ObservationScope(name);
                 observationScopeService.save(observationScope);
                 return "redirect:/observation_scopes";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такая сфера наблюдений уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_observation_scope";
@@ -284,19 +268,17 @@ public class AddController {
     public String saveObservationTerritory(@RequestParam String name, Model model) {
         name = name.trim();
 
-        if(!name.isEmpty()) {
+        if (!name.isEmpty()) {
             name = firstUpperCase(name);
 
-            if(!observationTerritoryService.isExists(name)) {
+            if (!observationTerritoryService.isExists(name)) {
                 ObservationTerritory observationTerritory = new ObservationTerritory(name);
                 observationTerritoryService.save(observationTerritory);
                 return "redirect:/observation_territories";
-            }
-            else {
+            } else {
                 model.addAttribute("messageError", "Такая территория наблюдений уже есть в базе");
             }
-        }
-        else {
+        } else {
             model.addAttribute("messageError", "Вы ввели пустую строку");
         }
         return "add_observation_territory";

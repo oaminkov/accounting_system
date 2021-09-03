@@ -110,7 +110,7 @@ public class InformationResourceGetController {
             @PathVariable("id") InformationResource informationResource,
             Model model,
             HttpServletRequest request
-    ){
+    ) {
         selectDataFromDbToModel(model);
 
         model.addAttribute("informationResource", informationResource);
@@ -124,7 +124,7 @@ public class InformationResourceGetController {
         return "redirect:/information_resources";
     }
 
-    @GetMapping(value="download/{id}", produces="application/zip")
+    @GetMapping(value = "download/{id}", produces = "application/zip")
     public void zipFiles(HttpServletResponse response,
                          @PathVariable("id") InformationResource informationResource) throws IOException {
         //Устанавливаем заголовки

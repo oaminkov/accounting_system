@@ -1,6 +1,5 @@
 package ru.cgmd.accounting_system.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.cgmd.accounting_system.domain.ObservationDiscipline;
@@ -27,10 +26,6 @@ public class ObservationDisciplineService {
     public List<ObservationDiscipline> listAll() {
         return observationDisciplineRepository.findAllByOrderByIdAsc();
     }
-
-    /*public List<ObservationDiscipline> findByInformationResourcesExists() {
-        return observationDisciplineRepository.findByInformationResourcesNotEmpty();
-    }*/
 
     public void save(ObservationDiscipline observationDiscipline) {
         observationDisciplineRepository.save(observationDiscipline);

@@ -22,7 +22,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
-    public String userList(Model model){
+    public String userList(Model model) {
         model.addAttribute("listUser", userService.findAll());
         return "user_list";
     }
@@ -53,24 +53,23 @@ public class UserController {
     public String userActivate(@PathVariable User user) {
         if (user.isActive()) {
             user.setActive(false);
-        }
-        else user.setActive(true);
+        } else user.setActive(true);
 
         userService.saveUser(user);
         return "redirect:/users";
     }
 
     /**/
-     @GetMapping("profile")
-     public String profile(@AuthenticationPrincipal User user, Model model) {
+    @GetMapping("profile")
+    public String profile(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("username", user.getUsername());
         return "profile";
-     }
+    }
 
-     @PostMapping("profile")
-     public String updateProfile(@AuthenticationPrincipal User user, @RequestParam String password) {
-         userService.updateProfile(user, password);
-         return "redirect:/users/profile";
-     }
-     /**/
+    @PostMapping("profile")
+    public String updateProfile(@AuthenticationPrincipal User user, @RequestParam String password) {
+        userService.updateProfile(user, password);
+        return "redirect:/users/profile";
+    }
+    /**/
 }

@@ -222,11 +222,11 @@ public class InformationResourcePostController {
     }
 
     public List<UploadedFile> saveFiles(InformationResource informationResource, MultipartFile[] files) throws IOException {
-        if(files[0].getSize() != 0) {
+        if (files[0].getSize() != 0) {
             List<UploadedFile> uploadedFiles = new ArrayList<>();
             for (MultipartFile file : files) {
                 if (file != null) {
-                    String uploadDirPath =  uploadPath + "/" + // добавить год
+                    String uploadDirPath = uploadPath + "/" + // добавить год
                             informationResource.getCountry().getId() + "/" +
                             informationResource.getMainOrganization().getId() + "/" +
                             informationResource.getInventoryNumber();
@@ -246,8 +246,7 @@ public class InformationResourcePostController {
                 }
             }
             return uploadedFiles;
-        }
-        else return null;
+        } else return null;
     }
 
     public void transferAttachedFiles(InformationResource informationResource, String inventoryNumber, Country country, Organization mainOrganization) {
@@ -256,7 +255,7 @@ public class InformationResourcePostController {
         String inventoryNumberTemp = informationResource.getInventoryNumber();
 
         if (!countryTemp.equals(country) || !mainOrganizationTemp.equals(mainOrganization) || !inventoryNumberTemp.equals(inventoryNumber)) {
-            String uploadDirPath =  uploadPath + "/" +
+            String uploadDirPath = uploadPath + "/" +
                     country.getId() + "/" +
                     mainOrganization.getId() + "/" +
                     inventoryNumber;
@@ -279,7 +278,7 @@ public class InformationResourcePostController {
                 uploadedFile.setPath(filepath);
                 uploadedFileRepository.save(uploadedFile);
             }
-            String oldUploadDirPath =   uploadPath + "/" +
+            String oldUploadDirPath = uploadPath + "/" +
                     countryTemp.getId() + "/" +
                     mainOrganizationTemp.getId() + "/" +
                     inventoryNumberTemp;

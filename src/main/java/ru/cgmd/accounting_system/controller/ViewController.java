@@ -58,6 +58,7 @@ public class ViewController {
         model.addAttribute("resourceTypes", resourceTypes);
         return "view_resource_types";
     }
+
     @GetMapping("resource_types/add")
     public String showNewResourceTypePage() {
         return "add_resource_type";
@@ -70,6 +71,7 @@ public class ViewController {
         model.addAttribute("languages", languages);
         return "view_languages";
     }
+
     @GetMapping("languages/add")
     public String showNewLanguagePage() {
         return "add_language";
@@ -82,6 +84,7 @@ public class ViewController {
         model.addAttribute("projectTypes", projectTypes);
         return "view_project_types";
     }
+
     @GetMapping("project_types/add")
     public String showNewProjectTypePage() {
         return "add_project_type";
@@ -94,6 +97,7 @@ public class ViewController {
         model.addAttribute("relatedProjects", relatedProjects);
         return "view_related_projects";
     }
+
     @GetMapping("related_projects/add")
     public String showNewRelatedProjectPage(Model model) {
         List<ProjectType> projectTypes = projectTypeService.listAll();
@@ -108,6 +112,7 @@ public class ViewController {
         model.addAttribute("observationMethods", observationMethods);
         return "view_observation_methods";
     }
+
     @GetMapping("observation_methods/add")
     public String showNewObservationMethodPage() {
         return "add_observation_method";
@@ -120,6 +125,7 @@ public class ViewController {
         model.addAttribute("countries", countries);
         return "view_countries";
     }
+
     @GetMapping("countries/add")
     public String showNewCountryPage() {
         return "add_country";
@@ -132,6 +138,7 @@ public class ViewController {
         model.addAttribute("organizations", organizations);
         return "view_organizations";
     }
+
     @GetMapping("organizations/add")
     public String showNewOrganizationPage(Model model) {
         List<Country> countries = countryService.listAll();
@@ -146,6 +153,7 @@ public class ViewController {
         model.addAttribute("observationDisciplines", observationDisciplines);
         return "view_observation_disciplines";
     }
+
     @GetMapping("observation_disciplines/add")
     public String showNewObservationDisciplinePage() {
         return "add_observation_discipline";
@@ -158,6 +166,7 @@ public class ViewController {
         model.addAttribute("observationTypes", observationTypes);
         return "view_observation_types";
     }
+
     @GetMapping("observation_types/add")
     public String showNewObservationTypePage(Model model) {
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
@@ -172,6 +181,7 @@ public class ViewController {
         model.addAttribute("observationParameters", observationParameters);
         return "view_observation_parameters";
     }
+
     @GetMapping("observation_parameters/add")
     public String showNewObservationParameterPage(Model model) {
         List<ObservationDiscipline> observationDisciplines = observationDisciplineService.listAll();
@@ -186,6 +196,7 @@ public class ViewController {
         model.addAttribute("observationScopes", observationScopes);
         return "view_observation_scopes";
     }
+
     @GetMapping("observation_scopes/add")
     public String showNewObservationScopePage() {
         return "add_observation_scope";
@@ -198,6 +209,7 @@ public class ViewController {
         model.addAttribute("observationTerritories", observationTerritories);
         return "view_observation_territories";
     }
+
     @GetMapping("observation_territories/add")
     public String showNewObservationTerritoryPage() {
         return "add_observation_territory";

@@ -7,6 +7,5 @@ import ru.cgmd.accounting_system.domain.ObservationType;
 import java.util.List;
 
 public interface ObservationParameterRepository extends JpaRepository<ObservationParameter, Long> {
-
     List<ObservationParameter> findByObservationType(ObservationType observationType);
 }

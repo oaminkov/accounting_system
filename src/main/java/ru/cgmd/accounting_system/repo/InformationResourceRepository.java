@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface InformationResourceRepository extends JpaRepository<InformationResource, Long> {
     List<InformationResource> findByOrderByDateObservationStartAsc();
+
     List<InformationResource> findByLanguage(Language language);
 }

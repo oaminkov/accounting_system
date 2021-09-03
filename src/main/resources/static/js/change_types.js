@@ -5,7 +5,7 @@ $(document).ready(function () {
         if (id === '0' || id === '-1') {
             $('#getObservationType').html('<option value="0">-- Выберите вид наблюдений --</option>');
             $('#getObservationType').attr('disabled', true);
-            return(false);
+            return (false);
         }
 
         $('#getObservationType').attr('disabled', true);
@@ -20,16 +20,13 @@ $(document).ready(function () {
             dataType: 'json',
             success: [
                 function (result) {
-                    if (result.type === 'error')
-                    {
+                    if (result.type === 'error') {
                         alert('error');
-                        return(false);
-                    }
-                    else {
+                        return (false);
+                    } else {
                         let options = '';
 
-                        $(result).each(function(key, val)
-                        {
+                        $(result).each(function (key, val) {
                             options += '<option value="' + val.id + '">' + val.name + '</option>';
                         });
 

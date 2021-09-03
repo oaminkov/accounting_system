@@ -1,51 +1,29 @@
 package ru.cgmd.accounting_system.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "language")
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "language_generator")
-    @SequenceGenerator(name="language_generator", sequenceName = "language_seq", allocationSize=10)
+    @SequenceGenerator(name = "language_generator", sequenceName = "language_seq", allocationSize = 10)
     private Long id;
 
-    @Column(nullable = false, name="name", unique = true)
+    @Column(nullable = false, unique = true)
+    @NonNull
     private String name;
 
     @OneToMany(mappedBy = "language", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<InformationResource> informationResources;
-
-    public Language() { }
-
-    public Language(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<InformationResource> getInformationResources() {
-        return informationResources;
-    }
-    public void setInformationResources(List<InformationResource> informationResources) {
-        this.informationResources = informationResources;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

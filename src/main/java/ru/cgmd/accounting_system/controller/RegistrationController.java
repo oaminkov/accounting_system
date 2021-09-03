@@ -26,12 +26,11 @@ public class RegistrationController {
         user.setUsername(user.getUsername().trim());
         user.setPassword(user.getPassword().trim());
 
-        if (user.getUsername().isEmpty() || user.getPassword().isEmpty())
-        {
+        if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
             model.put("message", "Имя пользователя и пароль должны содержать хотя бы 1 непробельный символ.");
             return "registration";
         }
-        if (!userService.addUser(user)){
+        if (!userService.addUser(user)) {
             model.put("message", "Пользователь с таким именем уже существует!");
             return "registration";
         }

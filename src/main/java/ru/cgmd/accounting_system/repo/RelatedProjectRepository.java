@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface RelatedProjectRepository extends JpaRepository<RelatedProject, Long> {
     RelatedProject findByNameAndProjectType(String name, ProjectType projectType);
+
     List<RelatedProject> findByInformationResourcesNotEmpty();
 }

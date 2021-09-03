@@ -27,10 +27,6 @@ public class ResourceTypeService {
         return resourceTypeRepository.findAll();
     }
 
-    public List<ResourceType> findByInformationResourcesExists() {
-        return resourceTypeRepository.findByInformationResourcesNotEmpty();
-    }
-
     public void save(ResourceType resourceType) {
         resourceTypeRepository.save(resourceType);
     }

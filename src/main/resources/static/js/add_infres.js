@@ -7,8 +7,7 @@ $(document).ready(function () {
         if (result.type === 'error') {
             alert('error');
             return "";
-        }
-        else {
+        } else {
             let options = '';
 
             $(result).each(function(key, val) {

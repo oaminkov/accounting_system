@@ -6,8 +6,8 @@
         <#include "*/parts/footer.ftlh">
         <#include "*/parts/scripts.ftlh">
         <script type="text/javascript">
-            $(document).ready(function() {
-                $('#table_id').DataTable( {
+            $(document).ready(function () {
+                $('#table_id').DataTable({
                     paging: true,
                     info: true,
                     searching: true,

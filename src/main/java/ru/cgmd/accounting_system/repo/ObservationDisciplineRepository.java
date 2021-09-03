@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ObservationDisciplineRepository extends JpaRepository<ObservationDiscipline, Long> {
     ObservationDiscipline findByName(String name);
+
     List<ObservationDiscipline> findAllByOrderByIdAsc();
 }

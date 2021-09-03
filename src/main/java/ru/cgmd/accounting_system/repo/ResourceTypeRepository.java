@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ResourceTypeRepository extends JpaRepository<ResourceType, Long> {
     ResourceType findByName(String name);
+
     List<ResourceType> findByInformationResourcesNotEmpty();
 }

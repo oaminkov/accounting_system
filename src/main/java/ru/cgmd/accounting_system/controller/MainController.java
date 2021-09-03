@@ -23,8 +23,7 @@ public class MainController {
     public void isUserAuthorized(@AuthenticationPrincipal User user, Model model) {
         if (user != null) {
             model.addAttribute("loggedUser", user);
-        }
-        else {
+        } else {
             model.addAttribute("message", "Вы не авторизованы!");
         }
     }
@@ -48,27 +47,26 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String redirectMainPage(@AuthenticationPrincipal User user, Model model){
+    public String redirectMainPage(@AuthenticationPrincipal User user, Model model) {
         isUserAuthorized(user, model);
         return "redirect:/main";
     }
 
     @GetMapping("/main")
-    public String viewMainPage(@AuthenticationPrincipal User user, Model model){
+    public String viewMainPage(@AuthenticationPrincipal User user, Model model) {
         isAdminExists(); //если админа не существует, добавляем
         isUserAuthorized(user, model);
         return "main";
     }
 
     @GetMapping("/login")
-    public String viewLoginPage(@AuthenticationPrincipal User loggedUser, Model model){
+    public String viewLoginPage(@AuthenticationPrincipal User loggedUser, Model model) {
         if (loggedUser != null) {
             model.addAttribute("loggedUser", loggedUser);
             model.addAttribute("message", "Вы уже авторизованы *o*");
-        }
-        else {
+        } else {
             model.addAttribute("message", "Авторизуйтесь ^_^");
         }
-        return("login");
+        return ("login");
     }
 }

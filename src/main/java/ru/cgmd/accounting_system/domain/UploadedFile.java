@@ -1,61 +1,33 @@
 package ru.cgmd.accounting_system.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "uploaded_file")
 public class UploadedFile {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uploaded_file_generator")
-    @SequenceGenerator(name="uploaded_file_generator", sequenceName = "uploaded_file_seq", allocationSize=50)
+    @SequenceGenerator(name = "uploaded_file_generator", sequenceName = "uploaded_file_seq", allocationSize = 50)
     private Long id;
 
-    @Column(nullable = false, name="name")
+    @Column(nullable = false)
+    @NonNull
     private String name;
 
-    @Column(nullable = false, name="path", unique = true)
+    @Column(nullable = false, unique = true)
+    @NonNull
     private String path;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_information_resource")
+    @NonNull
     private InformationResource informationResource;
-
-    public UploadedFile() { }
-
-    public UploadedFile(String name, String path, InformationResource informationResource) {
-        this.name = name;
-        this.path = path;
-        this.informationResource = informationResource;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPath() {
-        return path;
-    }
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public InformationResource getInformationResource() {
-        return informationResource;
-    }
-    public void setInformationResource(InformationResource informationResource) { this.informationResource = informationResource; }
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }
