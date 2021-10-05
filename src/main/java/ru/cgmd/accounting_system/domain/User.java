@@ -38,6 +38,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    // Этот метод используется в security.ftlh, хоть IDE его не видит!
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
