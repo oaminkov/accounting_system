@@ -24,28 +24,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/","/main","/login", "/information_resources", "/search", "/static/**", "/js/**", "/css/**")
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/", "/main", "/login", "/information_resources", "/search", "/static/**", "/js/**", "/css/**")
                 .permitAll()
-            .antMatchers("/getObservationTypeList", "/getObservationTypeList1", "/getCountryList1", "/getOrganizationList1")
+                .antMatchers("/getObservationTypeList", "/getObservationTypeList1", "/getCountryList1", "/getOrganizationList1")
                 .permitAll()
-            .antMatchers("/registration")
+                .antMatchers("/registration")
                 .access("hasAuthority('ADMIN')")
-            .anyRequest()
+                .anyRequest()
                 .authenticated()
-            .and()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/main", false)
                 .failureUrl("/login?error")
                 .permitAll()
-            .and()
+                .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
-            .permitAll();
+                .permitAll();
     }
 
     @Override

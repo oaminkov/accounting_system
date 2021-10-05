@@ -8,5 +8,6 @@ import java.util.Set;
 
 public interface UploadedFileRepository extends JpaRepository<UploadedFile, Long> {
     Set<UploadedFile> findByInformationResource(InformationResource informationResource);
+
     void deleteByInformationResource(InformationResource informationResource);
 }

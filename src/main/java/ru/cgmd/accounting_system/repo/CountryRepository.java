@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CountryRepository extends JpaRepository<Country, Long> {
     Country findByName(String name);
+
     List<Country> findByInformationResourcesNotEmpty();
+
     List<Country> findByOrganizationsNotEmpty();
 }

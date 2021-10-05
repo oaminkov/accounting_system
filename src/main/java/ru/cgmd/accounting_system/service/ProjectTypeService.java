@@ -27,10 +27,6 @@ public class ProjectTypeService {
         return projectTypeRepository.findAll();
     }
 
-    public List<ProjectType> findByRelatedProjectsExists() {
-        return projectTypeRepository.findByRelatedProjectsNotEmpty();
-    }
-
     public void save(ProjectType projectType) {
         projectTypeRepository.save(projectType);
     }

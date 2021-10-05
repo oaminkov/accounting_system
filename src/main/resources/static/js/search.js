@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-    Array.prototype.remove = function(value) {
+    Array.prototype.remove = function (value) {
         let idx = this.indexOf(value);
         if (idx != -1) {
             // Второй параметр - число элементов, которые необходимо удалить
@@ -19,7 +19,7 @@ jQuery(document).ready(function () {
             $('#getCountry').attr('disabled', true);
             $('#getOrganization').attr('disabled', true);
             $('#searchButton').attr('disabled', true);
-            return(false);
+            return (false);
         }
 
         $('#getObservationType').attr('disabled', true);
@@ -28,19 +28,14 @@ jQuery(document).ready(function () {
         $.get(
             "/getObservationTypeList1",
             {idObservationDiscipline: idObservationDiscipline},
-            function (result)
-            {
-                if (result.type === 'error')
-                {
+            function (result) {
+                if (result.type === 'error') {
                     alert('error');
-                    return(false);
-                }
-                else
-                {
+                    return (false);
+                } else {
                     let options = '';
 
-                    $(result).each(function(key, val)
-                    {
+                    $(result).each(function (key, val) {
                         options += '<option value="' + val.id + '">' + val.name + '</option>';
                     });
 
@@ -66,7 +61,7 @@ jQuery(document).ready(function () {
             $('#getOrganization').html('<option value="0">-- Выберите организацию --</option>');
             $('#getCountry').attr('disabled', true);
             $('#getOrganization').attr('disabled', true);
-            return(false);
+            return (false);
         }
 
         $('#getCountry').attr('disabled', true);
@@ -75,19 +70,14 @@ jQuery(document).ready(function () {
         $.get(
             "/getCountryList1",
             {idObservationType: idObservationType},
-            function (result)
-            {
-                if (result.type === 'error')
-                {
+            function (result) {
+                if (result.type === 'error') {
                     alert('error');
-                    return(false);
-                }
-                else
-                {
+                    return (false);
+                } else {
                     let options = '';
 
-                    $(result).each(function(key, val)
-                    {
+                    $(result).each(function (key, val) {
                         options += '<option value="' + val.id + '">' + val.name + '</option>';
                     });
 
@@ -109,7 +99,7 @@ jQuery(document).ready(function () {
         if (idCountry === '0') {
             $('#getOrganization').html('<option value="0">-- Выберите организацию --</option>');
             $('#getOrganization').attr('disabled', true);
-            return(false);
+            return (false);
         }
 
         $('#getOrganization').attr('disabled', true);
@@ -119,20 +109,16 @@ jQuery(document).ready(function () {
             "/getOrganizationList1",
             {
                 idCountry: idCountry,
-                idObservationType: idObservationType},
-            function (result)
-            {
-                if (result.type === 'error')
-                {
+                idObservationType: idObservationType
+            },
+            function (result) {
+                if (result.type === 'error') {
                     alert('error');
-                    return(false);
-                }
-                else
-                {
+                    return (false);
+                } else {
                     let options = '';
 
-                    $(result).each(function(key, val)
-                    {
+                    $(result).each(function (key, val) {
                         options += '<option value="' + val.id + '">' + val.name + '</option>';
                     });
 

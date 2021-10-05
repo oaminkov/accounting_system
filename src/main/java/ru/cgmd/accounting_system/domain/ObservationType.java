@@ -1,80 +1,46 @@
 package ru.cgmd.accounting_system.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "observation_type")
 public class ObservationType { //вид наблюдения
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "observation_type_generator")
-    @SequenceGenerator(name="observation_type_generator", sequenceName = "observation_type_seq", allocationSize=10)
+    @SequenceGenerator(name = "observation_type_generator", sequenceName = "observation_type_seq", allocationSize = 10)
     private Long id;
 
-    @Column(nullable = false, name="name", unique = true)
+    @Column(nullable = false, unique = true)
+    @NonNull
     private String name;
 
-    @OneToMany(mappedBy = "observationType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ObservationParameter> observationParameters;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (nullable = false, name = "id_observation_discipline")
+    @JoinColumn(nullable = false, name = "id_observation_discipline")
+    @ToString.Exclude
+    @NonNull
     private ObservationDiscipline observationDiscipline;
+
+    @OneToMany(mappedBy = "observationType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<ObservationParameter> observationParameters;
 
     @ManyToMany
     @JoinTable(
             name = "infres_observtype",
-            joinColumns = { @JoinColumn(name = "id_observation_type") },
-            inverseJoinColumns = { @JoinColumn(name = "id_information_resource") }
+            joinColumns = {@JoinColumn(name = "id_observation_type")},
+            inverseJoinColumns = {@JoinColumn(name = "id_information_resource")}
     )
+    @ToString.Exclude
     private Set<InformationResource> informationResources = new HashSet<>();
-
-    public ObservationType() { }
-
-    public ObservationType(String name, ObservationDiscipline observationDiscipline) {
-        this.name = name;
-        this.observationDiscipline = observationDiscipline;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ObservationDiscipline getObservationDiscipline() {
-        return observationDiscipline;
-    }
-    public void setObservationDiscipline(ObservationDiscipline observationDiscipline) {
-        this.observationDiscipline = observationDiscipline;
-    }
-
-    public Set<InformationResource> getInformationResources() {
-        return informationResources;
-    }
-    public void setInformationResources(Set<InformationResource> informationResources) {
-        this.informationResources = informationResources;
-    }
-
-    public List<ObservationParameter> getObservationParameters() {
-        return observationParameters;
-    }
-    public void setObservationParameters(List<ObservationParameter> observationParameters) {
-        this.observationParameters = observationParameters;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

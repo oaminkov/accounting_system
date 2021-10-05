@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     //Select2 init
     $('.select2').select2();
 

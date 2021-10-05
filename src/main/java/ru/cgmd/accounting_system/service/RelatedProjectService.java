@@ -28,10 +28,6 @@ public class RelatedProjectService {
         return relatedProjectRepository.findAll();
     }
 
-    public List<RelatedProject> findByInformationResourcesExists() {
-        return relatedProjectRepository.findByInformationResourcesNotEmpty();
-    }
-
     public void save(RelatedProject relatedProject) {
         relatedProjectRepository.save(relatedProject);
     }
